@@ -1,0 +1,1589 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Claude Architect Foundations Exam Prep · Live Deck</title>
+  <!--
+    Live presenter deck for "Claude Certified Architect – Foundations Exam Prep".
+    Press P for presenter notes, C to clone the window for a second screen.
+  -->
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;700&display=swap');
+
+    body { font-family: 'Inter', -apple-system, sans-serif; }
+
+    .remark-slide-content {
+      background: #f5f0e6;
+      color: #1a1a1a;
+      padding: 1.2em 2em;
+      font-size: 26px;
+      line-height: 1.4;
+    }
+    .remark-slide-content h1 { font-size: 1.7em; font-weight: 800; margin: 0.2em 0 0.4em; }
+    .remark-slide-content h2 { font-size: 1.25em; font-weight: 600; margin: 0.2em 0; color: #444; }
+    .remark-slide-content strong { font-weight: 700; }
+    .remark-slide-content em { color: #555; }
+    .remark-slide-content code, .remark-slide-content tt {
+      font-family: 'JetBrains Mono', monospace;
+      background: #ebe4d4;
+      padding: 0.05em 0.3em;
+      border-radius: 3px;
+      font-size: 0.9em;
+    }
+    .remark-slide-content blockquote {
+      border-left: 4px solid #d9a441;
+      padding: 0.4em 1em;
+      margin: 0.6em 0;
+      background: #fbf6e8;
+      font-style: italic;
+      color: #2a2a2a;
+    }
+
+    /* Tables: white field, dark header, ruled rows */
+    .remark-slide-content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 0.6em;
+      font-size: 0.78em;
+      background: #fff;
+      border: 2px solid #1a1a1a;
+    }
+    .remark-slide-content th, .remark-slide-content td {
+      text-align: left;
+      vertical-align: top;
+      padding: 0.5em 0.7em;
+      border-bottom: 1px solid #ddd5c0;
+    }
+    .remark-slide-content thead th {
+      background: #1a1a1a;
+      color: #f5f0e6;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      font-size: 0.85em;
+    }
+    .remark-slide-content tbody tr:last-child td { border-bottom: none; }
+    .remark-slide-content tbody tr:nth-child(even) td { background: #faf7ee; }
+    .remark-slide-content tbody td:first-child { font-weight: 700; color: #b85c1f; }
+    /* Dense tables (7+ rows) step down one size */
+    .dense table { font-size: 0.68em; }
+    .dense th, .dense td { padding: 0.35em 0.6em; }
+
+    /* TITLE slides: dark, four-color top bar */
+    .title {
+      background: #1c1c1c;
+      color: #f5f0e6;
+      padding: 4em 2.5em 2em;
+      border-top: 12px solid;
+      border-image: linear-gradient(to right, #e26b5a 0%, #e26b5a 25%, #e7c548 25%, #e7c548 50%, #7eb069 50%, #7eb069 75%, #66a3d2 75%, #66a3d2 100%) 1;
+    }
+    .title h1 { font-size: 2.4em; line-height: 1.05; margin-bottom: 0.2em; color: #f5f0e6; }
+    .title h2 { color: #c9c4b5; font-weight: 400; font-size: 1.05em; }
+    .title a { color: #66a3d2; }
+    .title .session-label {
+      color: #e7c548; font-size: 0.75em; letter-spacing: 0.2em;
+      font-weight: 700; margin-bottom: 1em;
+    }
+    .title .footer {
+      position: absolute; bottom: 1.5em; left: 2.5em;
+      color: #e7c548; font-size: 0.6em; font-weight: 600;
+    }
+    .title .footer span { color: #888; font-weight: 400; display: block; margin-top: 0.2em; }
+
+    /* SECTION DIVIDER: title slide + domain chips + clock */
+    .divider { padding-top: 3em; }
+    .divider h1 { font-size: 2.1em; }
+    .divider .chips { display: block; margin-top: 1.2em; }
+    .divider .chip {
+      display: inline-block; border: 2px solid #e7c548; color: #f5f0e6;
+      padding: 0.3em 0.75em; margin: 0 0.5em 0.5em 0;
+      font-size: 0.75em; font-weight: 600;
+    }
+    .divider .chip strong { color: #e7c548; }
+
+    /* EYEBROW label above slide headline */
+    .eyebrow-label {
+      color: #b85c1f; font-size: 0.6em; letter-spacing: 0.15em;
+      font-weight: 700; text-transform: uppercase; margin-bottom: 0.2em;
+    }
+
+    /* SINGLE-STAT hero */
+    .stat { text-align: center; padding-top: 1.5em; }
+    .stat .hero { font-size: 5.5em; font-weight: 800; color: #b85c1f; line-height: 1; margin: 0.2em 0; }
+    .stat .caption { font-size: 0.95em; color: #444; margin-top: 0.4em; }
+
+    /* PULL QUOTE slide */
+    .quote-slide { padding-top: 2em; text-align: center; }
+    .quote-slide .quote-body { font-size: 1.5em; font-style: italic; color: #1a1a1a; max-width: 22em; margin: 0.5em auto; line-height: 1.35; }
+    .quote-slide .attrib { font-size: 0.75em; color: #777; margin-top: 1em; font-style: normal; letter-spacing: 0.05em; }
+
+    /* TWO-COLUMN compare */
+    .two-col { display: flex; gap: 1.5em; margin-top: 0.6em; }
+    .two-col > div { flex: 1; padding: 1em; border: 2px solid #1a1a1a; background: #fff; font-size: 0.85em; }
+    .two-col .col-head { font-weight: 700; color: #b85c1f; margin-bottom: 0.4em; letter-spacing: 0.05em; }
+    .two-col .col-head.green { color: #4d8a3a; }
+    .two-col .col-head.blue  { color: #4078a8; }
+    .two-col .col-head.amber { color: #c89020; }
+    .two-col ul { margin: 0.2em 0; padding-left: 1.1em; }
+    .two-col li { margin-bottom: 0.25em; }
+
+    /* CARD grids */
+    .grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 0.8em; margin-top: 0.5em; }
+    .grid-4 .card { background: #fff; border: 2px solid #1a1a1a; padding: 0.8em 0.55em; font-size: 0.85em; }
+    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.8em; margin-top: 0.5em; }
+    .grid-3 .card { background: #fff; border: 2px solid #1a1a1a; padding: 0.8em; font-size: 0.9em; }
+    .grid-3 .tag, .grid-4 .tag { font-weight: 700; letter-spacing: 0.08em; display: block; margin-bottom: 0.3em; }
+    .grid-3 .tag { font-size: 1.05em; }
+    .grid-4 .tag { font-size: 1.05em; letter-spacing: 0.03em; white-space: nowrap; }
+    .grid-3 .w-tag, .grid-4 .w-tag { color: #b85c1f; }
+    .grid-3 .s-tag, .grid-4 .s-tag { color: #c89020; }
+    .grid-3 .c-tag, .grid-4 .c-tag { color: #4d8a3a; }
+    .grid-3 .i-tag, .grid-4 .i-tag { color: #4078a8; }
+    .card .maps { display: block; margin-top: 0.5em; font-size: 0.85em; font-weight: 700; color: #777; letter-spacing: 0.05em; }
+
+    /* Numbered list / takeaways */
+    .takeaways ol { list-style: none; padding-left: 0; margin-top: 0.5em; }
+    .takeaways li { display: flex; align-items: flex-start; margin-bottom: 0.55em; }
+    .takeaways li .num {
+      display: inline-block; width: 1.7em; height: 1.7em; line-height: 1.7em;
+      background: #1a1a1a; color: #f5f0e6; text-align: center;
+      font-weight: 700; margin-right: 0.8em; flex-shrink: 0;
+    }
+    .takeaways li .body strong { display: block; font-size: 1em; }
+    .takeaways li .body span { color: #555; font-size: 0.8em; display: block; margin-top: 0.1em; }
+
+    /* Verbatim objectives list */
+    .objectives ul { padding-left: 1.1em; }
+    .objectives li { margin-bottom: 0.45em; font-size: 0.92em; }
+    .source-line { display: block; color: #777; font-size: 0.6em; margin-top: 1em; font-style: italic; }
+
+    /* LIVE DEMO slides: blue field, banner with a red "recording" dot */
+    .demo {
+      background: #e9f0f6;
+      border-left: 16px solid #4078a8;
+    }
+    .demo-banner {
+      display: block; background: #4078a8; color: #fff;
+      font-weight: 800; letter-spacing: 0.15em; text-transform: uppercase;
+      font-size: 0.62em; padding: 0.4em 0.9em; margin-bottom: 0.4em;
+    }
+    .demo-banner::before {
+      content: ''; display: inline-block; width: 0.75em; height: 0.75em;
+      border-radius: 50%; background: #e26b5a; margin-right: 0.7em;
+      vertical-align: -0.05em; box-shadow: 0 0 0 3px rgba(255,255,255,0.35);
+    }
+    .demo h1 { font-size: 1.4em; margin: 0.1em 0 0.3em; }
+    .demo ul { margin: 0.2em 0 0.4em; padding-left: 1em; font-size: 0.76em; }
+    .demo li { margin-bottom: 0.2em; }
+    .demo li strong { color: #4078a8; }
+
+    /* Prompt blocks (fenced code) */
+    .remark-slide-content pre { margin: 0.4em 0; }
+    .remark-slide-content pre code, .remark-slide-content .remark-code {
+      display: block; background: #1c1c1c; color: #f5f0e6;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6em; line-height: 1.45; padding: 0.7em 1em;
+      white-space: pre-wrap; border-radius: 4px;
+    }
+    .remark-code-line { white-space: pre-wrap; }
+
+    /* EXAM-STYLE QUESTION slides */
+    .question { background: #fff8ea; }
+    .answer { background: #f2f7ef; }
+    .q-label {
+      display: block; color: #b85c1f; font-size: 0.6em; letter-spacing: 0.15em;
+      font-weight: 700; text-transform: uppercase; margin-bottom: 0.5em;
+      border-bottom: 2px solid #b85c1f; padding-bottom: 0.3em;
+    }
+    .answer .q-label { color: #4d8a3a; border-color: #4d8a3a; }
+    .stem { display: block; font-size: 0.88em; line-height: 1.4; }
+    .options ul { list-style: none; padding-left: 0; margin-top: 0.6em; }
+    .options li {
+      background: #fff; border: 2px solid #1a1a1a; padding: 0.28em 0.7em;
+      margin-bottom: 0.35em; font-size: 0.78em;
+    }
+    .correct {
+      display: block; background: #4d8a3a; color: #fff;
+      padding: 0.45em 0.9em; font-weight: 700; font-size: 0.9em;
+    }
+    .answer table { font-size: 0.7em; }
+
+    /* Q&A / break cue */
+    .cue { text-align: center; }
+    .cue h1 { font-size: 2.6em; }
+    .cue .eyebrow-label { font-size: 0.8em; }
+  </style>
+</head>
+<body>
+  <textarea id="source">
+class: title
+
+.session-label[O'REILLY LIVE TRAINING · 2 HOURS]
+
+# Claude Certified Architect – Foundations Exam Prep
+
+## Cut to the chase for CCAR-F: the blueprint, the six scenarios, and the traps that cost points.
+
+.footer[Claude Certified Architect – Foundations (CCAR-F)<span>O'Reilly Live Training · Lucas Soares</span>]
+
+???
+Welcome. Two hours, four segments, five domains, all twelve official sample questions, four official prep exercises.
+
+Goal: by the end, every attendee can read a CCAR-F item, find the trigger in the stem, name the distractor pattern behind each wrong option, and pick the proportionate fix at the root cause.
+
+Everything here maps to the official Exam Guide v1.0 (July 2026). The twelve sample questions are reproduced from the public guide.
+
+---
+
+# Today's plan
+
+| Segment | Clock | Domains | Weight |
+|---|---|---|---|
+| 1 · The exam + agentic architecture | 0:00–0:30 | Blueprint + D1 | 27% |
+| 2 · Tools, MCP, Claude Code | 0:30–1:05 | D2 + D3 | 38% |
+| 3 · Prompting, output, context | 1:05–1:50 | D4 + D5 | 35% |
+| 4 · Exam strategy + study plan | 1:50–2:00 | All | · |
+
+*Twelve official sample questions · four official prep exercises.*
+
+???
+Time follows weight. D1 is 27%, the single largest domain, so it gets most of Segment 1.
+
+Break at the end of Segment 2.
+
+---
+
+class: title, divider
+
+.session-label[SEGMENT 1 · 0:00 → 0:30 · 30 MIN]
+
+# The exam and agentic architecture
+
+.chips[
+.chip[Exam blueprint · 5 domains · 6 scenarios]
+.chip[D1 Agentic Architecture & Orchestration · **27%**]
+]
+
+.footer[Exam guide §3–§6<span>Prep exercise 1</span>]
+
+???
+Budget: ~10 min on the exam, ~18 min on D1, 2 min Q&A.
+
+---
+
+# The exam at a glance
+
+| Item | Detail |
+|---|---|
+| Format | **60 items** · multiple-choice + multiple-response ("select N") |
+| Structure | **4 scenarios** drawn at random from a bank of **6** |
+| Time | 120 min · **2 min per item** |
+| Pass | Scaled **720** on 100–1,000 · 720 ≠ 72% raw |
+| Delivery | **$125** · Pearson VUE, online or test center |
+| Validity | 12 months · free on-time renewal |
+
+???
+All from the official Exam Guide v1.0, Section 3. Exam code CCAR-F.
+
+Retakes (program policies): 14 days, then 30, then 90. Max 4 attempts in 12 months. Each attempt pays the fee.
+
+Reschedule: the guide says 24 hours; the FAQ and policies pages say 48. Tell people to use 48.
+
+Registration needs a Claude Partner Network company email.
+
+The score report shows percent-correct by domain, but only the total scaled score decides pass/fail.
+
+---
+
+.eyebrow-label[Who the exam is written for]
+
+# A solution architect who builds with Claude
+
+> "a solution architect who designs and implements production applications with Claude."
+
+- Builds agents with the **Agent SDK**: loops, subagents, tools, hooks
+- Configures **Claude Code** for teams: CLAUDE.md, skills, MCP, plan mode
+- Designs **MCP** tools, **structured output**, and **context** strategies
+- Wires Claude into **CI/CD** and makes escalation and reliability calls
+- Recommended: **6+ months** building with Claude APIs, Agent SDK, Claude Code, and MCP
+
+???
+Quote from Section 2 of the guide.
+
+The guide: "Candidates must demonstrate not only conceptual knowledge but practical judgment about architecture, configuration, and tradeoffs in production deployments."
+
+Compared with Architect – Professional: Foundations tests implementation detail (stop_reason, tool_choice, .mcp.json, -p). Professional names no API parameters. It tests governance, evals, and stakeholder decisions.
+
+---
+
+class: dense
+
+# The blueprint: five weighted domains
+
+| # | Domain | Weight | ≈ Items | Task statements |
+|---|---|---|---|---|
+| **D1** | **Agentic Architecture & Orchestration** | **27%** | **16** | 7 |
+| D2 | Tool Design & MCP Integration | 18% | 11 | 5 |
+| D3 | Claude Code Configuration & Workflows | 20% | 12 | 6 |
+| D4 | Prompt Engineering & Structured Output | 20% | 12 | 6 |
+| D5 | Context Management & Reliability | 15% | 9 | 6 |
+
+**D1 + D3 + D4 = 67%.** Orchestrate agents, configure Claude Code, get reliable output.
+
+???
+Item counts are my rounding of weight × 60. The guide publishes weights only.
+
+30 task statements in total. Each has a "Knowledge of" and a "Skills in" list. Exam items are written against these objectives.
+
+---
+
+class: dense
+
+# Six scenarios, four on your exam
+
+| Scenario | Primary domains |
+|---|---|
+| 1 · Customer Support Resolution Agent | D1 · D2 · D5 |
+| 2 · Code Generation with Claude Code | D3 · D5 |
+| 3 · Multi-Agent Research System | D1 · D2 · D5 |
+| 4 · Developer Productivity with Claude | D2 · D3 · D1 |
+| 5 · Claude Code for Continuous Integration | D3 · D4 |
+| 6 · Structured Data Extraction | D4 · D5 |
+
+*Study all six. You won't know which four you'll get.*
+
+???
+From Section 5. Each scenario frames a set of questions.
+
+Scenario 1: Agent SDK agent with MCP tools get_customer, lookup_order, process_refund, escalate_to_human. Target 80%+ first-contact resolution.
+
+Scenario 3: coordinator delegates to web search, document analysis, synthesis, and report subagents.
+
+Scenario 4: built-in tools Read, Write, Bash, Grep, Glob plus MCP servers.
+
+Scenario 5: automated reviews, test generation, PR feedback. "Minimize false positives."
+
+Scenario 6: JSON-schema validation, edge cases, downstream integration.
+
+---
+
+# What's in scope, what isn't
+
+.two-col[
+<div>
+<div class="col-head green">TESTED</div>
+<ul>
+<li>Agentic loops, <code>stop_reason</code>, hooks</li>
+<li>Coordinator–subagent patterns</li>
+<li>Tool descriptions, MCP config, errors</li>
+<li>CLAUDE.md, rules, commands, skills</li>
+<li><code>tool_use</code> + JSON schema, <code>tool_choice</code></li>
+<li>Batches API, few-shot, context, provenance</li>
+</ul>
+</div>
+<div>
+<div class="col-head">NOT TESTED</div>
+<ul>
+<li>Fine-tuning, training, RLHF, Constitutional AI</li>
+<li>Auth, billing, rate limits, pricing math</li>
+<li>Hosting MCP servers, cloud provider config</li>
+<li>Embeddings, vector DBs, vision, computer use</li>
+<li>Streaming / SSE, tokenization</li>
+<li>Prompt caching "beyond knowing it exists"</li>
+</ul>
+</div>
+]
+
+???
+From the Appendix (Section 17): Technologies and Concepts, In-Scope Topics, Out-of-Scope Topics.
+
+Use the out-of-scope list to prune your study time. If a practice question hinges on vector DB internals or caching breakpoints, it is not a CCAR-F question.
+
+---
+
+# Six distractor patterns
+
+| Pattern | Sounds like |
+|---|---|
+| Prompt as policy | "Make it mandatory in the system prompt." |
+| Over-engineering | "Add a routing classifier." "Train a model on old tickets." |
+| Bigger model | "Higher-tier model with a larger context window." |
+| Unreliable proxy | "Self-reported confidence 1–10." "Sentiment analysis." |
+| Invented feature | `CLAUDE_HEADLESS=true` · `--batch` · `.claude/config.json` |
+| Hide or kill the error | "Return empty as success." "Terminate the workflow." |
+
+**Right answer: the proportionate fix at the root cause.**
+
+???
+Every pattern comes from wrong options in the twelve official samples.
+
+"Proportionate first response" and "root cause" appear again and again in the guide's explanations. If an option needs new infrastructure before the cheap fix has been tried, it's usually wrong.
+
+---
+
+.eyebrow-label[D1 · Agentic Architecture & Orchestration · 27%]
+
+# What the exam asks
+
+.objectives[
+- 1.1 Design and implement agentic loops for autonomous task execution
+- 1.2 Orchestrate multi-agent systems with coordinator-subagent patterns
+- 1.3 Configure subagent invocation, context passing, and spawning
+- 1.4 Implement multi-step workflows with enforcement and handoff patterns
+- 1.5 Apply Agent SDK hooks for tool call interception and data normalization
+- 1.6 Design task decomposition strategies for complex workflows
+- 1.7 Manage session state, resumption, and forking
+]
+
+.source-line[Task statements verbatim from the CCAR-F Exam Guide v1.0, Section 6]
+
+???
+The largest domain. About 16 items.
+
+---
+
+# The agentic loop runs on `stop_reason`
+
+```
+while True:
+    resp = client.messages.create(model=MODEL, tools=tools, messages=messages)
+    messages.append({"role": "assistant", "content": resp.content})
+    if resp.stop_reason != "tool_use":      # "end_turn" → done
+        break
+    results = [run_tool(b) for b in resp.content if b.type == "tool_use"]
+    messages.append({"role": "user", "content": results})
+```
+
+| Anti-pattern | Why it fails |
+|---|---|
+| Parse the text for "done" | Natural language is not a control signal |
+| Iteration cap as the main stop | Cuts off valid work; use it only as a safety net |
+| "Has text content" = finished | Claude can emit text *and* call tools |
+
+???
+Task statement 1.1. Continue on "tool_use", terminate on "end_turn". Tool results go back into the conversation so the model can reason about the next step.
+
+Model-driven decisions (Claude picks the next tool from context) vs pre-configured decision trees.
+
+---
+
+# Coordinator and subagents: hub-and-spoke
+
+.two-col[
+<div>
+<div class="col-head green">THE COORDINATOR</div>
+<ul>
+<li>Decomposes, delegates, aggregates</li>
+<li>Picks subagents by query complexity</li>
+<li>Routes <strong>all</strong> inter-agent traffic</li>
+<li>Sets goals + quality criteria, not steps</li>
+<li>Re-delegates when synthesis shows gaps</li>
+</ul>
+</div>
+<div>
+<div class="col-head blue">THE SUBAGENTS</div>
+<ul>
+<li>Spawned via the <code>Task</code> tool</li>
+<li><code>allowedTools</code> must include <code>"Task"</code></li>
+<li>Isolated context: <strong>no inherited history</strong></li>
+<li>Get prior findings pasted into the prompt</li>
+<li>Parallel = many <code>Task</code> calls in <strong>one</strong> response</li>
+</ul>
+</div>
+]
+
+**Subagents start with only what you pass them.** Use structured data so source URLs and page numbers survive.
+
+???
+Task statements 1.2 and 1.3.
+
+AgentDefinition: description, system prompt, tool restrictions per subagent type.
+
+Classic trap: narrow decomposition by the coordinator. Every subagent succeeds, the report still misses half the topic. Official sample 7 tests exactly this.
+
+Partition scope to minimize duplication: distinct subtopics or source types per agent.
+
+---
+
+class: dense
+
+# Enforce in code, not in the prompt
+
+| Need | Mechanism |
+|---|---|
+| Verify identity before refunds | **Prerequisite gate**: block `process_refund` until `get_customer` returns a verified ID |
+| Block refunds over $500 | **Tool-call interception hook** → redirect to human escalation |
+| Normalize Unix / ISO 8601 / status codes | **PostToolUse hook** transforms results before the model sees them |
+| Hand off to a human mid-process | **Structured summary**: customer ID, root cause, amount, recommended action |
+| Multi-concern request | Split into items, investigate in parallel, synthesize one answer |
+
+*Prompt instructions have a non-zero failure rate. Hooks are deterministic.*
+
+???
+Task statements 1.4 and 1.5.
+
+"When deterministic compliance is required (e.g., identity verification before financial operations), prompt instructions alone have a non-zero failure rate."
+
+The human agent who takes the handoff has no access to the transcript. The summary must stand alone.
+
+---
+
+class: dense
+
+# Decompose and manage sessions
+
+| Situation | Choose |
+|---|---|
+| Predictable multi-aspect review | **Prompt chaining**: fixed sequential passes |
+| Open-ended investigation | **Dynamic decomposition**: map, prioritize, adapt |
+| Big code review | Per-file local passes + one cross-file integration pass |
+| Continue yesterday's investigation | `--resume <session-name>` |
+| Compare two approaches from one baseline | `fork_session` |
+| Prior tool results are stale | New session + injected structured summary |
+| Files changed since last session | Resume and name the changed files |
+
+???
+Task statements 1.6 and 1.7.
+
+"Add comprehensive tests to a legacy codebase": map structure first, find high-impact areas, then a prioritized plan that adapts as dependencies appear.
+
+Resume when prior context is mostly valid. Start fresh with a summary when tool results are stale.
+
+---
+
+class: question
+
+.q-label[Official sample 1 · Customer Support Resolution Agent · D1]
+
+.stem[Production data shows that in 12% of cases, your agent skips get_customer entirely and calls lookup_order using only the customer's stated name, occasionally leading to misidentified accounts and incorrect refunds. What change would most effectively address this reliability issue?]
+
+.options[
+- **A.** Add a programmatic prerequisite that blocks lookup_order and process_refund calls until get_customer has returned a verified customer ID.
+- **B.** Enhance the system prompt to state that customer verification via get_customer is mandatory before any order operations.
+- **C.** Add few-shot examples showing the agent always calling get_customer first, even when customers volunteer order details.
+- **D.** Implement a routing classifier that analyzes each request and enables only the subset of tools appropriate for that request type.
+]
+
+???
+Ask the room to type a letter before the reveal. Trigger: "incorrect refunds", a financial consequence.
+
+---
+
+class: answer
+
+.q-label[Official sample 1 · Answer]
+
+.correct[A · Programmatic prerequisite gate]
+
+| Option | Pattern | Why it fails |
+|---|---|---|
+| B | Prompt as policy | Probabilistic compliance; errors cost money |
+| C | Prompt as policy | Few-shot is still probabilistic |
+| D | Over-engineering | Fixes tool availability, not tool ordering |
+
+*Required sequence + financial stakes → enforce in code.*
+
+???
+Guide rationale: "programmatic enforcement provides deterministic guarantees that prompt-based approaches cannot."
+
+---
+
+class: question
+
+.q-label[Official sample 7 · Multi-Agent Research System · D1]
+
+.stem[On the topic "impact of AI on creative industries," every subagent completes successfully, but the final reports cover only visual arts, missing music, writing, and film. The coordinator's logs show it decomposed the topic into "AI in digital art creation," "AI in graphic design," and "AI in photography." What is the most likely root cause?]
+
+.options[
+- **A.** The synthesis agent lacks instructions for identifying coverage gaps in the findings it receives.
+- **B.** The coordinator agent's task decomposition is too narrow, so subagent assignments don't cover all relevant domains.
+- **C.** The web search agent's queries are not comprehensive enough and need to cover more sectors.
+- **D.** The document analysis agent filters out non-visual sources due to overly restrictive relevance criteria.
+]
+
+???
+Stem abridged from the guide. Trigger: "each subagent completes successfully" + the coordinator's logs.
+
+---
+
+class: answer
+
+.q-label[Official sample 7 · Answer]
+
+.correct[B · The coordinator's decomposition is too narrow]
+
+| Option | Pattern | Why it fails |
+|---|---|---|
+| A | Blame downstream | Synthesis worked on what it was given |
+| C | Blame downstream | Search covered its assigned subtopics |
+| D | Blame downstream | Analysis worked within its assigned scope |
+
+*Read the logs the stem gives you. The fault sits where the scope was set.*
+
+???
+Guide: "The subagents executed their assigned tasks correctly—the problem is what they were assigned."
+
+---
+
+class: demo
+
+.demo-banner[Official prep exercise 1 · ~6 min]
+
+# Multi-tool agent with escalation logic
+
+- **Build:** 3–4 MCP tools, two of them deliberately similar; a loop on `stop_reason`
+- **Add:** structured errors (`errorCategory`, `isRetryable`) and a hook that blocks over-threshold refunds → escalation
+- **Test:** a multi-concern message; check it decomposes, handles each issue, and answers once
+- **Reinforces:** D1 · D2 · D5
+
+???
+Exam guide Section 8, Exercise 1. Walk through the design on the board; the full build is homework.
+
+Ask: where does the $500 rule live? (Hook, not prompt.) What does the agent do on a transient error vs a business error? (Retry vs explain.)
+
+---
+
+class: center, middle, cue
+
+.eyebrow-label[Segment 1 complete]
+
+# Q&A
+
+???
+Two minutes.
+
+---
+
+class: title, divider
+
+.session-label[SEGMENT 2 · 0:30 → 1:05 · 35 MIN]
+
+# Tools, MCP, and Claude Code
+
+.chips[
+.chip[D2 Tool Design & MCP Integration · **18%**]
+.chip[D3 Claude Code Configuration & Workflows · **20%**]
+]
+
+.footer[Exam guide §6<span>Prep exercise 2</span>]
+
+???
+~15 min D2, ~18 min D3, 2 min Q&A, then break.
+
+---
+
+.eyebrow-label[D2 · Tool Design & MCP Integration · 18%]
+
+# What the exam asks
+
+.objectives[
+- 2.1 Design effective tool interfaces with clear descriptions and boundaries
+- 2.2 Implement structured error responses for MCP tools
+- 2.3 Distribute tools appropriately across agents and configure tool choice
+- 2.4 Integrate MCP servers into Claude Code and agent workflows
+- 2.5 Select and apply built-in tools (Read, Write, Edit, Bash, Grep, Glob) effectively
+]
+
+.source-line[Task statements verbatim from the CCAR-F Exam Guide v1.0, Section 6]
+
+---
+
+# The description is the router
+
+| Problem | Fix |
+|---|---|
+| Minimal descriptions, similar tools | Add input formats, example queries, edge cases, "use X instead when…" |
+| Near-identical names (`analyze_content` vs `analyze_document`) | **Rename** and rescope: `extract_web_results` |
+| One generic tool doing three jobs | **Split**: `extract_data_points` · `summarize_content` · `verify_claim_against_source` |
+| Agent prefers Grep over your MCP tool | Describe the MCP tool's capabilities and outputs in detail |
+| System prompt keywords pull the wrong tool | Review the prompt for keyword-sensitive instructions |
+
+???
+Task statement 2.1: "Tool descriptions as the primary mechanism LLMs use for tool selection."
+
+---
+
+class: question
+
+.q-label[Official sample 2 · Customer Support Resolution Agent · D2]
+
+.stem[Production logs show the agent frequently calls get_customer when users ask about orders (e.g., "check my order #12345"), instead of calling lookup_order. Both tools have minimal descriptions ("Retrieves customer information" / "Retrieves order details") and accept similar identifier formats. What's the most effective first step to improve tool selection reliability?]
+
+.options[
+- **A.** Add 5–8 few-shot examples to the system prompt showing order-related queries routing to lookup_order.
+- **B.** Expand each tool's description to include input formats, example queries, edge cases, and boundaries versus similar tools.
+- **C.** Implement a routing layer that parses user input and pre-selects the tool based on keywords and identifier patterns.
+- **D.** Consolidate both tools into a single lookup_entity tool that internally determines which backend to query.
+]
+
+???
+Trigger: "minimal descriptions" + "first step".
+
+---
+
+class: answer
+
+.q-label[Official sample 2 · Answer]
+
+.correct[B · Expand the tool descriptions]
+
+| Option | Pattern | Why it fails |
+|---|---|---|
+| A | Symptom patch | Token overhead; root cause stays |
+| C | Over-engineering | Bypasses the model's language understanding |
+| D | Too big a first step | Valid design, but more effort than the problem needs |
+
+*"First step" + root cause in the stem → the cheapest fix that removes it.*
+
+???
+Guide: "a low-effort, high-leverage fix."
+
+---
+
+class: dense
+
+# Errors the agent can act on
+
+| Category | Example | Agent should | Retryable? |
+|---|---|---|---|
+| Transient | Timeout, service down | Retry (locally first) | `true` |
+| Validation | Bad input format | Fix the input, call again | `false` |
+| Business | Refund exceeds policy | Explain to the customer | `false` |
+| Permission | No access | Escalate | `false` |
+
+```
+{"isError": true, "errorCategory": "business", "isRetryable": false,
+ "message": "Refunds over $500 need manager approval."}
+```
+
+**An empty result is a success.** Don't confuse "no matches" with "couldn't reach the source".
+
+???
+Task statement 2.2. The MCP isError flag communicates tool failure. A generic "Operation failed" stops the agent from choosing a recovery path.
+
+Subagents recover transient errors locally and propagate only what they can't fix, with partial results and what was tried.
+
+---
+
+class: dense
+
+# Give each agent fewer, sharper tools
+
+| Rule | Example |
+|---|---|
+| 4–5 tools, not 18 | Too many tools degrade selection |
+| Scope tools to the role | A synthesis agent shouldn't run web searches |
+| Scoped cross-role tool for the common case | `verify_fact` for synthesis; hard cases still go via the coordinator |
+| Constrain generic tools | `fetch_url` → `load_document` that validates URLs |
+| `tool_choice: "auto"` | Model may answer in text |
+| `tool_choice: "any"` | Must call *a* tool |
+| `{"type": "tool", "name": "…"}` | Must call *this* tool (e.g., `extract_metadata` first) |
+
+???
+Task statement 2.3. Official sample 9 is the verify_fact case: 85% of verifications are simple fact-checks, so give synthesis a scoped tool for those and keep the coordinator path for the 15%.
+
+---
+
+# MCP in Claude Code
+
+.two-col[
+<div>
+<div class="col-head green">PROJECT · <code>.mcp.json</code></div>
+<ul>
+<li>Shared team tooling, in version control</li>
+<li>Secrets via <code>${GITHUB_TOKEN}</code> expansion</li>
+<li>Prefer a community server for Jira-style integrations</li>
+</ul>
+</div>
+<div>
+<div class="col-head blue">USER · <code>~/.claude.json</code></div>
+<ul>
+<li>Personal or experimental servers</li>
+<li>Not shared with teammates</li>
+<li>Custom servers only for team-specific workflows</li>
+</ul>
+</div>
+]
+
+- Tools from **all** configured servers are discovered at connect time and available at once
+- **Resources** expose catalogs (issues, docs, schemas) so the agent skips exploratory calls
+
+???
+Task statement 2.4.
+
+Built-in tools (2.5): Grep searches file contents, Glob matches file paths (`**/*.test.tsx`), Read/Write for whole files, Edit for a unique anchor. When Edit can't find unique text, fall back to Read + Write. Explore incrementally: Grep for entry points, then Read to follow imports.
+
+---
+
+.eyebrow-label[D3 · Claude Code Configuration & Workflows · 20%]
+
+# What the exam asks
+
+.objectives[
+- 3.1 Configure CLAUDE.md files with appropriate hierarchy, scoping, and modular organization
+- 3.2 Create and configure custom slash commands and skills
+- 3.3 Apply path-specific rules for conditional convention loading
+- 3.4 Determine when to use plan mode vs direct execution
+- 3.5 Apply iterative refinement techniques for progressive improvement
+- 3.6 Integrate Claude Code into CI/CD pipelines
+]
+
+.source-line[Task statements verbatim from the CCAR-F Exam Guide v1.0, Section 6]
+
+---
+
+class: dense
+
+# Where does it go?
+
+| Need | Put it in |
+|---|---|
+| My personal preferences | `~/.claude/CLAUDE.md` (**not** shared) |
+| Team standards, always loaded | Root `CLAUDE.md` or `.claude/CLAUDE.md` |
+| One package's conventions | Subdirectory `CLAUDE.md` + `@import` of its standards files |
+| Conventions by file type, any folder | `.claude/rules/*.md` with `paths:` globs |
+| Team slash command | `.claude/commands/` |
+| On-demand workflow | `.claude/skills/<name>/SKILL.md` |
+| Verbose skill output kept out of main chat | `context: fork` in SKILL.md frontmatter |
+| Which memory files loaded? | `/memory` |
+
+???
+Task statements 3.1–3.3.
+
+Classic diagnosis: a new teammate doesn't get the instructions because they live in someone's user-level file.
+
+Skill frontmatter: `context: fork`, `allowed-tools`, `argument-hint`. Personal variants go in `~/.claude/skills/` under a different name.
+
+Skills are on demand. CLAUDE.md is always loaded.
+
+---
+
+class: question
+
+.q-label[Official sample 6 · Code Generation with Claude Code · D3]
+
+.stem[Your codebase has distinct areas with different conventions: React components, API handlers, and database models. Test files sit next to the code they test (Button.test.tsx next to Button.tsx), and you want all tests to follow the same conventions regardless of location. What's the most maintainable way to ensure Claude automatically applies the correct conventions when generating code?]
+
+.options[
+- **A.** Create rule files in .claude/rules/ with YAML frontmatter glob patterns that apply conventions based on file paths.
+- **B.** Consolidate all conventions in the root CLAUDE.md under headers for each area, relying on Claude to infer which applies.
+- **C.** Create skills in .claude/skills/ for each code type with the conventions in their SKILL.md files.
+- **D.** Place a separate CLAUDE.md file in each subdirectory containing that area's conventions.
+]
+
+???
+Stem abridged from the guide. Trigger: "spread throughout the codebase" + "automatically".
+
+---
+
+class: answer
+
+.q-label[Official sample 6 · Answer]
+
+.correct[A · .claude/rules/ with glob patterns]
+
+| Option | Why it fails |
+|---|---|
+| B | Relies on inference, not explicit matching |
+| C | Skills load on demand, not automatically by path |
+| D | CLAUDE.md is directory-bound; tests live everywhere |
+
+```
+# .claude/rules/testing.md frontmatter
+paths: ["**/*.test.tsx"]
+```
+
+???
+Guide: glob rules apply "regardless of directory location, essential for test files spread throughout the codebase."
+
+---
+
+# Plan first, or just do it?
+
+.two-col[
+<div>
+<div class="col-head amber">PLAN MODE</div>
+<ul>
+<li>Architectural decisions</li>
+<li>Multiple valid approaches</li>
+<li>Migrations touching 45+ files</li>
+<li>Monolith → microservices</li>
+</ul>
+</div>
+<div>
+<div class="col-head green">DIRECT EXECUTION</div>
+<ul>
+<li>Single-file fix with a clear stack trace</li>
+<li>Add one validation check</li>
+<li>Scope already well understood</li>
+<li>Execute a plan you already made</li>
+</ul>
+</div>
+]
+
+**Iterate with evidence:** 2–3 input/output examples · tests first, then share failures · let Claude interview you · one message for interacting issues, one at a time for independent ones.
+
+???
+Task statements 3.4 and 3.5.
+
+The Explore subagent isolates verbose discovery and returns a summary, which keeps the main context clean.
+
+The trap: "start direct and switch to plan mode if it gets complex." If the stem already states the complexity, plan now.
+
+---
+
+# Claude Code in CI
+
+```
+claude -p "Review this PR for security issues" \
+  --output-format json --json-schema review-schema.json
+```
+
+- `-p` / `--print`: non-interactive. Without it, the job **hangs** waiting for input
+- `--output-format json` + `--json-schema` → findings you can post as inline PR comments
+- **CLAUDE.md** carries testing standards, fixtures, and review criteria into CI
+- Review with an **independent instance**, not the session that wrote the code
+- On re-runs, pass prior findings and report only new or unaddressed issues
+- Pass existing tests so generation skips covered scenarios
+
+???
+Task statement 3.6. Official sample 10: the job hangs; the answer is `-p`. The distractors (`CLAUDE_HEADLESS`, `--batch`) don't exist.
+
+---
+
+class: question
+
+.q-label[Rapid fire · Official samples 4, 5, 10 · D3]
+
+.stem[**Q4.** A /review slash command must be available to every developer who clones the repo. Where does the file go? **A** `.claude/commands/` · **B** `~/.claude/commands/` · **C** root CLAUDE.md · **D** `.claude/config.json`]
+
+.stem[**Q5.** Restructure a monolith into microservices: dozens of files, decisions about service boundaries. **A** plan mode first · **B** direct execution, let boundaries emerge · **C** direct execution with detailed instructions · **D** direct, switch to plan if it gets hard]
+
+.stem[**Q10.** `claude "Analyze this PR for security issues"` hangs in CI waiting for input. **A** add `-p` · **B** `CLAUDE_HEADLESS=true` · **C** redirect stdin from `/dev/null` · **D** add `--batch`]
+
+???
+Stems abridged. Thirty seconds each. Shout out letters.
+
+---
+
+class: answer
+
+.q-label[Rapid fire · Answers]
+
+| Q | Answer | Trap in the distractors |
+|---|---|---|
+| 4 | **A** `.claude/commands/` | B is personal; D doesn't exist |
+| 5 | **A** Plan mode | D ignores complexity the stem already states |
+| 10 | **A** `-p` | B and D are invented features |
+
+*Know the real flags and paths. Invented ones are free points.*
+
+---
+
+class: demo
+
+.demo-banner[Official prep exercise 2 · ~6 min]
+
+# Configure Claude Code for a team
+
+- **Create:** project CLAUDE.md; `.claude/rules/` with `paths: ["src/api/**/*"]` and `paths: ["**/*.test.*"]`
+- **Add:** a project skill with `context: fork` + `allowed-tools`; `.mcp.json` with env-var secrets; a personal server in `~/.claude.json`
+- **Compare:** plan mode vs direct on a one-file fix, a multi-file migration, and a feature with several valid designs
+- **Reinforces:** D3 · D2
+
+???
+Exam guide Section 8, Exercise 2. Live: show a rules file loading only when a matching file is edited, and `/memory` listing what's loaded.
+
+---
+
+class: center, middle, cue
+
+.eyebrow-label[Segment 2 complete]
+
+# Q&A + 5-minute break
+
+???
+Two minutes of Q&A, then break.
+
+---
+
+class: title, divider
+
+.session-label[SEGMENT 3 · 1:05 → 1:50 · 45 MIN]
+
+# Prompting, structured output, and context
+
+.chips[
+.chip[D4 Prompt Engineering & Structured Output · **20%**]
+.chip[D5 Context Management & Reliability · **15%**]
+]
+
+.footer[Exam guide §6<span>Prep exercises 3 + 4</span>]
+
+???
+~22 min D4, ~20 min D5, 3 min Q&A.
+
+---
+
+.eyebrow-label[D4 · Prompt Engineering & Structured Output · 20%]
+
+# What the exam asks
+
+.objectives[
+- 4.1 Design prompts with explicit criteria to improve precision and reduce false positives
+- 4.2 Apply few-shot prompting to improve output consistency and quality
+- 4.3 Enforce structured output using tool use and JSON schemas
+- 4.4 Implement validation, retry, and feedback loops for extraction quality
+- 4.5 Design efficient batch processing strategies
+- 4.6 Design multi-instance and multi-pass review architectures
+]
+
+.source-line[Task statements verbatim from the CCAR-F Exam Guide v1.0, Section 6]
+
+---
+
+class: dense
+
+# Explicit criteria, then examples
+
+| Vague (fails) | Explicit (works) |
+|---|---|
+| "Check that comments are accurate" | "Flag a comment only when its claimed behavior contradicts the code" |
+| "Be conservative" | Report bugs and security; skip minor style and local patterns |
+| "Only high-confidence findings" | Severity levels, each with a concrete code example |
+
+**Few-shot: 2–4 targeted examples** for the ambiguous cases, showing *why* one action beat the alternatives. They fix format drift, cut false positives, and reduce empty or invented extraction fields.
+
+*False positives in one category erode trust in all of them.* Disable that category while you fix its prompt.
+
+???
+Task statements 4.1 and 4.2.
+
+Few-shot lets the model generalize judgment to new patterns rather than match only listed cases.
+
+---
+
+# Schema-valid isn't the same as correct
+
+```
+{"name": "extract_invoice", "input_schema": {"type": "object",
+  "properties": {
+    "stated_total":     {"type": "number"},
+    "calculated_total": {"type": "number"},
+    "due_date":         {"type": ["string", "null"]},
+    "category": {"enum": ["services", "goods", "other", "unclear"]},
+    "category_detail":  {"type": ["string", "null"]}},
+  "required": ["stated_total", "calculated_total", "category"]}}
+```
+
+- `tool_use` + JSON schema **removes syntax errors**, not semantic ones
+- **Nullable** fields stop the model inventing values to fill required ones
+- `"other"` + detail and `"unclear"` keep categories honest
+- Unknown doc type → `tool_choice: "any"`; must run first → force the tool
+
+???
+Task statement 4.3. Semantic errors: line items that don't sum to the total, values in the wrong field.
+
+stated_total vs calculated_total is the guide's self-correction pattern: compute both, flag the gap. Add a conflict_detected boolean for inconsistent sources.
+
+---
+
+class: dense
+
+# Retry only what a retry can fix
+
+| Failure | Retry helps? | Do |
+|---|---|---|
+| Format mismatch | **Yes** | Resend document + failed output + the specific validation error |
+| Structural output error | **Yes** | Same, with the error message |
+| Totals don't add up | Sometimes | Extract `calculated_total` beside `stated_total`; flag conflicts |
+| Info only in a document you didn't send | **No** | Return null or route to a human |
+| Developers keep dismissing a finding | n/a | Log `detected_pattern` and analyze the dismissals |
+
+???
+Task statement 4.4. "Retries are ineffective when the required information is simply absent from the source document."
+
+---
+
+class: dense
+
+# Batch what can wait
+
+| | Synchronous API | Message Batches API |
+|---|---|---|
+| Cost | Standard | **50% off** |
+| Latency | Seconds | Up to **24 h**, no SLA |
+| Multi-turn tool calls | Yes | **No** |
+| Fits | Blocking pre-merge checks | Overnight reports, weekly audits, nightly tests |
+| Correlate results | n/a | `custom_id` |
+
+- Resubmit **only failures** by `custom_id` (chunk the oversized ones)
+- Refine the prompt on a sample **before** the big batch
+- 30 h SLA with 24 h processing → submit every **4 h** or sooner
+
+???
+Task statement 4.5.
+
+---
+
+class: question
+
+.q-label[Official sample 11 · Claude Code for Continuous Integration · D4]
+
+.stem[Your team wants to reduce API costs. Real-time Claude calls power two workflows: (1) a blocking pre-merge check that must complete before developers can merge, and (2) a technical debt report generated overnight for review the next morning. Your manager proposes switching both to the Message Batches API for its 50% cost savings. How should you evaluate this proposal?]
+
+.options[
+- **A.** Use batch processing for the technical debt reports only; keep real-time calls for pre-merge checks.
+- **B.** Switch both workflows to batch processing with status polling to check for completion.
+- **C.** Keep real-time calls for both workflows to avoid batch result ordering issues.
+- **D.** Switch both to batch processing with a timeout fallback to real-time if batches take too long.
+]
+
+???
+Trigger: "blocking" vs "overnight".
+
+---
+
+class: answer
+
+.q-label[Official sample 11 · Answer]
+
+.correct[A · Batch the overnight report only]
+
+| Option | Pattern | Why it fails |
+|---|---|---|
+| B | Wrong trigger | No latency SLA for a blocking check |
+| C | Misconception | `custom_id` correlates results; order doesn't matter |
+| D | Over-engineering | Match each workflow to the right API instead |
+
+*Blocking → synchronous. Latency-tolerant → batch.*
+
+---
+
+# Review with fresh eyes, in passes
+
+.two-col[
+<div>
+<div class="col-head">SELF-REVIEW FAILS</div>
+<ul>
+<li>Same session keeps its reasoning</li>
+<li>Less likely to question its own choices</li>
+<li>"Review carefully" doesn't fix it</li>
+<li>Extended thinking doesn't either</li>
+</ul>
+</div>
+<div>
+<div class="col-head green">WHAT WORKS</div>
+<ul>
+<li>Independent instance, no generator context</li>
+<li>Per-file passes for local issues</li>
+<li>One integration pass for cross-file flow</li>
+<li>Confidence per finding for review routing</li>
+</ul>
+</div>
+]
+
+???
+Task statement 4.6.
+
+---
+
+class: question
+
+.q-label[Official sample 12 · Claude Code for Continuous Integration · D4]
+
+.stem[A pull request modifies 14 files across the stock tracking module. Your single-pass review produces inconsistent results: detailed feedback for some files, superficial comments for others, obvious bugs missed, and contradictory feedback, flagging a pattern in one file while approving identical code elsewhere. How should you restructure the review?]
+
+.options[
+- **A.** Split into focused passes: analyze each file for local issues, then run a separate integration pass on cross-file data flow.
+- **B.** Require developers to split large PRs into submissions of 3–4 files before the automated review runs.
+- **C.** Switch to a higher-tier model with a larger context window to give all 14 files adequate attention.
+- **D.** Run three independent passes on the full PR and only flag issues that appear in at least two of the three.
+]
+
+???
+Stem abridged. Trigger: inconsistent depth + contradictions = attention dilution.
+
+---
+
+class: answer
+
+.q-label[Official sample 12 · Answer]
+
+.correct[A · Per-file passes + an integration pass]
+
+| Option | Pattern | Why it fails |
+|---|---|---|
+| B | Shift the burden | Moves work to developers; the system doesn't improve |
+| C | Bigger model | A larger window doesn't fix attention quality |
+| D | Consensus filter | Suppresses real bugs caught intermittently |
+
+---
+
+class: demo
+
+.demo-banner[Official prep exercise 3 · ~6 min]
+
+# Structured data extraction pipeline
+
+- **Schema:** required + optional fields, an `"other"` + detail enum, nullable fields; check absent fields come back `null`
+- **Loop:** on validation failure, resend document + failed extraction + error; log which errors retries fix
+- **Batch:** 100 docs through the Message Batches API; resubmit failures by `custom_id`; check the SLA math
+- **Route:** field-level confidence → humans; accuracy by document type and field
+- **Reinforces:** D4 · D5
+
+???
+Exam guide Section 8, Exercise 3.
+
+---
+
+.eyebrow-label[D5 · Context Management & Reliability · 15%]
+
+# What the exam asks
+
+.objectives[
+- 5.1 Manage conversation context to preserve critical information across long interactions
+- 5.2 Design effective escalation and ambiguity resolution patterns
+- 5.3 Implement error propagation strategies across multi-agent systems
+- 5.4 Manage context effectively in large codebase exploration
+- 5.5 Design human review workflows and confidence calibration
+- 5.6 Preserve information provenance and handle uncertainty in multi-source synthesis
+]
+
+.source-line[Task statements verbatim from the CCAR-F Exam Guide v1.0, Section 6]
+
+---
+
+class: dense
+
+# Keep the facts, drop the noise
+
+| Risk | Fix |
+|---|---|
+| Summaries blur amounts, dates, promises | Persistent **"case facts" block** outside the summarized history |
+| 40+ fields per order lookup, 5 matter | **Trim tool output** to the relevant fields before it piles up |
+| Lost in the middle | Key findings **first**, details under explicit section headers |
+| Downstream agent has a small budget | Upstream returns **structured data**, not reasoning chains |
+| Long exploration drifts to "typical patterns" | **Scratchpad files**, subagents for discovery, `/compact` |
+| Crash mid-run | Each agent exports state; coordinator loads a **manifest** |
+
+???
+Task statements 5.1 and 5.4.
+
+Lost in the middle: models reliably process the start and end of long inputs and may skip the middle.
+
+Summarize each exploration phase before spawning subagents for the next; inject that summary into their initial context.
+
+---
+
+class: dense
+
+# When to escalate
+
+| Situation | Do |
+|---|---|
+| Customer asks for a human | **Escalate now.** Don't investigate first |
+| Frustrated, but the issue is simple | Acknowledge, offer to resolve; escalate if they ask again |
+| Policy is silent or ambiguous | **Escalate** (e.g., competitor price match) |
+| No meaningful progress | Escalate |
+| Several customers match | **Ask for another identifier.** Don't guess |
+
+**Unreliable triggers:** sentiment scores and self-reported confidence. Neither tracks case complexity.
+
+???
+Task statement 5.2. Put explicit escalation criteria with few-shot examples in the system prompt.
+
+---
+
+class: question
+
+.q-label[Official sample 3 · Customer Support Resolution Agent · D5]
+
+.stem[Your agent achieves 55% first-contact resolution, well below the 80% target. Logs show it escalates straightforward cases (standard damage replacements with photo evidence) while attempting to handle complex situations requiring policy exceptions on its own. What's the most effective way to improve escalation calibration?]
+
+.options[
+- **A.** Add explicit escalation criteria to your system prompt with few-shot examples of when to escalate versus resolve.
+- **B.** Have the agent self-report a confidence score (1–10) and route to humans when it falls below a threshold.
+- **C.** Deploy a separate classifier trained on historical tickets to predict which requests need escalation.
+- **D.** Implement sentiment analysis and escalate when negative sentiment exceeds a threshold.
+]
+
+???
+Trigger: the boundary is wrong in both directions. Unclear decision criteria.
+
+Note the contrast with sample 1: there, prompt fixes were wrong because the rule was a hard financial gate. Here the problem is judgment, which is what prompts and examples fix.
+
+---
+
+class: answer
+
+.q-label[Official sample 3 · Answer]
+
+.correct[A · Explicit criteria + few-shot examples]
+
+| Option | Pattern | Why it fails |
+|---|---|---|
+| B | Unreliable proxy | The agent is already confidently wrong on hard cases |
+| C | Over-engineering | Labeled data + ML infra before trying the prompt |
+| D | Unreliable proxy | Sentiment doesn't track case complexity |
+
+*Hard rule → code. Judgment boundary → criteria + examples.*
+
+---
+
+# Errors the coordinator can recover from
+
+.two-col[
+<div>
+<div class="col-head green">PROPAGATE</div>
+<ul>
+<li>Failure type</li>
+<li>The query that was attempted</li>
+<li>Partial results</li>
+<li>Alternatives worth trying</li>
+</ul>
+</div>
+<div>
+<div class="col-head">ANTI-PATTERNS</div>
+<ul>
+<li>Generic "search unavailable"</li>
+<li>Empty result marked as success</li>
+<li>One failure kills the workflow</li>
+<li>Retrying non-retryable errors</li>
+</ul>
+</div>
+]
+
+Recover transient failures **locally**. Annotate the final report with **coverage gaps**.
+
+???
+Task statement 5.3.
+
+---
+
+class: question
+
+.q-label[Official sample 8 · Multi-Agent Research System · D5]
+
+.stem[The web search subagent times out while researching a complex topic. You need to design how this failure information flows back to the coordinator agent. Which error propagation approach best enables intelligent recovery?]
+
+.options[
+- **A.** Return structured error context to the coordinator: failure type, attempted query, partial results, and potential alternatives.
+- **B.** Retry with exponential backoff inside the subagent, returning a generic "search unavailable" status after all retries fail.
+- **C.** Catch the timeout within the subagent and return an empty result set marked as successful.
+- **D.** Propagate the timeout exception to a top-level handler that terminates the entire research workflow.
+]
+
+---
+
+class: answer
+
+.q-label[Official sample 8 · Answer]
+
+.correct[A · Structured error context]
+
+| Option | Pattern | Why it fails |
+|---|---|---|
+| B | Hide the error | Generic status removes what the coordinator needs |
+| C | Hide the error | Failure disguised as success; no recovery possible |
+| D | Kill the workflow | Ends everything when recovery could succeed |
+
+---
+
+# Humans and sources
+
+.two-col[
+<div>
+<div class="col-head amber">HUMAN REVIEW</div>
+<ul>
+<li>97% overall can hide a weak document type</li>
+<li>Check accuracy by type <strong>and</strong> field first</li>
+<li>Field-level confidence, calibrated on labeled data</li>
+<li>Stratified sampling of high-confidence output</li>
+<li>Low confidence or contradictions → human</li>
+</ul>
+</div>
+<div>
+<div class="col-head blue">PROVENANCE</div>
+<ul>
+<li>Claim → source mappings survive synthesis</li>
+<li>Conflicting stats: keep both, cite both</li>
+<li>Dates on every finding</li>
+<li>Separate established from contested</li>
+<li>Tables for financials, prose for news</li>
+</ul>
+</div>
+]
+
+???
+Task statements 5.5 and 5.6.
+
+Two credible sources disagree: annotate the conflict with attribution and let the coordinator decide. Don't pick one at random.
+
+Missing dates make temporal differences look like contradictions.
+
+---
+
+class: demo
+
+.demo-banner[Official prep exercise 4 · ~6 min]
+
+# Debug a multi-agent research pipeline
+
+- **Build:** coordinator with `"Task"` in `allowedTools`; two subagents get findings in their prompts
+- **Parallel:** several `Task` calls in one response; measure the latency gain
+- **Provenance:** each finding = claim, excerpt, source, date; check synthesis keeps attribution
+- **Break it:** simulate a timeout and conflicting statistics; check partial results and coverage gaps
+- **Reinforces:** D1 · D2 · D5
+
+???
+Exam guide Section 8, Exercise 4. Also covers official sample 9 (verify_fact).
+
+---
+
+class: center, middle, cue
+
+.eyebrow-label[Segment 3 complete]
+
+# Q&A
+
+---
+
+class: title, divider
+
+.session-label[SEGMENT 4 · 1:50 → 2:00 · 10 MIN]
+
+# Exam strategy and study plan
+
+.chips[
+.chip[All domains]
+]
+
+.footer[Exam guide §7 + §8<span>Official prep courses</span>]
+
+---
+
+class: dense
+
+# Read the trigger, not the options
+
+| Cue in the stem | Points to |
+|---|---|
+| "financial", "must always", "guaranteed" | Hook or prerequisite gate |
+| "minimal descriptions", "similar tools" | Rewrite or split tool descriptions |
+| "every developer who clones" | `.claude/commands/`, project CLAUDE.md |
+| "regardless of location" | `.claude/rules/` with globs |
+| "dozens of files", "service boundaries" | Plan mode |
+| "hangs", "waiting for input" | `-p` |
+| "overnight", "not blocking" | Message Batches API |
+| "inconsistent depth", "contradictory" | Per-file + integration passes |
+| "all subagents succeeded, still incomplete" | Coordinator decomposition |
+| "absent from the source" | Nullable field, not a retry |
+
+???
+Time: 2 min per item. Item 20 at 40 min, item 40 at 80, item 60 at 120. Flag anything over 3 min.
+
+Read the last sentence first. Predict before reading options. Multiple-response: each option is its own true/false; assume all-or-nothing.
+
+---
+
+# The official prep path
+
+.two-col[
+<div>
+<div class="col-head green">FROM THE EXAM GUIDE</div>
+<ul>
+<li>Build an Agent SDK agent: loop, tools, errors, sessions, subagents</li>
+<li>Configure Claude Code: hierarchy, rules, skills, one MCP server</li>
+<li>Design MCP tools with structured errors</li>
+<li>Build an extraction pipeline + batches</li>
+<li>Practice few-shot, criteria, multi-pass review</li>
+<li>Drill context and escalation patterns</li>
+</ul>
+</div>
+<div>
+<div class="col-head blue">FREE PREP COURSES</div>
+<ul>
+<li>Building with the Claude API</li>
+<li>Introduction to Model Context Protocol</li>
+<li>Claude Code in Action</li>
+<li>AI Fluency: Framework & Foundations</li>
+<li>Claude 101</li>
+<li>Claude with Amazon Bedrock · Claude on Google Cloud</li>
+</ul>
+</div>
+]
+
+???
+Left column: Section 7 "How to Prepare", condensed. The guide's message: hands-on building is the prep.
+
+Right column: the Partner Academy "Claude Certified Architect – Foundations Prep Courses" page lists these seven free courses. Prioritize the API, MCP, and Claude Code courses; the Bedrock and Google Cloud ones matter only if you deploy there (cloud provider config is out of scope).
+
+---
+
+# Three weeks, weighted by the blueprint
+
+| Week | Domains | Do |
+|---|---|---|
+| 1 | D1 · D2 (45%) | Prep exercises 1 + 4 · API + MCP courses · samples 1–3, 7–9 |
+| 2 | D3 · D4 (40%) | Prep exercises 2 + 3 · Claude Code course · samples 4–6, 10–12 |
+| 3 | D5 + review (15%) | Re-read all 30 task statements · redo all 12 samples timed |
+
+**Build the four prep exercises yourself.** The guide's samples are drawn from scenarios those exercises cover.
+
+???
+Week 3: walk each task statement's "Skills in" list and say how you'd do each skill in one sentence. Any you can't explain is a gap.
+
+---
+
+# If you remember seven things
+
+.takeaways[
+<ol>
+<li><span class="num">1</span><div class="body"><strong>Loop on <code>stop_reason</code>.</strong><span>"tool_use" continues, "end_turn" stops. Never parse text.</span></div></li>
+<li><span class="num">2</span><div class="body"><strong>Subagents know only what you pass them.</strong><span>Paste findings in. Fan out in one response.</span></div></li>
+<li><span class="num">3</span><div class="body"><strong>Hard rules go in hooks, not prompts.</strong><span>Judgment calls go in criteria + examples.</span></div></li>
+<li><span class="num">4</span><div class="body"><strong>The description is the router.</strong><span>Fewer, sharper tools. Structured, categorized errors.</span></div></li>
+<li><span class="num">5</span><div class="body"><strong>Put config at the right layer.</strong><span>Project vs user. Rules by glob. <code>-p</code> in CI.</span></div></li>
+<li><span class="num">6</span><div class="body"><strong>Schema-valid isn't correct.</strong><span>Nullable fields, targeted retries, batch what can wait.</span></div></li>
+<li><span class="num">7</span><div class="body"><strong>Keep facts, sources, and errors explicit.</strong><span>Case facts, provenance, coverage gaps, human routing.</span></div></li>
+</ol>
+]
+
+???
+Every official sample reduces to one of these seven.
+
+---
+
+class: title
+
+.session-label[RESOURCES · Q&A]
+
+# Thank you. Questions?
+
+- [Official Exam Guide v1.0 (PDF)](https://everpath-course-content.s3-accelerate.amazonaws.com/instructor%2F6nizmqk8tpzpfjvt6qmmav7rh%2Fpublic%2F1783542750%2FClaude+Certified+Architect+%E2%80%93+Foundations+Exam+Guide.pdf)
+- [Official prep courses](https://anthropic-partners.skilljar.com/page/claude-certified-architect-foundations-prep-courses) · 7 free courses
+- [Building effective agents](https://www.anthropic.com/engineering/building-effective-agents) · [Claude Code docs](https://code.claude.com/docs/en/overview)
+- [Course repo](https://github.com/EnkrateiaLucca/claude-architect-foundations-cert)
+
+.footer[Lucas Soares<span>O'Reilly Live Training</span>]
+
+???
+Certification page: https://anthropic-partners.skilljar.com/claude-certified-architect-foundations-certification
+
+Certification FAQ: https://anthropic-partners.skilljar.com/page/faq-certifications
+
+Pearson VUE: https://www.pearsonvue.com/us/en/anthropic.html
+
+  </textarea>
+  <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+  <script>
+    var slideshow = remark.create({
+      ratio: '16:9',
+      countIncrementalSlides: false,
+      highlightLanguage: 'no-highlight',
+      navigation: { scroll: false }
+    });
+  </script>
+</body>
+</html>

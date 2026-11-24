@@ -1,137 +1,195 @@
-# Lesson 0: The Exam Blueprint
+# The CCAR-F Exam and Its Blueprint
 
-**Exam domain:** all seven (how the exam is built) · **Time in session:** Segment 1, about 10 minutes
+The Claude Certified Architect – Foundations (CCAR-F) exam tests whether you can make sound tradeoff decisions when you build production solutions with Claude. The official Exam Guide v1.1 (effective November 2026) is the authoritative reference. It defines five weighted domains, 30 task statements, six scenarios, and twelve sample questions. Every lesson, question, and exercise in this course maps back to that guide.
 
-## What the exam asks
+## What the credential validates
 
-The official Exam Guide (v1.0, effective July 2026, exam code **CCAR-P**) describes the credential this way:
+### The one-sentence definition
+*Informed tradeoff decisions across Claude Code, the Agent SDK, the Claude API, and MCP.*
 
-> "The Claude Certified Architect – Professional certification validates that an individual can design, build, and deliver production-grade AI solutions using Anthropic's Claude platform."
+The guide states: "The Claude Certified Architect – Foundations certification validates that practitioners can make informed decisions about tradeoffs when implementing real-world solutions with Claude."
 
-The guide lists seven things a credential holder can do:
+The exam covers four core technologies:
 
-- Design and prototype AI-driven solutions that address real business problems
-- Select appropriate models, architectures, and API patterns for specific use cases
-- Implement prompt engineering and context strategies to guide model behavior
-- Integrate Claude into production systems using APIs, orchestration tools, and data pipelines
-- Apply evaluation, monitoring, and observability practices to ensure solution quality
-- Incorporate security, compliance, and governance considerations into system design
-- Collaborate with cross-functional stakeholders and communicate architectural decisions effectively
-
-Every item is written against one of **38 objectives** across seven domains. Lessons 1 to 7 quote each domain's objectives verbatim.
-
-## Key ideas
-
-### Logistics at a glance
-
-| Item | Fact |
+| Technology | What the exam expects you to know |
 |---|---|
-| Exam code | CCAR-P |
-| Items | **63**, multiple-choice and multiple-response (each item states how many to pick) |
-| Time | 120 minutes, about **1 min 54 s per item** |
-| Passing score | Scaled **720** on a 100–1,000 scale. 720 is not 72% raw. |
-| Score report | Pass/fail, scaled score, percent-correct by domain (domain scores do not decide pass/fail) |
-| Fee | **$175** USD per attempt (partner-tier discounts apply at checkout) |
-| Delivery | Pearson VUE, online proctored or test center |
-| Prerequisites | **None.** Architect – Foundations is not required. |
-| Recommended | 3+ years systems architecture, 6+ months hands-on with Claude or comparable LLMs in production |
-| Validity | 12 months. On-time renewal is a free, non-proctored assessment. A lapsed credential means retaking the full exam. |
-| Retakes | Wait 14 days after the 1st fail, 30 after the 2nd, 90 after the 3rd. Max 4 attempts per rolling 12 months. |
-| Reschedule | Up to 24 hours before (guide). Changes inside 24 hours forfeit the fee. |
-| Rules | Closed book, NDA before you start, no notes, no second monitor |
+| Claude Agent SDK | Agentic loops, `stop_reason`, subagents via the `Task` tool, `allowedTools`, hooks, sessions |
+| Claude Code | CLAUDE.md hierarchy, `.claude/rules/`, commands, skills, plan mode, `-p` in CI |
+| Claude API | `tool_use` with JSON schemas, `tool_choice`, Message Batches API |
+| Model Context Protocol (MCP) | Tools vs resources, `isError`, `.mcp.json` vs `~/.claude.json`, env var expansion |
 
-**Eligibility.** Registration goes through the Anthropic Partner Academy and currently requires a Claude Partner Network company email.
+Questions come from realistic customer use cases. You need practical judgment about architecture, configuration, and tradeoffs. Recall of definitions alone will not pass.
 
-### The minimally qualified candidate (MQC)
+### Who the exam targets
+*A solution architect with 6+ months of hands-on Claude experience.*
 
-> "an experienced practitioner who combines an engineering mindset with practical, real-world experience deploying AI solutions."
+The ideal candidate designs and implements production applications with Claude and has hands-on experience with:
 
-The MQC designs end-to-end systems (prompt and context engineering, RAG, API integration, orchestration, evaluation) and understands trade-offs in **cost, latency, performance, safety, and maintainability**. Those five words are the lens for every item. The guide excludes entry-level developers and people whose work is "limited to isolated tasks such as prompt writing without broader system design responsibility."
+- Building agentic applications with the Claude Agent SDK: multi-agent orchestration, subagent delegation, tool integration, lifecycle hooks
+- Configuring Claude Code for team workflows: CLAUDE.md files, Agent Skills, MCP server integrations, plan mode
+- Designing MCP tool and resource interfaces for backend system integration
+- Engineering prompts for reliable structured output: JSON schemas, few-shot examples, extraction patterns
+- Managing context windows across long documents, multi-turn conversations, and multi-agent handoffs
+- Integrating Claude into CI/CD pipelines for code review, test generation, and pull request feedback
+- Making escalation and reliability decisions: error handling, human-in-the-loop workflows, self-evaluation
 
-### The seven domains and their weights
+The typical candidate has 6+ months of practical experience with the Claude APIs, Agent SDK, Claude Code, and MCP.
 
-| # | Domain | Weight | ~Items of 63 | Lesson |
+## Exam format
+
+| Item | Detail |
+|---|---|
+| Exam code | CCAR-F |
+| Items | 60, multiple-choice and multiple-response. Each item states how many responses to select |
+| Structure | 4 scenarios drawn at random from a bank of 6 |
+| Time | 120 minutes, about 2 minutes per item |
+| Passing score | Scaled 720 on a 100–1,000 scale. A scaled 720 is not the same as 72% raw |
+| Fee | $125 USD per attempt |
+| Delivery | Proctored by Pearson VUE, online or at a test center |
+| Validity | 12 months. On-time renewal is free |
+| Result | Pass/fail with scaled score, plus percent-correct by domain |
+
+Treat multiple-response items as all-or-nothing. Judge each option as its own true/false statement.
+
+## The blueprint
+
+| Domain | Name | Weight | ≈ Items | Task statements |
 |---|---|---|---|---|
-| D1 | Solution Design & Architecture | 17% | ~11 | 01 |
-| D2 | Claude Models, Prompting & Context Engineering | 13% | ~8 | 02 |
-| **D3** | **Integration** | **19%** | **~12** | 03 |
-| D4 | Evaluation, Testing & Optimization | 16% | ~10 | 04 |
-| D5 | Governance, Safety & Risk Management | 14% | ~9 | 05 |
-| D6 | Stakeholder Communication & Lifecycle Management | 14% | ~9 | 06 |
-| D7 | Developer Productivity & Operational Enablement | 7% | ~4 | 07 |
+| D1 | Agentic Architecture & Orchestration | 27% | 16 | 1.1–1.7 |
+| D2 | Tool Design & MCP Integration | 18% | 11 | 2.1–2.5 |
+| D3 | Claude Code Configuration & Workflows | 20% | 12 | 3.1–3.6 |
+| D4 | Prompt Engineering & Structured Output | 20% | 12 | 4.1–4.6 |
+| D5 | Context Management & Reliability | 15% | 9 | 5.1–5.6 |
 
-Item counts are weight × 63, rounded. The guide publishes weights only. Three facts set your study priorities:
+D1 alone carries more than a quarter of the exam. D3 and D4 together carry 40%. Item counts are estimates from the weights; the guide gives percentages only.
 
-- **D3 Integration is the largest domain.** Least privilege, auth gaps, RAG, MCP vs. API vs. A2A, and observability.
-- **D1 + D3 + D4 = 52%.** Design, integrate, and measure. That is the core of the exam.
-- **D6 is 14%.** Stakeholder and lifecycle work counts as much as safety. Engineers who skip it lose about nine items.
+### All 30 task statements
+*Exam items are written against these objectives.*
 
-### How items are written
+**D1 · Agentic Architecture & Orchestration**
 
-The three official samples share one shape:
+1. **1.1** Design and implement agentic loops for autonomous task execution
+2. **1.2** Orchestrate multi-agent systems with coordinator-subagent patterns
+3. **1.3** Configure subagent invocation, context passing, and spawning
+4. **1.4** Implement multi-step workflows with enforcement and handoff patterns
+5. **1.5** Apply Agent SDK hooks for tool call interception and data normalization
+6. **1.6** Design task decomposition strategies for complex workflows
+7. **1.7** Manage session state, resumption, and forking
 
-1. A production scenario with a concrete system (a support agent, a high-volume app, a RAG system).
-2. A constraint or a **trigger** in the stem ("support staff only ever need to read tickets", "latency and cost are both concerns", "after a document refresh").
-3. A question asking which change "best reduces risk", "most directly addresses both", or is "the most likely first place to investigate."
-4. Four options. One fixes the root cause structurally. Three fail in predictable ways.
+**D2 · Tool Design & MCP Integration**
 
-The correct answer is usually **the structural fix that matches the trigger and keeps the required capability.**
+1. **2.1** Design effective tool interfaces with clear descriptions and boundaries
+2. **2.2** Implement structured error responses for MCP tools
+3. **2.3** Distribute tools appropriately across agents and configure tool choice
+4. **2.4** Integrate MCP servers into Claude Code and agent workflows
+5. **2.5** Select and apply built-in tools (Read, Write, Edit, Bash, Grep, Glob) effectively
 
-### The six distractor patterns
+**D3 · Claude Code Configuration & Workflows**
 
-| Pattern | What it looks like | From the official samples |
-|---|---|---|
-| **Bigger model** | Upgrade or swap the model for a problem that is not about capability | "Replace the agent with a larger model that follows instructions more reliably." |
-| **Watch, don't remove** | A detective or compensating control where a preventive one is available | "Add logging to the refund and delete tools." "Add a confirmation prompt." |
-| **Prompt as policy** | Enforce a hard rule with instructions to the model instead of code, permissions, or config | "Tell the agent never to call the delete tool." |
-| **Lossy shortcut** | Cut cost or latency by discarding something the task needs | "Truncate the policy document to the first 1,000 tokens." "Smallest model regardless of task fit." |
-| **Wrong trigger** | A diagnosis that the event in the stem would not cause | "The model weights have silently changed." "The temperature is too low." |
-| **Over-engineering** | Multi-agent, fine-tuning, or custom infrastructure where a workflow or one call suffices | "Split it into five specialized agents." |
+1. **3.1** Configure CLAUDE.md files with appropriate hierarchy, scoping, and modular organization
+2. **3.2** Create and configure custom slash commands and skills
+3. **3.3** Apply path-specific rules for conditional convention loading
+4. **3.4** Determine when to use plan mode vs direct execution
+5. **3.5** Apply iterative refinement techniques for progressive improvement
+6. **3.6** Integrate Claude Code into CI/CD pipelines
 
-*Prompt as policy* and *over-engineering* do not appear in the three samples. They are the two most common wrong answers in architect-level material (see `research/03-community-resources.md`), so learn them anyway.
+**D4 · Prompt Engineering & Structured Output**
 
-### The core exam logic
+1. **4.1** Design prompts with explicit criteria to improve precision and reduce false positives
+2. **4.2** Apply few-shot prompting to improve output consistency and quality
+3. **4.3** Enforce structured output using tool use and JSON schemas
+4. **4.4** Implement validation, retry, and feedback loops for extraction quality
+5. **4.5** Design efficient batch processing strategies
+6. **4.6** Design multi-instance and multi-pass review architectures
 
-Lessons 1 to 7 repeat these rules. They decide most items.
+**D5 · Context Management & Reliability**
 
-1. **Start with the simplest pattern that works.** Single call → workflow → agent → multi-agent, and only on evidence.
-2. **Remove capability before you guard it.** Least privilege beats logging and confirmations.
-3. **Enforce in code, not in the prompt.** Permissions, hooks, schemas, and validators hold. Instructions are best effort.
-4. **Stable content first, then cache.** Order prompts static → dynamic and enable prompt caching.
-5. **Diagnose from what changed.** Match the symptom to the trigger before touching the model.
-6. **Measure before and after.** Every change ships with an eval, a metric, and a rollback.
-7. **Design for the handoff.** Documentation, runbooks, and owners outlast the architect.
+1. **5.1** Manage conversation context to preserve critical information across long interactions
+2. **5.2** Design effective escalation and ambiguity resolution patterns
+3. **5.3** Implement error propagation strategies across multi-agent systems
+4. **5.4** Manage context effectively in large codebase exploration
+5. **5.5** Design human review workflows and confidence calibration
+6. **5.6** Preserve information provenance and handle uncertainty in multi-source synthesis
 
-## Exam traps
+## The six scenarios
 
-- **Reading "best" as "most thorough."** The most elaborate option usually over-engineers.
-- **Ignoring the trigger.** "After a document refresh", "only ever need to read", "every request repeats" decide the answer before you read the options.
-- **Treating multiple-response items as partial credit.** No source confirms partial credit. Judge each option as its own true/false.
-- **Skipping D6 and D7.** 21% of the exam is stakeholders, lifecycle, and team enablement.
+Each scenario frames a set of questions. Your exam shows 4 of the 6, picked at random. Prepare for all six.
 
-## Exercise
+| # | Scenario | Setup | Primary domains |
+|---|---|---|---|
+| 1 | Customer Support Resolution Agent | Agent SDK agent for returns, billing disputes, account issues. MCP tools `get_customer`, `lookup_order`, `process_refund`, `escalate_to_human`. Target 80%+ first-contact resolution | D1, D2, D5 |
+| 2 | Code Generation with Claude Code | Team uses Claude Code for generation, refactoring, debugging, docs. Custom slash commands, CLAUDE.md, plan mode vs direct execution | D3, D5 |
+| 3 | Multi-Agent Research System | Coordinator delegates to web search, document analysis, synthesis, and report subagents. Produces cited reports | D1, D2, D5 |
+| 4 | Developer Productivity with Claude | Agent SDK tool that explores codebases and legacy systems with Read, Write, Bash, Grep, Glob plus MCP servers | D2, D3, D1 |
+| 5 | Claude Code for Continuous Integration | Automated code review, test generation, PR feedback. Prompts must be actionable and minimize false positives | D3, D4 |
+| 6 | Structured Data Extraction | Extract from unstructured documents, validate with JSON schemas, handle edge cases, feed downstream systems | D4, D5 |
 
-Walk the three official samples in `exercises/00-official-samples.md`. Label each wrong option with one of the six patterns before you check the key.
+### How to use the scenarios
+*Learn each scenario's cast of tools and failure modes before exam day.*
 
-## Check yourself
+The scenario text sets the facts that every question in its set relies on. Read it once and note the tool names, the target metric, and the constraint. In the Customer Support scenario, the 80% first-contact resolution target and the financial tool `process_refund` drive most answers. In the CI scenario, "minimize false positives" drives most answers.
 
-1. How many items does CCAR-P have, and how long do you have per item?
-2. Which domain carries the most weight?
-3. "Add a human confirmation step before the agent deletes accounts" when support staff never need deletion. Which pattern?
+## What is in scope and what is not
 
-<details>
-<summary>Answers</summary>
+| Tested (Appendix, In-Scope Topics) | Not tested (Appendix, Out-of-Scope Topics) |
+|---|---|
+| Agentic loops, `stop_reason`, loop termination | Fine-tuning or training custom models |
+| Coordinator-subagent patterns, parallel subagents, iterative refinement | API authentication, billing, account management |
+| Explicit context passing, state persistence, crash-recovery manifests | Deploying or hosting MCP servers |
+| Tool descriptions, splitting vs consolidating tools, tool naming | Claude's internal architecture, training, weights |
+| MCP tools vs resources, project vs user scope, env var expansion | Constitutional AI, RLHF, safety training |
+| Structured errors: transient, validation, business, permission | Embeddings and vector databases |
+| Escalation criteria, honoring customer preferences, policy gaps | Computer use, vision/image analysis |
+| CLAUDE.md hierarchy, `@import`, `.claude/rules/` globs | Streaming API and server-sent events |
+| Commands and skills: `context: fork`, `allowed-tools`, `argument-hint` | Rate limits, quotas, pricing calculations |
+| Plan mode vs direct execution, iterative refinement | OAuth, API key rotation |
+| `tool_use` structured output, `tool_choice`, nullable fields | Cloud provider configuration (AWS, GCP, Azure) |
+| Few-shot prompting, Message Batches API | Benchmarking and model comparison metrics |
+| Context trimming, fact extraction, position-aware ordering | Prompt caching details beyond knowing it exists |
+| Human review: calibration, stratified sampling, segmentation | Token counting and tokenization |
+| Provenance: claim-source mappings, dates, conflicts, coverage gaps | Language/framework details beyond tool and schema config |
 
-1. 63 items in 120 minutes, just under 2 minutes each.
-2. D3 Integration at 19%.
-3. Watch, don't remove. The role never needs deletion, so remove the tool.
+Use the right column to prune study time. A practice question that hinges on vector database internals or cache breakpoints is not a CCAR-F question.
 
-</details>
+## How the exam is scored
 
-## Official resources
+### Criterion-referenced, scaled to 720
+*You pass against a fixed standard. Other candidates do not affect your result.*
 
-- Exam Guide v1.0 (PDF): https://everpath-course-content.s3-accelerate.amazonaws.com/instructor%2F6nizmqk8tpzpfjvt6qmmav7rh%2Fpublic%2F1783542810%2FClaude+Certified+Architect+%E2%80%93+Professional+Exam+Guide.pdf
-- Certifications overview: https://anthropic-partners.skilljar.com/page/partner-certifications
-- Certifications FAQ: https://anthropic-partners.skilljar.com/page/faq-certifications
-- Official prep path (5 courses): https://anthropic-partners.skilljar.com/path/claude-certified-architect-professional
-- Pearson VUE for Anthropic: https://www.pearsonvue.com/us/en/anthropic.html
+The exam is a criterion-referenced assessment. Subject matter experts set the cut score in a formal standard-setting study, by judging the performance of a minimally qualified candidate. Scores are scaled to 100–1,000 so that exam forms of slightly different difficulty are equivalent. The cut score is 720.
+
+The score report shows the percentage you answered correctly in each domain. Those section percentages help you study. Only the total scaled score decides pass or fail.
+
+## Registration and policies
+
+| Topic | Rule |
+|---|---|
+| Eligibility | Registration currently requires a Claude Partner Network company email |
+| Registration | Click Register on the Partner Academy certification page, confirm your exam profile, then choose a date, delivery mode, and checkout at Pearson |
+| Rescheduling | Online (OnVUE) exams: cancel or reschedule up to 1 hour before. Test center exams: up to 48 hours before. Later changes forfeit the fee. Rescheduling keeps your price |
+| ID | Valid, unexpired, government-issued photo ID. The name must match the registration exactly. You can fix your name once in your Partner Academy exam profile; for test centers, do it at least 24 hours ahead |
+| Accommodations | Request and get approval from Pearson VUE before you schedule |
+| Retakes | Wait 14 days after the first fail, 30 after the second, 90 after the third. Up to 4 attempts per rolling 12 months. Each attempt pays the fee |
+| No-show | Fee forfeited; you must re-register |
+| Exam conduct | Closed book. No notes, phones, smart watches, headphones, or second monitors. Stay in camera view if online |
+| Confidentiality | You accept an NDA before the exam. Exam content is confidential |
+| Renewal | Free, non-proctored assessment on the Partner Academy before the credential lapses. A lapsed credential requires the full exam at full fee |
+| Appeals | Within 14 days, through Pearson VUE support. Item content and the cut score are not appealable |
+
+## Compared with Architect – Professional
+
+### Foundations vs Professional (comparison only)
+*CCAR-F names API parameters. CCAR-P tests governance and stakeholder decisions.*
+
+This course prepares you for Foundations. For orientation only: Foundations tests implementation detail such as `stop_reason`, `tool_choice`, `.mcp.json`, and `-p`. The Professional exam (CCAR-P) names no API parameters and focuses on governance, evaluation, and stakeholder decisions. Do not study Professional materials for this exam.
+
+## How this course maps to the guide
+
+| Course material | Guide section it covers |
+|---|---|
+| Lessons 01–05 | Section 6, one lesson per domain, every task statement |
+| Practice questions (60) | Weighted like Section 4; every item sits in a Section 5 scenario |
+| Exercise 00 | Section 9, the twelve official sample questions |
+| Exercises 01–04 | Section 8, the four official preparation exercises |
+| Lesson 06 | Sections 7 and 10, plus exam-day strategy |
+| Flashcards and cheatsheet | All of Section 6 and the Appendix |

@@ -1,5 +1,9 @@
+<!doctype html>
+<html lang="en">
+<head>
 <meta charset="utf-8">
-<title>CCAR-P Exam Guide</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CCAR-F Exam Guide</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=JetBrains+Mono:wght@500&family=Public+Sans:wght@400;600;700&display=swap">
@@ -205,18 +209,31 @@ code{font:500 14px var(--f-mono);background:var(--surface-2);padding:3px 8px;bor
 footer{border-top:1px solid var(--line);padding-block:24px 48px;color:var(--muted);font-size:14px}
 footer p+p{margin-top:6px}
 @media (prefers-reduced-motion: reduce){*{transition:none!important}}
+
+/* scenarios */
+.scen{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+@media (max-width:640px){.scen{grid-template-columns:1fr}}
+.scen .card{display:grid;gap:8px;align-content:start}
+.scen h3{font-size:18px}
+.scen p{color:var(--ink-2);font-size:15px}
+.tsnum{font:500 13px var(--f-mono);color:var(--muted);margin-right:8px}
+.colist{columns:2;column-gap:28px}
+@media (max-width:640px){.colist{columns:1}}
+.colist li{break-inside:avoid}
 </style>
+</head>
+<body>
 
 <header class="wrap hero">
-  <p class="eyebrow">Study companion · Exam guide v1.0 · Effective July 2026</p>
-  <h1>Claude Certified Architect – Professional</h1>
-  <p class="lead">This exam checks that you can design, build and deliver production-grade AI systems on Claude. You pick models and API patterns, engineer prompts and context, integrate Claude into enterprise systems, and design for evaluation, security and governance.</p>
+  <p class="eyebrow">Study companion · Exam guide v1.1 · Effective November 2026</p>
+  <h1>Claude Certified Architect – Foundations</h1>
+  <p class="lead">This exam checks that you can make sound trade-off decisions when you build real solutions with Claude. It covers Claude Code, the Claude Agent SDK, the Claude API and the Model Context Protocol, tested through realistic production scenarios.</p>
   <dl class="facts">
-    <div><dt>Exam code</dt><dd><b>CCAR-P</b><small>proctored by Pearson VUE</small></dd></div>
-    <div><dt>Items</dt><dd><b>63</b><small>multiple choice and multiple response</small></dd></div>
-    <div><dt>Time</dt><dd><b>120 min</b><small>≈ 1 min 54 s per item</small></dd></div>
+    <div><dt>Exam code</dt><dd><b>CCAR-F</b><small>proctored by Pearson VUE</small></dd></div>
+    <div><dt>Items</dt><dd><b>60</b><small>4 scenarios drawn from a bank of 6</small></dd></div>
+    <div><dt>Time</dt><dd><b>120 min</b><small>2 min per item</small></dd></div>
     <div><dt>To pass</dt><dd><b>720</b><small>scaled score, 100–1,000</small></dd></div>
-    <div><dt>Fee</dt><dd><b>$175</b><small>USD, charged per attempt</small></dd></div>
+    <div><dt>Fee</dt><dd><b>$125</b><small>USD, charged per attempt</small></dd></div>
     <div><dt>Valid for</dt><dd><b>12 mo</b><small>free on-time renewal</small></dd></div>
   </dl>
 </header>
@@ -225,8 +242,10 @@ footer p+p{margin-top:6px}
   <div class="wrap tabs" role="tablist" aria-label="Guide sections">
     <button type="button" role="tab" id="tab-overview" data-tab="overview" aria-controls="overview">Overview</button>
     <button type="button" role="tab" id="tab-blueprint" data-tab="blueprint" aria-controls="blueprint">Blueprint</button>
-    <button type="button" role="tab" id="tab-practice" data-tab="practice" aria-controls="practice">Practice</button>
+    <button type="button" role="tab" id="tab-scenarios" data-tab="scenarios" aria-controls="scenarios">Scenarios</button>
+    <button type="button" role="tab" id="tab-practice" data-tab="practice" aria-controls="practice">Prepare</button>
     <button type="button" role="tab" id="tab-policies" data-tab="policies" aria-controls="policies">Policies</button>
+    <button type="button" role="tab" id="tab-appendix" data-tab="appendix" aria-controls="appendix">Appendix</button>
   </div>
 </div>
 
@@ -235,83 +254,65 @@ footer p+p{margin-top:6px}
 <!-- OVERVIEW -->
 <section id="overview" class="panel" role="tabpanel" aria-labelledby="tab-overview">
   <div class="panel-head"><h2>What the credential proves</h2><button type="button" class="ghost" data-expand>Expand all</button></div>
-  <p class="prose">The credential is an independent check that you can architect Claude-based solutions in production. It tells employers, clients and teams that you can own, or significantly contribute to, the full lifecycle of a Claude-powered system.</p>
+  <p class="prose">The guide states: <em>"The Claude Certified Architect – Foundations certification validates that practitioners can make informed decisions about tradeoffs when implementing real-world solutions with Claude."</em> Questions come from real customer use cases. You need practical judgment about architecture, configuration and trade-offs in production, not only concepts.</p>
 
   <div class="split">
     <div class="card who yes">
       <h3>Built for</h3>
-      <p class="small muted">Mid- to senior-level people who work between business requirements and technical implementation.</p>
+      <p class="small muted">A solution architect who designs and implements production applications with Claude.</p>
       <ul>
         <li>Solution architects</li>
-        <li>AI/ML engineers</li>
-        <li>Technical leads</li>
-        <li>Senior software engineers</li>
+        <li>Engineers building agents with the Agent SDK</li>
+        <li>Teams rolling out Claude Code</li>
+        <li>Engineers wiring Claude into CI/CD and data pipelines</li>
       </ul>
     </div>
-    <div class="card who no">
-      <h3>Not built for</h3>
-      <p class="small muted">Anyone without experience designing end-to-end AI systems.</p>
-      <ul>
-        <li>Entry-level developers</li>
-        <li>Casual users of Claude-based apps</li>
-        <li>Purely non-technical roles</li>
-        <li>Prompt writing with no system design responsibility</li>
-      </ul>
+    <div class="card who">
+      <h3>Typical experience</h3>
+      <p class="small muted">From Section 2 of the guide.</p>
+      <p>6+ months of practical experience building with the Claude API, the Agent SDK, Claude Code and MCP. The candidate knows both the capabilities and the limits of LLMs in production.</p>
     </div>
   </div>
-  <ul class="chips" aria-label="Typical industries">
-    <li>Financial services</li><li>Healthcare</li><li>Retail</li><li>Technology</li><li>Education</li><li>Government</li>
+  <ul class="chips" aria-label="Technologies covered">
+    <li>Claude Code</li><li>Claude Agent SDK</li><li>Claude API</li><li>Model Context Protocol</li><li>Message Batches API</li><li>JSON Schema</li>
   </ul>
 
   <div class="folds">
-    <details class="fold" id="can-do">
-      <summary><span class="ft">What a certified architect can do</span><span class="fs">Seven capabilities, from prototyping to explaining decisions to stakeholders</span></summary>
+    <details class="fold" id="experience">
+      <summary><span class="ft">Hands-on experience the guide expects</span><span class="fs">Seven areas from Section 2 · tick what you already have</span></summary>
       <div class="fb">
-        <ul>
-          <li>Design and prototype AI-driven solutions that address real business problems</li>
-          <li>Select appropriate models, architectures and API patterns for specific use cases</li>
-          <li>Implement prompt engineering and context strategies to guide model behavior</li>
-          <li>Integrate Claude into production systems using APIs, orchestration tools and data pipelines</li>
-          <li>Apply evaluation, monitoring and observability practices to ensure solution quality</li>
-          <li>Incorporate security, compliance and governance considerations into system design</li>
-          <li>Collaborate with cross-functional stakeholders and communicate architectural decisions effectively</li>
-        </ul>
-      </div>
-    </details>
-
-    <details class="fold" id="mqc">
-      <summary><span class="ft">The minimally qualified candidate (MQC)</span><span class="fs">The person the passing score is set for, and the experience the guide recommends</span></summary>
-      <div class="fb">
-        <p>The MQC designs, implements and governs Claude-powered solutions in production. They combine an engineering mindset with real deployment experience and turn business requirements into scalable, secure and reliable architectures.</p>
-        <p>They can design end-to-end systems that cover prompt and context engineering, retrieval-augmented generation (RAG), API integration, orchestration and evaluation. They understand the trade-offs between cost, latency, performance, safety and maintainability.</p>
-        <h4>Recommended experience <span class="muted" style="font-weight:400">· tick what you already have</span></h4>
-        <ul class="checks">
-          <li><label><input type="checkbox" id="exp-0" data-c="exp-0"><span>A foundation in software engineering practice: modular design, separation of concerns, scalability</span></label></li>
-          <li><label><input type="checkbox" id="exp-1" data-c="exp-1"><span>3+ years in systems architecture or platform engineering</span></label></li>
-          <li><label><input type="checkbox" id="exp-2" data-c="exp-2"><span>6+ months hands-on with Claude or comparable LLM systems in production</span></label></li>
-          <li><label><input type="checkbox" id="exp-3" data-c="exp-3"><span>Delivered end-to-end systems from discovery through deployment and operations</span></label></li>
-        </ul>
-        <p class="note">There are no prerequisites. The experience above is recommended, not required. The credential is awarded on exam performance alone.</p>
+        <ul class="checks"><li><label><input type="checkbox" id="exp-0" data-c="exp-0"><span>Building agentic applications with the Claude Agent SDK: multi-agent orchestration, subagent delegation, tool integration and lifecycle hooks</span></label></li><li><label><input type="checkbox" id="exp-1" data-c="exp-1"><span>Configuring Claude Code for team workflows with CLAUDE.md files, Agent Skills, MCP server integrations and plan mode</span></label></li><li><label><input type="checkbox" id="exp-2" data-c="exp-2"><span>Designing Model Context Protocol (MCP) tool and resource interfaces for backend system integration</span></label></li><li><label><input type="checkbox" id="exp-3" data-c="exp-3"><span>Engineering prompts that produce reliable structured output with JSON schemas, few-shot examples and extraction patterns</span></label></li><li><label><input type="checkbox" id="exp-4" data-c="exp-4"><span>Managing context windows across long documents, multi-turn conversations and multi-agent handoffs</span></label></li><li><label><input type="checkbox" id="exp-5" data-c="exp-5"><span>Integrating Claude into CI/CD pipelines for automated code review, test generation and pull request feedback</span></label></li><li><label><input type="checkbox" id="exp-6" data-c="exp-6"><span>Making escalation and reliability decisions: error handling, human-in-the-loop workflows and self-evaluation patterns</span></label></li></ul>
+        <p class="note">There are no formal prerequisites. The credential is awarded on exam performance alone.</p>
       </div>
     </details>
 
     <details class="fold" id="exam-details">
-      <summary><span class="ft">Exam details</span><span class="fs">Format, delivery, scoring, fee and validity in one table</span></summary>
+      <summary><span class="ft">Exam details</span><span class="fs">Format, structure, delivery, scoring, fee and validity in one table</span></summary>
       <div class="fb">
         <div class="table-scroll">
           <table>
-            <tr><th>Credential</th><td>Claude Certified Architect – Professional</td></tr>
-            <tr><th>Exam code</th><td>CCAR-P</td></tr>
-            <tr><th>Number of items</th><td>63</td></tr>
+            <tr><th>Credential</th><td>Claude Certified Architect – Foundations</td></tr>
+            <tr><th>Exam code</th><td>CCAR-F</td></tr>
+            <tr><th>Number of items</th><td>60</td></tr>
             <tr><th>Item format</th><td>Multiple choice and multiple response. Each item states how many responses to select.</td></tr>
+            <tr><th>Exam structure</th><td>4 scenarios drawn at random from a bank of 6</td></tr>
             <tr><th>Time limit</th><td>120 minutes</td></tr>
             <tr><th>Delivery</th><td>Proctored, online and/or at a test center, per program policy</td></tr>
             <tr><th>Passing score</th><td>Scaled score of 720 on a 100–1,000 scale</td></tr>
-            <tr><th>Exam fee</th><td>$175 USD</td></tr>
+            <tr><th>Exam fee</th><td>$125 USD</td></tr>
             <tr><th>Validity</th><td>12 months from the date the credential is awarded</td></tr>
             <tr><th>Results</th><td>Pass/fail with scaled score, plus percent correct by domain</td></tr>
           </table>
         </div>
+        <p class="note warn">Registration currently requires a Claude Partner Network company email.</p>
+      </div>
+    </details>
+
+    <details class="fold" id="scenario-format">
+      <summary><span class="ft">How the scenarios work</span><span class="fs">Each scenario frames a set of questions. You get 4 of the 6.</span></summary>
+      <div class="fb">
+        <p>Every question sits inside a realistic production context. The exam picks 4 scenarios at random from the 6 in Section 5, so study all six. The <a href="#scenarios">Scenarios tab</a> lists them with their primary domains.</p>
+        <p>At 60 items in 120 minutes you have 2 minutes per item. Expect about 15 items per scenario.</p>
       </div>
     </details>
   </div>
@@ -320,12 +321,12 @@ footer p+p{margin-top:6px}
 <!-- BLUEPRINT -->
 <section id="blueprint" class="panel" role="tabpanel" aria-labelledby="tab-blueprint" hidden>
   <div class="panel-head"><h2>Exam blueprint</h2><button type="button" class="ghost" data-expand>Expand all</button></div>
-  <p class="prose">Seven domains. Each weight is the approximate share of scored items. Select a domain to see the objectives exam items are written against.</p>
+  <p class="prose">Five domains and 30 task statements. Each weight is the approximate share of scored items. Open a domain and rate each task statement. Exam items are written against these statements.</p>
   <div class="wbar-wrap" id="wbar-wrap">
     <div class="wbar" id="wbar" role="group" aria-label="Domain weights"></div>
     <div class="tip" id="tip" role="status" hidden></div>
   </div>
-  <p class="small muted">Integration (19%) and Solution Design (17%) make up over a third of the exam. Developer Productivity is the smallest domain at 7%, about 4 items.</p>
+  <p class="small muted">Agentic Architecture &amp; Orchestration is the largest domain at 27%, about 16 items. Context Management &amp; Reliability is the smallest at 15%, about 9 items.</p>
 
   <div class="card ready">
     <div class="ready-top">
@@ -342,20 +343,41 @@ footer p+p{margin-top:6px}
   <div id="domains" class="folds"></div>
 </section>
 
-<!-- PRACTICE -->
+<!-- SCENARIOS -->
+<section id="scenarios" class="panel" role="tabpanel" aria-labelledby="tab-scenarios" hidden>
+  <div class="panel-head"><h2>The six scenarios</h2></div>
+  <p class="prose">Your exam draws 4 of these at random. Each lists its primary domains from Section 5 of the guide.</p>
+  <div class="scen"><div class="card"><p class="eyebrow">Scenario 1 · D1 · D2 · D5</p><h3>Customer Support Resolution Agent</h3><p>Agent SDK agent with custom MCP tools (get_customer, lookup_order, process_refund, escalate_to_human) for returns, billing disputes and account issues. Target: 80%+ first-contact resolution while knowing when to escalate.</p></div><div class="card"><p class="eyebrow">Scenario 2 · D3 · D5</p><h3>Code Generation with Claude Code</h3><p>Your team uses Claude Code for generation, refactoring, debugging and documentation, with custom slash commands, CLAUDE.md configuration, and a choice between plan mode and direct execution.</p></div><div class="card"><p class="eyebrow">Scenario 3 · D1 · D2 · D5</p><h3>Multi-Agent Research System</h3><p>A coordinator delegates to subagents that search the web, analyze documents, synthesize findings and generate reports. The system produces comprehensive, cited reports.</p></div><div class="card"><p class="eyebrow">Scenario 4 · D2 · D3 · D1</p><h3>Developer Productivity with Claude</h3><p>An Agent SDK tool helps engineers explore unfamiliar codebases, understand legacy systems, generate boilerplate and automate repetitive tasks with the built-in tools (Read, Write, Bash, Grep, Glob) and MCP servers.</p></div><div class="card"><p class="eyebrow">Scenario 5 · D3 · D4</p><h3>Claude Code for Continuous Integration</h3><p>Claude Code runs in the CI/CD pipeline for automated code reviews, test generation and pull request feedback. Prompts must give actionable feedback and minimize false positives.</p></div><div class="card"><p class="eyebrow">Scenario 6 · D4 · D5</p><h3>Structured Data Extraction</h3><p>Claude extracts information from unstructured documents, validates it with JSON schemas, keeps accuracy high, handles edge cases and feeds downstream systems.</p></div></div>
+</section>
+
+<!-- PREPARE -->
 <section id="practice" class="panel" role="tabpanel" aria-labelledby="tab-practice" hidden>
-  <div class="panel-head"><h2>How to prepare</h2></div>
-  <p class="prose">No course is required, and no single resource guarantees a pass. Combine hands-on work with these steps.</p>
-  <ul class="checks">
-    <li><label><input type="checkbox" id="prep-0" data-c="prep-0"><span>Study the blueprint and self-assess against each objective. The Blueprint tab lets you rate every one.</span></label></li>
-    <li><label><input type="checkbox" id="prep-1" data-c="prep-1"><span>Review the official Anthropic docs for the Claude API, models, prompt engineering, MCP and Skills</span></label></li>
-    <li><label><input type="checkbox" id="prep-2" data-c="prep-2"><span>Build and run at least one end-to-end Claude solution, including RAG, evaluation and observability</span></label></li>
-    <li><label><input type="checkbox" id="prep-3" data-c="prep-3"><span>Practice architectural decisions: model selection, integration protocols and security trade-offs</span></label></li>
-    <li><label><input type="checkbox" id="prep-4" data-c="prep-4"><span>Work through the sample questions below to learn the item style</span></label></li>
-  </ul>
+  <div class="panel-head"><h2>How to prepare</h2><button type="button" class="ghost" data-expand>Expand all</button></div>
+  <p class="prose">Section 7 of the guide recommends hands-on building. Tick each step as you finish it.</p>
+  <ul class="checks"><li><label><input type="checkbox" id="prep-0" data-c="prep-0"><span>Build an agent with the Claude Agent SDK: a complete agentic loop with tool calling, error handling and session management. Practice spawning subagents and passing context between them.</span></label></li><li><label><input type="checkbox" id="prep-1" data-c="prep-1"><span>Configure Claude Code for a real project: a CLAUDE.md hierarchy, path-specific rules in <code>.claude/rules/</code>, custom skills with frontmatter (<code>context: fork</code>, <code>allowed-tools</code>), and at least one MCP server.</span></label></li><li><label><input type="checkbox" id="prep-2" data-c="prep-2"><span>Design and test MCP tools: descriptions that separate similar tools, structured error responses with categories and retryable flags, and selection tests with ambiguous requests.</span></label></li><li><label><input type="checkbox" id="prep-3" data-c="prep-3"><span>Build a structured data extraction pipeline: <code>tool_use</code> with JSON schemas, validation-retry loops, optional and nullable fields, and batch processing with the Message Batches API.</span></label></li><li><label><input type="checkbox" id="prep-4" data-c="prep-4"><span>Practice prompt engineering: few-shot examples for ambiguous cases, explicit review criteria that cut false positives, and multi-pass review for large code reviews.</span></label></li><li><label><input type="checkbox" id="prep-5" data-c="prep-5"><span>Study context management: extract structured facts from verbose tool output, keep scratchpad files for long sessions, and delegate to subagents to stay inside context limits.</span></label></li><li><label><input type="checkbox" id="prep-6" data-c="prep-6"><span>Review escalation and human-in-the-loop patterns: when to escalate (policy gaps, customer requests, no progress) versus resolve, and confidence-based routing to human review.</span></label></li></ul>
+
+  <div class="panel-head"><h2 id="prep-exercises">Preparation exercises</h2></div>
+  <p class="prose">Section 8 lists four exercises. Each one maps to a course exercise with a reference answer.</p>
+  <div class="folds"><details class="fold" id="ex-01">
+      <summary><span class="ft">Exercise 1 · Build a multi-tool agent with escalation logic</span><span class="fs">Domains D1 · D2 · D5</span></summary>
+      <div class="fb"><ul><li>Define 3–4 MCP tools with descriptions that separate purpose, inputs and boundaries. Include two similar tools.</li><li>Loop on <code>stop_reason</code>: continue on <code>"tool_use"</code>, stop on <code>"end_turn"</code>.</li><li>Return structured errors: <code>errorCategory</code>, <code>isRetryable</code>, a readable description.</li><li>Add a hook that blocks a tool call above a threshold and redirects to escalation.</li><li>Test multi-concern messages: decompose, handle each concern, synthesize one reply.</li></ul>
+      <p><a href="exercises/01-multi-tool-agent.md">Open the course exercise <code>exercises/01-multi-tool-agent.md</code></a> for the scenario, the task and a reference answer.</p></div>
+    </details><details class="fold" id="ex-02">
+      <summary><span class="ft">Exercise 2 · Configure Claude Code for a team development workflow</span><span class="fs">Domains D3 · D2</span></summary>
+      <div class="fb"><ul><li>Write a project-level CLAUDE.md with universal standards and testing conventions.</li><li>Add <code>.claude/rules/</code> files with <code>paths:</code> globs, for example <code>["src/api/**/*"]</code> and <code>["**/*.test.*"]</code>.</li><li>Create a project skill in <code>.claude/skills/</code> with <code>context: fork</code> and <code>allowed-tools</code>.</li><li>Configure a shared server in <code>.mcp.json</code> with <code>${ENV}</code> expansion, plus a personal one in <code>~/.claude.json</code>.</li><li>Compare plan mode and direct execution on a one-file fix, a multi-file migration and an open-ended feature.</li></ul>
+      <p><a href="exercises/02-team-claude-code-config.md">Open the course exercise <code>exercises/02-team-claude-code-config.md</code></a> for the scenario, the task and a reference answer.</p></div>
+    </details><details class="fold" id="ex-03">
+      <summary><span class="ft">Exercise 3 · Build a structured data extraction pipeline</span><span class="fs">Domains D4 · D5</span></summary>
+      <div class="fb"><ul><li>Define an extraction tool schema with required, optional and nullable fields and an <code>"other"</code> + detail enum.</li><li>Add a validation-retry loop that sends the document, the failed extraction and the specific error.</li><li>Add few-shot examples for varied document formats.</li><li>Submit a 100-document batch, resubmit failures by <code>custom_id</code>, and check timing against the SLA.</li><li>Route low-confidence fields to human review and check accuracy by document type and field.</li></ul>
+      <p><a href="exercises/03-extraction-pipeline.md">Open the course exercise <code>exercises/03-extraction-pipeline.md</code></a> for the scenario, the task and a reference answer.</p></div>
+    </details><details class="fold" id="ex-04">
+      <summary><span class="ft">Exercise 4 · Design and debug a multi-agent research pipeline</span><span class="fs">Domains D1 · D2 · D5</span></summary>
+      <div class="fb"><ul><li>Build a coordinator whose <code>allowedTools</code> include <code>"Task"</code>. Pass findings into each subagent prompt.</li><li>Emit several Task calls in one response and measure the latency gain over sequential runs.</li><li>Give every finding a claim, excerpt, source and publication date. Check that synthesis keeps attribution.</li><li>Simulate a subagent timeout. The coordinator gets structured error context and annotates coverage gaps.</li><li>Feed two credible sources with conflicting statistics. The report keeps both values with attribution.</li></ul>
+      <p><a href="exercises/04-multi-agent-research-pipeline.md">Open the course exercise <code>exercises/04-multi-agent-research-pipeline.md</code></a> for the scenario, the task and a reference answer.</p></div>
+    </details></div>
 
   <div class="panel-head"><h2 id="samples">Sample questions</h2><span id="score" class="small muted"></span></div>
-  <p class="small muted">These illustrative items show the style and level of the exam. They are not drawn from the live item bank. Pick an option to see the answer and rationale.</p>
+  <p class="small muted">The 12 official sample questions from Section 9, with the guide's explanations. Pick an option to see the answer.</p>
   <div id="qs"></div>
   <button type="button" class="ghost" id="reset-quiz" style="justify-self:start">Reset questions</button>
 </section>
@@ -374,30 +396,31 @@ footer p+p{margin-top:6px}
           </div>
         </div>
         <p>The exam is criterion-referenced. Every candidate is measured against the same fixed standard, so other candidates' results never affect yours.</p>
-        <p>Trained subject matter experts set the 720 cut score in a formal standard-setting study, based on the performance expected of a minimally qualified candidate.</p>
+        <p>Trained subject matter experts set the 720 cut score in a formal standard-setting study, based on the performance expected of a minimally qualified candidate. Scaled scores equate results across exam forms of slightly different difficulty, so 720 does not mean 72% correct.</p>
         <p>Your score report shows pass or fail, your scaled score, and your percent correct in each domain. The domain percentages are feedback only. Pass or fail depends on the total scaled score.</p>
       </div>
     </details>
 
     <details class="fold" id="register">
-      <summary><span class="ft">Registering and scheduling</span><span class="fs">Register on the Anthropic Partner Academy, test with Pearson VUE. Changes are free until 24 hours before.</span></summary>
+      <summary><span class="ft">Registering and scheduling</span><span class="fs">Register on the Anthropic Partner Academy, schedule and pay at Pearson. OnVUE changes up to 1 hour ahead, test centers up to 48 hours.</span></summary>
       <div class="fb">
         <ol>
-          <li>Open your exam's certification page on the Anthropic Partner Academy and review the details.</li>
+          <li>Open your certification page on the Anthropic Partner Academy and review the exam details.</li>
           <li>Download the Exam Guide. Read the Certification Terms and Conditions and the Certification Exam Policy.</li>
-          <li>Register and check out. The checkout price includes any discount for your partner tier.</li>
-          <li>Follow the confirmation instructions to create a Pearson VUE account, then sign in to schedule.</li>
-          <li>Pick a date and choose online proctoring or a Pearson test center.</li>
-          <li>Cancel or reschedule up to 24 hours before your appointment.</li>
+          <li>Click Register, confirm your exam and exam profile, then select Continue to Pearson.</li>
+          <li>At Pearson, choose online proctoring or a test center, pick a date and time, and check out. The price includes any partner discount.</li>
+          <li>Already registered? Use Go to my Pearson account to schedule, take the exam, or view results and receipts.</li>
+          <li>Cancel or reschedule OnVUE (online) exams up to 1 hour before the appointment, and test center exams up to 48 hours before. Later changes forfeit the exam fee.</li>
         </ol>
-        <p class="note warn">Changes made within 24 hours of the appointment forfeit the exam fee.</p>
+        <p class="note">Rescheduling keeps your price, including any discount. Canceling starts an automatic refund of what you paid at Pearson's checkout, which takes 7 to 10 business days.</p>
+        <p class="note">Registration currently requires a Claude Partner Network company email.</p>
       </div>
     </details>
 
     <details class="fold" id="identification">
       <summary><span class="ft">ID and accommodations</span><span class="fs">Bring a government photo ID that matches your registration exactly. Get accommodations approved before you book.</span></summary>
       <div class="fb">
-        <p>On exam day, present a valid, unexpired, government-issued photo ID. The name on it must match your registration exactly. To correct the name on your registration, contact Anthropic before you schedule:</p>
+        <p>On exam day, present a valid, unexpired, government-issued photo ID. The name on it must match your registration exactly. You can update your name yourself once, in the exam profile within your Partner Academy profile, before you schedule. For test center appointments, update it at least 24 hours ahead, because test center records sync once a day. For any later change, contact:</p>
         <p class="copyline"><code>certifications-support@anthropic.com</code><button type="button" class="ghost copy" data-copy="certifications-support@anthropic.com">Copy</button></p>
         <p>Accommodations are available for documented disabilities or needs. Pearson VUE must approve them before you schedule, so wait for approval before booking. Request them at <a href="https://pearsonvue.com/us/en/test-takers/accommodations" target="_blank" rel="noopener">pearsonvue.com/us/en/test-takers/accommodations</a>.</p>
       </div>
@@ -448,6 +471,7 @@ footer p+p{margin-top:6px}
             <p class="small muted" style="margin-top:8px">Pearson VUE sets any permitted items, such as scratch paper from the proctor.</p>
           </div>
         </div>
+        <p class="note">The exam is closed book. Browser translation tools are not permitted on the Pearson platform.</p>
         <p class="note bad">Cheating, trying to access prohibited resources or disclosing exam content can invalidate your result, revoke your credential and ban you from future exams.</p>
       </div>
     </details>
@@ -487,88 +511,41 @@ footer p+p{margin-top:6px}
     </details>
   </div>
 </section>
+
+<!-- APPENDIX -->
+<section id="appendix" class="panel" role="tabpanel" aria-labelledby="tab-appendix" hidden>
+  <div class="panel-head"><h2>Appendix: what can appear</h2><button type="button" class="ghost" data-expand>Expand all</button></div>
+  <p class="prose">Section 17 of the guide lists the technologies, the topics tested and the topics left out. Use the out-of-scope list to cut study time.</p>
+  <div class="folds">
+    <details class="fold" id="technologies">
+      <summary><span class="ft">Technologies and concepts</span><span class="fs">The APIs, files, flags and patterns that might appear on the exam</span></summary>
+      <div class="fb"><div class="table-scroll"><table><tr><th>Claude Agent SDK</th><td>agent definitions, agentic loops, <code>stop_reason</code> handling, hooks (PostToolUse, tool call interception), subagent spawning via the Task tool, <code>allowedTools</code></td></tr><tr><th>Model Context Protocol</th><td>servers, tools, resources, the <code>isError</code> flag, tool descriptions, tool distribution, <code>.mcp.json</code>, environment variable expansion</td></tr><tr><th>Claude Code</th><td>CLAUDE.md hierarchy (user/project/directory), <code>.claude/rules/</code> with YAML <code>paths</code>, <code>.claude/commands/</code>, <code>.claude/skills/</code> with SKILL.md frontmatter (<code>context: fork</code>, <code>allowed-tools</code>, <code>argument-hint</code>), plan mode, direct execution, <code>/memory</code>, <code>/compact</code>, <code>--resume</code>, <code>fork_session</code>, the Explore subagent</td></tr><tr><th>Claude Code CLI</th><td><code>-p</code> / <code>--print</code>, <code>--output-format json</code>, <code>--json-schema</code></td></tr><tr><th>Claude API</th><td><code>tool_use</code> with JSON schemas, <code>tool_choice</code> (<code>"auto"</code>, <code>"any"</code>, forced tool), <code>stop_reason</code> values, <code>max_tokens</code>, system prompts</td></tr><tr><th>Message Batches API</th><td>50% cost savings, up to 24-hour processing window, <code>custom_id</code> correlation, polling, no multi-turn tool calling</td></tr><tr><th>JSON Schema</th><td>required vs optional fields, enums, nullable fields, <code>"other"</code> + detail strings, strict mode</td></tr><tr><th>Pydantic</th><td>schema validation, semantic validation errors, validation-retry loops</td></tr><tr><th>Built-in tools</th><td>Read, Write, Edit, Bash, Grep, Glob and when to pick each</td></tr><tr><th>Prompting</th><td>few-shot examples for ambiguous cases, format demonstration, generalization; prompt chaining into focused passes</td></tr><tr><th>Context and sessions</th><td>token budgets, progressive summarization, lost-in-the-middle, fact extraction, scratchpad files, resumption, <code>fork_session</code>, named sessions, session isolation</td></tr><tr><th>Confidence scoring</th><td>field-level confidence, calibration with labeled validation sets, stratified sampling for error rates</td></tr></table></div></div>
+    </details>
+    <details class="fold" id="in-scope">
+      <summary><span class="ft">In scope</span><span class="fs">18 topic areas the exam tests explicitly</span></summary>
+      <div class="fb"><ul class="colist"><li>Agentic loops: <code>stop_reason</code> control flow, tool results, termination</li><li>Multi-agent orchestration: coordinator-subagent, decomposition, parallel subagents, iterative refinement</li><li>Subagent context: explicit passing, structured state persistence, crash recovery with manifests</li><li>Tool interface design: descriptions, splitting vs consolidating, naming</li><li>MCP tools and resources: resources for catalogs, tools for actions, description quality</li><li>MCP configuration: project vs user scope, env var expansion, several servers at once</li><li>Errors: structured responses, transient vs business vs permission, local recovery first</li><li>Escalation: explicit criteria, honoring customer preferences, policy gaps</li><li>CLAUDE.md: hierarchy, <code>@import</code>, <code>.claude/rules/</code> with globs</li><li>Commands and skills: project vs user scope, <code>context: fork</code>, <code>allowed-tools</code>, <code>argument-hint</code></li><li>Plan mode vs direct execution</li><li>Iterative refinement: I/O examples, test-driven iteration, interview pattern, batched vs sequential fixes</li><li>Structured output via <code>tool_use</code>: schemas, <code>tool_choice</code>, nullable fields</li><li>Few-shot prompting: ambiguous cases, format consistency, fewer false positives</li><li>Batch processing: when it fits, latency tolerance, failure handling by <code>custom_id</code></li><li>Context window optimization: trimming tool output, fact extraction, position-aware ordering</li><li>Human review: confidence calibration, stratified sampling, accuracy by document type and field</li><li>Provenance: claim-source mappings, dates, conflict annotation, coverage gaps</li></ul></div>
+    </details>
+    <details class="fold" id="out-of-scope">
+      <summary><span class="ft">Out of scope</span><span class="fs">16 related topics that will not appear</span></summary>
+      <div class="fb"><ul class="colist"><li>Fine-tuning or training custom models</li><li>API authentication, billing, account management</li><li>Language or framework implementation detail beyond tool and schema config</li><li>Deploying or hosting MCP servers</li><li>Claude's internal architecture, training or weights</li><li>Constitutional AI, RLHF, safety training methods</li><li>Embedding models and vector databases</li><li>Computer use</li><li>Vision and image analysis</li><li>Streaming and server-sent events</li><li>Rate limits, quotas, pricing calculations</li><li>OAuth, key rotation, auth protocols</li><li>Cloud provider configuration (AWS, GCP, Azure)</li><li>Benchmarks and model comparisons</li><li>Prompt caching beyond knowing it exists</li><li>Token counting and tokenization</li></ul></div>
+    </details>
+  </div>
+</section>
 </main>
 
 <footer class="wrap">
-  <p>Unofficial study companion built from the Claude Certified Architect – Professional Exam Guide, version 1.0 (initial publication, July 2026). The guide is subject to change without notice.</p>
-  <p>Read the <a href="https://everpath-course-content.s3-accelerate.amazonaws.com/instructor%2F6nizmqk8tpzpfjvt6qmmav7rh%2Fpublic%2F1783542810%2FClaude+Certified+Architect+%E2%80%93+Professional+Exam+Guide.pdf" target="_blank" rel="noopener">official exam guide (PDF)</a> before you register. Your ratings and checkmarks stay in this browser.</p>
+  <p>Unofficial study companion built from the Claude Certified Architect – Foundations Exam Guide, version 1.1 (effective November 2026). The guide is subject to change without notice.</p>
+  <p>Read the <a href="https://cc.sj-cdn.net/instructor/6nizmqk8tpzpfjvt6qmmav7rh/public/1794946250/Claude_Certified_Architect_-_Foundations_Exam_Guide.pdf" target="_blank" rel="noopener">official exam guide (PDF)</a> before you register. Your ratings and checkmarks stay in this browser.</p>
 </footer>
 
 <script>
 const LEVELS = ['New', 'Familiar', 'Confident'];
-const DOMAINS = [
-  {id:'d1', name:'Solution Design & Architecture', w:17, obj:[
-    'Translate business problems into Claude-based AI solutions',
-    'Design end-to-end architectures (input → processing → output → feedback loops)',
-    'Select appropriate architectural patterns (workflow, agentic, augmented LLM)',
-    'Design multi-agent systems and orchestration strategies',
-    'Apply decomposition techniques for complex problem solving',
-    'Align solutions to business value pillars (efficiency, transformation, productivity, cost, performance SLAs)']},
-  {id:'d2', name:'Claude Models, Prompting & Context Engineering', w:13, obj:[
-    'Select appropriate Claude models based on trade-offs',
-    'Design system prompts, templates and guardrails',
-    'Apply prompt engineering techniques (zero-shot, few-shot, chain-of-thought)',
-    'Optimize context windows and manage token usage',
-    'Implement prompt reuse strategies (caching, modular prompts, Skills)']},
-  {id:'d3', name:'Integration', w:19, obj:[
-    'Evaluate tool/agent configuration for capability bloat',
-    'Analyze authentication and authorization requirements to identify security gaps',
-    'Evaluate accuracy-latency trade-offs and justify configuration decisions',
-    'Analyze observability challenges and select monitoring strategies at scale',
-    'Design a RAG pipeline with appropriate chunking and indexing strategies',
-    'Apply retrieval strategies matched to data shape and query pattern',
-    'Evaluate connection protocols and select the integration mechanism (MCP, API/CLI, agent-to-agent)',
-    'Evaluate progressive discovery vs. monolithic context strategy']},
-  {id:'d4', name:'Evaluation, Testing & Optimization', w:16, obj:[
-    'Define evaluation metrics (accuracy, latency, cost, safety, security)',
-    'Design evaluation datasets and test frameworks using mixed methodologies',
-    'Conduct A/B testing and iterative improvements',
-    'Diagnose system issues (prompt failure, hallucinations, model mismatch)',
-    'Optimize token usage, latency and cost-performance trade-offs',
-    'Monitor system performance using logging and observability tools']},
-  {id:'d5', name:'Governance, Safety & Risk Management', w:14, obj:[
-    'Implement guardrails and safety controls',
-    'Identify risks, limitations and failure modes of LLM systems',
-    'Apply human-in-the-loop validation strategies',
-    'Ensure compliance with regulations (e.g., GDPR, HIPAA, FedRAMP)',
-    'Address ethical AI considerations (bias, fairness, transparency)']},
-  {id:'d6', name:'Stakeholder Communication & Lifecycle Management', w:14, obj:[
-    'Conduct structured discovery and requirement gathering',
-    'Communicate architectural decisions and trade-offs',
-    'Manage stakeholder feedback loops and expectation alignment (including SLAs)',
-    'Document architectures and provide implementation guidance',
-    'Support lifecycle phases (discovery, design, handoff, monitoring, iteration)']},
-  {id:'d7', name:'Developer Productivity & Operational Enablement', w:7, obj:[
-    'Configure Claude tools and environments for teams (e.g., Claude Code)',
-    'Improve developer workflows using AI-assisted tooling',
-    'Support debugging and operational issue resolution']},
-];
-const SAMPLES = [
-  {domain:'D3 · Integration', a:1,
-   q:'A team exposes a customer-support agent that can read tickets, draft replies, issue refunds, and delete user accounts. Support staff only ever need to read tickets and draft replies. Applying least-privilege principles, which change best reduces risk?',
-   opts:['Add logging to the refund and delete tools so misuse can be audited later.',
-         "Remove the refund and delete tools from the agent's configuration entirely.",
-         'Keep all tools but add a confirmation prompt before refunds and deletions.',
-         'Replace the agent with a larger model that follows instructions more reliably.'],
-   why:'Least privilege means removing capabilities the role does not require, eliminating the attack surface rather than monitoring or guarding it. Logging (A) and confirmations (C) are detective/compensating controls, not removal of unnecessary privilege; model size (D) is unrelated to authorization scope.'},
-  {domain:'D2 · Models, Prompting & Context', a:2,
-   q:'An application sends the same 8,000-token system prompt and policy document on every request, followed by a short, varying user message. Latency and cost are both concerns. Which optimization most directly addresses both?',
-   opts:['Truncate the policy document to the first 1,000 tokens.',
-         'Switch to the smallest available model regardless of task fit.',
-         'Place the static system prompt and policy before the dynamic content and enable prompt caching.',
-         'Move the policy document into a few-shot example block.'],
-   why:'Ordering stable content first and enabling prompt caching lets repeated prefixes be reused, reducing both time-to-first-token and per-request cost without discarding required context. Truncation (A) loses needed policy; downsizing blindly (B) risks quality; relocating to few-shot (D) does not create a cacheable, reusable prefix.'},
-  {domain:'D4 · Evaluation & Optimization', a:1,
-   q:'A RAG system suddenly returns confident but incorrect answers after a document refresh, while latency and model version are unchanged. What is the most likely first place to investigate?',
-   opts:['The model weights have silently changed.',
-         'The retrieval/indexing step is returning irrelevant or stale chunks.',
-         'The temperature setting is too low.',
-         'The context window has shrunk.'],
-   why:'Confident-but-wrong answers following a document refresh, with model and latency unchanged, point to retrieval feeding the model poor context, for example a broken re-index or mismatched embeddings. The other options would not be triggered specifically by a document refresh.'},
-];
-
+const ITEMS = 60;
+const DOMAINS = [{"id": "d1", "name": "Agentic Architecture & Orchestration", "w": 27, "obj": ["1.1 Design and implement agentic loops for autonomous task execution", "1.2 Orchestrate multi-agent systems with coordinator-subagent patterns", "1.3 Configure subagent invocation, context passing, and spawning", "1.4 Implement multi-step workflows with enforcement and handoff patterns", "1.5 Apply Agent SDK hooks for tool call interception and data normalization", "1.6 Design task decomposition strategies for complex workflows", "1.7 Manage session state, resumption, and forking"]}, {"id": "d2", "name": "Tool Design & MCP Integration", "w": 18, "obj": ["2.1 Design effective tool interfaces with clear descriptions and boundaries", "2.2 Implement structured error responses for MCP tools", "2.3 Distribute tools appropriately across agents and configure tool choice", "2.4 Integrate MCP servers into Claude Code and agent workflows", "2.5 Select and apply built-in tools (Read, Write, Edit, Bash, Grep, Glob) effectively"]}, {"id": "d3", "name": "Claude Code Configuration & Workflows", "w": 20, "obj": ["3.1 Configure CLAUDE.md files with appropriate hierarchy, scoping, and modular organization", "3.2 Create and configure custom slash commands and skills", "3.3 Apply path-specific rules for conditional convention loading", "3.4 Determine when to use plan mode vs direct execution", "3.5 Apply iterative refinement techniques for progressive improvement", "3.6 Integrate Claude Code into CI/CD pipelines"]}, {"id": "d4", "name": "Prompt Engineering & Structured Output", "w": 20, "obj": ["4.1 Design prompts with explicit criteria to improve precision and reduce false positives", "4.2 Apply few-shot prompting to improve output consistency and quality", "4.3 Enforce structured output using tool use and JSON schemas", "4.4 Implement validation, retry, and feedback loops for extraction quality", "4.5 Design efficient batch processing strategies", "4.6 Design multi-instance and multi-pass review architectures"]}, {"id": "d5", "name": "Context Management & Reliability", "w": 15, "obj": ["5.1 Manage conversation context to preserve critical information across long interactions", "5.2 Design effective escalation and ambiguity resolution patterns", "5.3 Implement error propagation strategies across multi-agent systems", "5.4 Manage context effectively in large codebase exploration", "5.5 Design human review workflows and confidence calibration", "5.6 Preserve information provenance and handle uncertainty in multi-source synthesis"]}];
+const SAMPLES = [{"scenario": "Customer Support Resolution Agent", "domain": "D1", "a": 0, "q": "Production data shows that in 12% of cases, your agent skips get_customer entirely and calls lookup_order using only the customer's stated name, occasionally leading to misidentified accounts and incorrect refunds. What change would most effectively address this reliability issue?", "opts": ["Add a programmatic prerequisite that blocks lookup_order and process_refund calls until get_customer has returned a verified customer ID.", "Enhance the system prompt to state that customer verification via get_customer is mandatory before any order operations.", "Add few-shot examples showing the agent always calling get_customer first, even when customers volunteer order details.", "Implement a routing classifier that analyzes each request and enables only the subset of tools appropriate for that request type."], "why": "When a specific tool sequence is required for critical business logic (like verifying customer identity before processing refunds), programmatic enforcement provides deterministic guarantees that prompt-based approaches cannot. Options B and C rely on probabilistic LLM compliance, which is insufficient when errors have financial consequences. Option D addresses tool availability rather than tool ordering, which is not the actual problem."}, {"scenario": "Customer Support Resolution Agent", "domain": "D2", "a": 1, "q": "Production logs show the agent frequently calls get_customer when users ask about orders (e.g., \"check my order #12345\"), instead of calling lookup_order. Both tools have minimal descriptions (\"Retrieves customer information\" / \"Retrieves order details\") and accept similar identifier formats. What's the most effective first step to improve tool selection reliability?", "opts": ["Add few-shot examples to the system prompt demonstrating correct tool selection patterns, with 5-8 examples showing order-related queries routing to lookup_order.", "Expand each tool's description to include input formats it handles, example queries, edge cases, and boundaries explaining when to use it versus similar tools.", "Implement a routing layer that parses user input before each turn and pre-selects the appropriate tool based on detected keywords and identifier patterns.", "Consolidate both tools into a single lookup_entity tool that accepts any identifier and internally determines which backend to query."], "why": "Tool descriptions are the primary mechanism LLMs use for tool selection. When descriptions are minimal, models lack the context to differentiate between similar tools. Option B directly addresses this root cause with a low-effort, high-leverage fix. Few-shot examples (A) add token overhead without fixing the underlying issue. A routing layer (C) is over-engineered and bypasses the LLM's natural language understanding. Consolidating tools (D) is a valid architectural choice but requires more effort than a \"first step\" warrants when the immediate problem is inadequate descriptions."}, {"scenario": "Customer Support Resolution Agent", "domain": "D5", "a": 0, "q": "Your agent achieves 55% first-contact resolution, well below the 80% target. Logs show it escalates straightforward cases (standard damage replacements with photo evidence) while attempting to autonomously handle complex situations requiring policy exceptions. What's the most effective way to improve escalation calibration?", "opts": ["Add explicit escalation criteria to your system prompt with few-shot examples demonstrating when to escalate versus resolve autonomously.", "Have the agent self-report a confidence score (1-10) before each response and automatically route requests to humans when confidence falls below a threshold.", "Deploy a separate classifier model trained on historical tickets to predict which requests need escalation before the main agent begins processing.", "Implement sentiment analysis to detect customer frustration levels and automatically escalate when negative sentiment exceeds a threshold."], "why": "Adding explicit escalation criteria with few-shot examples directly addresses the root cause: unclear decision boundaries. This is the proportionate first response before adding infrastructure. Option B fails because LLM self-reported confidence is poorly calibrated: the agent is already incorrectly confident on hard cases. Option C is over-engineered, requiring labeled data and ML infrastructure when prompt optimization hasn't been tried. Option D solves a different problem entirely; sentiment doesn't correlate with case complexity, which is the actual issue."}, {"scenario": "Code Generation with Claude Code", "domain": "D3", "a": 0, "q": "You want to create a custom /review slash command that runs your team's standard code review checklist. This command should be available to every developer when they clone or pull the repository. Where should you create this command file?", "opts": ["In the .claude/commands/ directory in the project repository", "In ~/.claude/commands/ in each developer's home directory", "In the CLAUDE.md file at the project root", "In a .claude/config.json file with a commands array"], "why": "Project-scoped custom slash commands should be stored in the .claude/commands/ directory within the repository. These commands are version-controlled and automatically available to all developers when they clone or pull the repo. Option B (~/.claude/commands/) is for personal commands that aren't shared via version control. Option C (CLAUDE.md) is for project instructions and context, not command definitions. Option D describes a configuration mechanism that doesn't exist in Claude Code."}, {"scenario": "Code Generation with Claude Code", "domain": "D3", "a": 0, "q": "You've been assigned to restructure the team's monolithic application into microservices. This will involve changes across dozens of files and requires decisions about service boundaries and module dependencies. Which approach should you take?", "opts": ["Enter plan mode to explore the codebase, understand dependencies, and design an implementation approach before making changes.", "Start with direct execution and make changes incrementally, letting the implementation reveal the natural service boundaries.", "Use direct execution with comprehensive upfront instructions detailing exactly how each service should be structured.", "Begin in direct execution mode and only switch to plan mode if you encounter unexpected complexity during implementation."], "why": "Plan mode is designed for complex tasks involving large-scale changes, multiple valid approaches, and architectural decisions, exactly what monolith-to-microservices restructuring requires. It enables safe codebase exploration and design before committing to changes. Option B risks costly rework when dependencies are discovered late. Option C assumes you already know the right structure without exploring the code. Option D ignores that the complexity is already stated in the requirements, not something that might emerge later."}, {"scenario": "Code Generation with Claude Code", "domain": "D3", "a": 0, "q": "Your codebase has distinct areas with different coding conventions: React components use functional style with hooks, API handlers use async/await with specific error handling, and database models follow a repository pattern. Test files are spread throughout the codebase alongside the code they test (e.g., Button.test.tsx next to Button.tsx), and you want all tests to follow the same conventions regardless of location. What's the most maintainable way to ensure Claude automatically applies the correct conventions when generating code?", "opts": ["Create rule files in .claude/rules/ with YAML frontmatter specifying glob patterns to conditionally apply conventions based on file paths", "Consolidate all conventions in the root CLAUDE.md file under headers for each area, relying on Claude to infer which section applies", "Create skills in .claude/skills/ for each code type that include the relevant conventions in their SKILL.md files", "Place a separate CLAUDE.md file in each subdirectory containing that area's specific conventions"], "why": "Option A is correct because .claude/rules/ with glob patterns (e.g., **/*.test.tsx) allows conventions to be automatically applied based on file paths regardless of directory location, essential for test files spread throughout the codebase. Option B relies on inference rather than explicit matching, making it unreliable. Option C requires manual skill invocation or relies on Claude choosing to load them, contradicting the need for deterministic \"automatic\" application based on file paths. Option D can't easily handle files spread across many directories since CLAUDE.md files are directory-bound."}, {"scenario": "Multi-Agent Research System", "domain": "D1", "a": 1, "q": "After running the system on the topic \"impact of AI on creative industries,\" you observe that each subagent completes successfully: the web search agent finds relevant articles, the document analysis agent summarizes papers correctly, and the synthesis agent produces coherent output. However, the final reports cover only visual arts, completely missing music, writing, and film production. When you examine the coordinator's logs, you see it decomposed the topic into three subtasks: \"AI in digital art creation,\" \"AI in graphic design,\" and \"AI in photography.\" What is the most likely root cause?", "opts": ["The synthesis agent lacks instructions for identifying coverage gaps in the findings it receives from other agents.", "The coordinator agent's task decomposition is too narrow, resulting in subagent assignments that don't cover all relevant domains of the topic.", "The web search agent's queries are not comprehensive enough and need to be expanded to cover more creative industry sectors.", "The document analysis agent is filtering out sources related to non-visual creative industries due to overly restrictive relevance criteria."], "why": "The coordinator's logs reveal the root cause directly: it decomposed \"creative industries\" into only visual arts subtasks (digital art, graphic design, photography), completely omitting music, writing, and film. The subagents executed their assigned tasks correctly; the problem is what they were assigned. Options A, C, and D incorrectly blame downstream agents that are working correctly within their assigned scope."}, {"scenario": "Multi-Agent Research System", "domain": "D5", "a": 0, "q": "The web search subagent times out while researching a complex topic. You need to design how this failure information flows back to the coordinator agent. Which error propagation approach best enables intelligent recovery?", "opts": ["Return structured error context to the coordinator including the failure type, the attempted query, any partial results, and potential alternative approaches.", "Implement automatic retry logic with exponential backoff within the subagent, returning a generic \"search unavailable\" status only after all retries are exhausted.", "Catch the timeout within the subagent and return an empty result set marked as successful.", "Propagate the timeout exception directly to a top-level handler that terminates the entire research workflow."], "why": "Structured error context gives the coordinator the information it needs to make intelligent recovery decisions: whether to retry with a modified query, try an alternative approach, or proceed with partial results. Option B's generic status hides valuable context from the coordinator, preventing informed decisions. Option C suppresses the error by marking failure as success, which prevents any recovery and risks incomplete research outputs. Option D terminates the entire workflow unnecessarily when recovery strategies could succeed."}, {"scenario": "Multi-Agent Research System", "domain": "D2", "a": 0, "q": "During testing, you observe that the synthesis agent frequently needs to verify specific claims while combining findings. Currently, when verification is needed, the synthesis agent returns control to the coordinator, which invokes the web search agent, then re-invokes synthesis with results. This adds 2-3 round trips per task and increases latency by 40%. Your evaluation shows that 85% of these verifications are simple fact-checks (dates, names, statistics) while 15% require deeper investigation. What's the most effective approach to reduce overhead while maintaining system reliability?", "opts": ["Give the synthesis agent a scoped verify_fact tool for simple lookups, while complex verifications continue delegating to the web search agent through the coordinator.", "Have the synthesis agent accumulate all verification needs and return them as a batch to the coordinator at the end of its pass, which then sends them all to the web search agent at once.", "Give the synthesis agent access to all web search tools so it can handle any verification need directly without round-trips through the coordinator.", "Have the web search agent proactively cache extra context around each source during initial research, anticipating what the synthesis agent might need to verify."], "why": "Option A applies the principle of least privilege by giving the synthesis agent only what it needs for the 85% common case (simple fact verification) while preserving the existing coordination pattern for complex cases. Option B's batching approach creates blocking dependencies since synthesis steps may depend on earlier verified facts. Option C over-provisions the synthesis agent, violating separation of concerns. Option D relies on speculative caching that cannot reliably predict what the synthesis agent will need to verify."}, {"scenario": "Claude Code for Continuous Integration", "domain": "D3", "a": 0, "q": "Your pipeline script runs claude \"Analyze this pull request for security issues\" but the job hangs indefinitely. Logs indicate Claude Code is waiting for interactive input. What's the correct approach to run Claude Code in an automated pipeline?", "opts": ["Add the -p flag: claude -p \"Analyze this pull request for security issues\"", "Set the environment variable CLAUDE_HEADLESS=true before running the command", "Redirect stdin from /dev/null: claude \"Analyze this pull request for security issues\" < /dev/null", "Add the --batch flag: claude --batch \"Analyze this pull request for security issues\""], "why": "The -p (or --print) flag is the documented way to run Claude Code in non-interactive mode. It processes the prompt, outputs the result to stdout, and exits without waiting for user input, exactly what CI/CD pipelines require. The other options reference non-existent features (CLAUDE_HEADLESS environment variable, --batch flag) or use Unix workarounds that don't properly address Claude Code's command syntax."}, {"scenario": "Claude Code for Continuous Integration", "domain": "D4", "a": 0, "q": "Your team wants to reduce API costs for automated analysis. Currently, real-time Claude calls power two workflows: (1) a blocking pre-merge check that must complete before developers can merge, and (2) a technical debt report generated overnight for review the next morning. Your manager proposes switching both to the Message Batches API for its 50% cost savings. How should you evaluate this proposal?", "opts": ["Use batch processing for the technical debt reports only; keep real-time calls for pre-merge checks.", "Switch both workflows to batch processing with status polling to check for completion.", "Keep real-time calls for both workflows to avoid batch result ordering issues.", "Switch both to batch processing with a timeout fallback to real-time if batches take too long."], "why": "The Message Batches API offers 50% cost savings but has processing times up to 24 hours with no guaranteed latency SLA. This makes it unsuitable for blocking pre-merge checks where developers wait for results, but ideal for overnight batch jobs like technical debt reports. Option B is wrong because relying on \"often faster\" completion isn't acceptable for blocking workflows. Option C reflects a misconception: batch results can be correlated using custom_id fields. Option D adds unnecessary complexity when the simpler solution is matching each API to its appropriate use case."}, {"scenario": "Claude Code for Continuous Integration", "domain": "D4", "a": 0, "q": "A pull request modifies 14 files across the stock tracking module. Your single-pass review analyzing all files together produces inconsistent results: detailed feedback for some files but superficial comments for others, obvious bugs missed, and contradictory feedback, flagging a pattern as problematic in one file while approving identical code elsewhere in the same PR. How should you restructure the review?", "opts": ["Split into focused passes: analyze each file individually for local issues, then run a separate integration-focused pass examining cross-file data flow.", "Require developers to split large PRs into smaller submissions of 3-4 files before the automated review runs.", "Switch to a higher-tier model with a larger context window to give all 14 files adequate attention in one pass.", "Run three independent review passes on the full PR and only flag issues that appear in at least two of the three runs."], "why": "Splitting reviews into focused passes directly addresses the root cause: attention dilution when processing many files at once. File-by-file analysis ensures consistent depth, while a separate integration pass catches cross-file issues. Option B shifts burden to developers without improving the system. Option C misunderstands that larger context windows don't solve attention quality issues. Option D would actually suppress detection of real bugs by requiring consensus on issues that may only be caught intermittently."}];
 const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
-const KEY = 'ccarp-guide-v1';
+const KEY = 'ccarf-guide-v1';
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 let store = {r:{}, c:{}, tab:'overview'};
 try { const s = JSON.parse(localStorage.getItem(KEY)); if (s) store = {...store, ...s}; } catch (e) {}
 const save = () => { try { localStorage.setItem(KEY, JSON.stringify(store)); } catch (e) {} };
@@ -577,19 +554,20 @@ const smooth = () => matchMedia('(prefers-reduced-motion: reduce)').matches ? 'a
 /* ---------- blueprint ---------- */
 const bar = $('#wbar'), wrap = $('#wbar-wrap'), tip = $('#tip'), doms = $('#domains');
 DOMAINS.forEach((d, i) => {
-  d.n = Math.round(63 * d.w / 100);
+  d.n = Math.round(ITEMS * d.w / 100);
   d.label = 'D' + (i + 1);
   bar.insertAdjacentHTML('beforeend',
     `<button type="button" class="seg" data-d="${d.id}" style="flex:${d.w} 1 0" aria-label="${d.label} ${d.name}: ${d.w}% of the exam, about ${d.n} items"><b>${d.label}</b><span>${d.w}%</span></button>`);
   doms.insertAdjacentHTML('beforeend', `<details class="fold dom" id="${d.id}">
     <summary>
       <span class="dnum">${d.label}</span>
-      <span class="dt"><span class="ft">${d.name}</span><span class="fs">${d.w}% of the exam · ≈ ${d.n} items · ${d.obj.length} objectives</span></span>
+      <span class="dt"><span class="ft">${d.name}</span><span class="fs">${d.w}% of the exam · ≈ ${d.n} items · ${d.obj.length} task statements</span></span>
       <span class="dready" title="Your readiness for this domain"><span class="meter"><i></i></span><span class="pct">0%</span></span>
     </summary>
     <ul class="objs">${d.obj.map((o, j) => {
       const k = `${d.id}-${j}`;
-      return `<li class="obj"><span>${o}</span><fieldset class="rate"><legend class="sr">How confident are you?</legend>${
+      const sp = o.indexOf(' ');
+      return `<li class="obj"><span><span class="tsnum">${o.slice(0, sp)}</span>${esc(o.slice(sp + 1))}</span><fieldset class="rate"><legend class="sr">How confident are you?</legend>${
         LEVELS.map((l, v) => `<input type="radio" name="${k}" id="${k}-${v}" value="${v}"${store.r[k] === v ? ' checked' : ''}><label for="${k}-${v}">${l}</label>`).join('')
       }</fieldset></li>`;
     }).join('')}</ul>
@@ -611,11 +589,11 @@ function updateReadiness() {
   $('#ready-pct').textContent = Math.round(total) + '%';
   $('#ready-bar').style.width = total + '%';
   const focus = $('#focus');
-  if (!rated) { focus.textContent = 'Open a domain and rate each objective as New, Familiar or Confident. The meter weights your ratings by each domain\'s share of the exam.'; return; }
+  if (!rated) { focus.textContent = 'Open a domain and rate each task statement as New, Familiar or Confident. The meter weights your ratings by each domain\'s share of the exam.'; return; }
   const gap = DOMAINS.reduce((a, d) => d.w * (1 - d.r) > a.w * (1 - a.r) ? d : a);
   focus.innerHTML = gap.r === 1
-    ? `${rated} of ${TOTAL_OBJ} objectives rated. Every objective is Confident.`
-    : `${rated} of ${TOTAL_OBJ} objectives rated. Biggest weighted gap: <a href="#${gap.id}">${gap.label} ${gap.name}</a> (${gap.w}% of the exam, ${Math.round(gap.r * 100)}% ready).`;
+    ? `${rated} of ${TOTAL_OBJ} task statements rated. Every one is Confident.`
+    : `${rated} of ${TOTAL_OBJ} task statements rated. Biggest weighted gap: <a href="#${gap.id}">${gap.label} ${gap.name}</a> (${gap.w}% of the exam, ${Math.round(gap.r * 100)}% ready).`;
 }
 doms.addEventListener('change', e => { store.r[e.target.name] = +e.target.value; save(); updateReadiness(); });
 
@@ -677,10 +655,10 @@ const updScore = () => $('#score').textContent = `${answered} of ${SAMPLES.lengt
 function renderQs() {
   answered = correct = 0; updScore();
   qs.innerHTML = SAMPLES.map((s, q) => `<article class="q" id="sample-${q + 1}">
-    <p class="eyebrow">Sample ${q + 1} · ${s.domain}</p>
-    <p class="stem">${s.q}</p>
-    <div class="opts">${s.opts.map((o, i) => `<button type="button" class="opt" data-q="${q}" data-i="${i}"><span class="key">${'ABCD'[i]}</span><span>${o}</span></button>`).join('')}</div>
-    <div class="fb-q" hidden><p class="verdict"></p><p><strong>Rationale.</strong> ${s.why}</p></div>
+    <p class="eyebrow">Sample ${q + 1} · ${s.domain} · ${esc(s.scenario)}</p>
+    <p class="stem">${esc(s.q)}</p>
+    <div class="opts">${s.opts.map((o, i) => `<button type="button" class="opt" data-q="${q}" data-i="${i}"><span class="key">${'ABCD'[i]}</span><span>${esc(o)}</span></button>`).join('')}</div>
+    <div class="fb-q" hidden><p class="verdict"></p><p><strong>From the guide.</strong> ${esc(s.why)}</p></div>
     <button type="button" class="link" data-reveal="${q}">Show answer without guessing</button>
   </article>`).join('');
 }
@@ -722,7 +700,7 @@ document.addEventListener('click', e => {
   } catch (err) { fallback(); }
 });
 
-/* ---------- tabs + deep links (#blueprint, #d3, #retakes …) ---------- */
+/* ---------- tabs + deep links (#blueprint, #d3, #sample-4, #retakes …) ---------- */
 const tabs = $$('[role=tab]'), hero = $('.hero');
 function show(name) {
   tabs.forEach(t => {
@@ -759,3 +737,5 @@ function route() {
 addEventListener('hashchange', route);
 route();
 </script>
+</body>
+</html>

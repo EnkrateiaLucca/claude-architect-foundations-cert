@@ -1,0 +1,558 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>CCAR-F Cheatsheet</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #f5f0e6;
+    --cream-2: #ebe4d4;
+    --paper: #fbf8f1;
+    --line: #ddd5c0;
+    --ink: #1a1a1a;
+    --ink-2: #444;
+    --muted: #6b6559;
+    --accent: #b85c1f;
+    --gold: #d9a441;
+    --trap-bg: #fbefe4;
+  }
+  @page {
+    size: Letter;
+    margin: 0.34in 0.34in 0.4in;
+    @bottom-left { content: "CCAR-F Exam Cheatsheet · Claude Certified Architect – Foundations"; font: 600 6.5pt Inter, sans-serif; color: #8a8478; }
+    @bottom-right { content: counter(page) " / " counter(pages); font: 600 6.5pt Inter, sans-serif; color: #8a8478; }
+  }
+  * { box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif;
+    font-size: 9pt; line-height: 1.23; color: var(--ink); background: #fff;
+  }
+  @media screen { body { max-width: 8.5in; margin: 20px auto; padding: 0 16px; } }
+  .page { break-before: page; }
+  h1, h2, h3, h4, p, ul, ol { margin: 0; }
+  ul, ol { padding-left: 1.15em; }
+  li { margin: 0.5px 0; }
+  b, strong { font-weight: 700; }
+  a { color: var(--accent); text-decoration: none; }
+  .muted { color: var(--muted); }
+  .small { font-size: 7.8pt; line-height: 1.2; }
+  .acc { color: var(--accent); font-weight: 700; }
+
+  /* header */
+  .masthead {
+    background: var(--ink); color: var(--cream); padding: 8px 12px 7px; border-radius: 4px;
+    display: flex; justify-content: space-between; align-items: flex-end; gap: 10px;
+    border-top: 4px solid var(--gold);
+  }
+  .masthead .kicker { color: var(--gold); font-size: 7pt; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; }
+  .masthead h1 { font-size: 15.5pt; font-weight: 800; line-height: 1.1; margin-top: 2px; }
+  .masthead .sub { font-size: 7.6pt; color: #c9c4b5; text-align: right; max-width: 2.6in; }
+
+  /* section headers */
+  .sec-h {
+    display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap;
+    border-bottom: 2px solid var(--ink); padding-bottom: 1px; margin: 6px 0 4px;
+  }
+  .sec-h h2 { font-size: 12.5pt; font-weight: 800; }
+  .sec-h .code { background: var(--accent); color: #fff; font-weight: 800; font-size: 9pt; padding: 1px 6px; border-radius: 3px; }
+  .sec-h .meta { margin-left: auto; font-size: 7.6pt; color: var(--muted); font-weight: 600; }
+  .sec-h .meta b { color: var(--accent); }
+  .sec-h .fourd { background: var(--gold); color: var(--ink); font-size: 7pt; font-weight: 700; padding: 1px 5px; border-radius: 3px; letter-spacing: 0.04em; }
+
+  .objectives {
+    background: var(--cream); border-left: 3px solid var(--gold); padding: 3px 8px 3px 6px;
+    font-size: 7.3pt; line-height: 1.18; color: var(--ink-2); margin-bottom: 4px; break-inside: avoid;
+  }
+  .objectives .lbl { font-weight: 700; color: var(--ink); letter-spacing: 0.04em; text-transform: uppercase; font-size: 6.8pt; margin-right: 3px; }
+  .objectives ol { columns: 2; column-gap: 14px; padding-left: 1.6em; margin-top: 1px; }
+  .objectives ol li { break-inside: avoid; }
+
+
+  .head { break-inside: avoid; }
+  .sec-h, .objectives, .card h4 { break-after: avoid; }
+  /* cards & layout */
+  .cols { column-count: 2; column-gap: 9px; }
+  .cols-3 { column-count: 3; column-gap: 8px; }
+  .card {
+    background: var(--paper); border: 1px solid var(--line); border-radius: 3px;
+    padding: 3px 6px 3px; margin: 0 0 4.5px; break-inside: avoid; display: block;
+  }
+  .card h4, .tile h4 {
+    font-size: 7.2pt; font-weight: 800; color: var(--accent); text-transform: uppercase;
+    letter-spacing: 0.07em; margin-bottom: 2px;
+  }
+  .card p + p, .card p + ul, .card ul + p, .card table + p, .card p + table { margin-top: 2px; }
+  .card.plain { background: #fff; }
+  .card.flow { break-inside: auto; }
+  tr { break-inside: avoid; }
+  .uc { columns: 2; column-gap: 14px; font-size: 8pt; line-height: 1.2; padding-left: 0; list-style: none; }
+  .uc li { break-inside: avoid; margin: 0 0 1.5px; padding-left: 8px; text-indent: -8px; }
+  .uc li b { color: var(--accent); }
+  .fn { font-size: 7pt; color: var(--muted); font-weight: 400; margin-top: 1px; word-break: break-word; }
+  .card.trap { background: var(--trap-bg); border-color: #e6c9b0; border-left: 3px solid var(--accent); }
+  .card.key { background: #fff; border: 1.5px solid var(--ink); }
+  .row { display: grid; gap: 8px; margin-bottom: 6px; }
+  .row > .card { margin: 0; }
+  .r2 { grid-template-columns: 1fr 1fr; }
+  .r3 { grid-template-columns: 1fr 1fr 1fr; }
+  .r-60 { grid-template-columns: 1.35fr 1fr; }
+  .r-40 { grid-template-columns: 1fr 1.35fr; }
+
+  /* tables */
+  table { width: 100%; border-collapse: collapse; font-size: 7.8pt; line-height: 1.18; }
+  th { background: var(--ink); color: var(--cream); font-weight: 700; text-align: left; padding: 1.5px 3.5px; font-size: 7.4pt; }
+  td { padding: 1px 3.5px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  tbody tr:nth-child(even) td { background: rgba(235,228,212,0.45); }
+  td:first-child { font-weight: 700; }
+  td.c, th.c { text-align: center; }
+  .t-acc td:first-child { color: var(--accent); }
+  table.notbold td:first-child { font-weight: 400; }
+  .pat { font-style: italic; color: var(--accent); white-space: nowrap; }
+
+  /* page 1 */
+  .glance { display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; margin: 6px 0; }
+  .tile { background: var(--cream); border-radius: 3px; padding: 4px 6px; border: 1px solid var(--line); }
+  .tile .big { font-size: 13pt; font-weight: 800; color: var(--ink); line-height: 1.05; }
+  .tile .big small { font-size: 8pt; font-weight: 700; color: var(--accent); }
+  .tile .cap { font-size: 7.3pt; color: var(--ink-2); line-height: 1.22; margin-top: 1px; }
+  .elig { font-size: 7.8pt; background: #fff; border: 1.5px solid var(--ink); border-radius: 3px; padding: 3px 7px; margin-bottom: 6px; }
+  .bar { display: inline-block; height: 7px; background: var(--accent); border-radius: 2px; vertical-align: middle; }
+  .bar.gold { background: var(--gold); }
+  .rules { counter-reset: r; list-style: none; padding: 0; }
+  .rules li { counter-increment: r; position: relative; padding-left: 17px; margin: 2px 0; }
+  .rules li::before {
+    content: counter(r); position: absolute; left: 0; top: 0.5px; width: 12.5px; height: 12.5px; border-radius: 50%;
+    background: var(--accent); color: #fff; font-size: 7pt; font-weight: 800; text-align: center; line-height: 12.5px;
+  }
+  .answer-move { background: var(--ink); color: var(--cream); border-radius: 3px; padding: 5px 9px; font-size: 8.8pt; margin-bottom: 6px; }
+  .answer-move b { color: var(--gold); }
+
+  .links { columns: 3; column-gap: 12px; font-size: 7.6pt; line-height: 1.2; list-style: none; padding: 0; }
+  .links li { break-inside: avoid; margin-bottom: 2px; }
+  .links li span { color: var(--muted); font-size: 7.2pt; word-break: break-all; }
+  .foot-note { font-size: 7.2pt; color: var(--muted); margin-top: 4px; }
+  code { font-family: 'SF Mono', Menlo, Consolas, monospace; font-size: 0.9em; }
+  .tight table { font-size: 7.2pt; }
+  .tight .card { padding: 2px 5px; margin-bottom: 3px; }
+  .tight .row { gap: 6px; margin-bottom: 4px; }
+  .tight li { margin: 0; line-height: 1.17; }
+  .tight .objectives { font-size: 6.9pt; }
+</style>
+</head>
+<body>
+
+<!-- ============================ PAGE 1 ============================ -->
+<header class="masthead">
+  <div>
+    <div class="kicker">Exam summary · Exam code CCAR-F</div>
+    <h1>Claude Certified Architect – Foundations: Exam Cheatsheet</h1>
+  </div>
+  <div class="sub">Companion to the O'Reilly exam-prep course. Exam facts follow the official Exam Guide v1.1 (November 2026). Platform facts checked against Anthropic docs, October 2026.</div>
+</header>
+
+<div class="glance">
+  <div class="tile"><div class="big">60 <small>items</small></div><div class="cap">Multiple-choice and multiple-response. Each item states how many to pick.</div></div>
+  <div class="tile"><div class="big">120 <small>min</small></div><div class="cap">2 min per item. 4 scenarios drawn from a bank of 6.</div></div>
+  <div class="tile"><div class="big">720 <small>/ 1,000</small></div><div class="cap">Scaled cut score on 100–1,000. Not 72% raw.</div></div>
+  <div class="tile"><div class="big">$125 <small>USD</small></div><div class="cap">Per attempt. Partner-tier discounts may apply at checkout.</div></div>
+  <div class="tile"><div class="big">12 <small>months</small></div><div class="cap">Valid 12 months. On-time renewal is free and non-proctored.</div></div>
+  <div class="tile"><h4>Audience</h4><div class="cap">Solution architects with 6+ months building with the Claude API, Agent SDK, Claude Code, and MCP.</div></div>
+  <div class="tile"><h4>Delivery</h4><div class="cap">Pearson VUE, online proctored or test center. Closed book, NDA.</div></div>
+  <div class="tile"><h4>Score report</h4><div class="cap">Pass/fail + scaled score + percent-correct per domain. Only the total decides.</div></div>
+  <div class="tile"><h4>Retakes</h4><div class="cap">Wait 14 / 30 / 90 days. Max 4 attempts per rolling 12 months.</div></div>
+  <div class="tile"><h4>Reschedule</h4><div class="cap">OnVUE up to <b>1 h</b> before · test center up to <b>48 h</b>. Later changes forfeit the fee.</div></div>
+</div>
+<div class="elig"><b class="acc">What it tests.</b> Informed trade-off decisions when building production systems with <b>Claude Code, the Claude Agent SDK, the Claude API, and MCP</b>. Items name real parameters: <code>stop_reason</code>, <code>tool_choice</code>, <code>.mcp.json</code>, <code>-p</code>. Registration requires a Claude Partner Network company email.</div>
+
+<div class="row r-60">
+  <div class="card plain">
+    <h4>Blueprint: 5 domains, 30 task statements</h4>
+    <table>
+      <thead><tr><th>#</th><th>Domain</th><th class="c">Weight</th><th class="c">~Items</th><th class="c">Tasks</th></tr></thead>
+      <tbody>
+        <tr><td>D1</td><td><b>Agentic Architecture &amp; Orchestration</b></td><td class="c"><b>27%</b></td><td class="c">16</td><td class="c">1.1–1.7</td></tr>
+        <tr><td>D2</td><td>Tool Design &amp; MCP Integration</td><td class="c">18%</td><td class="c">11</td><td class="c">2.1–2.5</td></tr>
+        <tr><td>D3</td><td>Claude Code Configuration &amp; Workflows</td><td class="c">20%</td><td class="c">12</td><td class="c">3.1–3.6</td></tr>
+        <tr><td>D4</td><td>Prompt Engineering &amp; Structured Output</td><td class="c">20%</td><td class="c">12</td><td class="c">4.1–4.6</td></tr>
+        <tr><td>D5</td><td>Context Management &amp; Reliability</td><td class="c">15%</td><td class="c">9</td><td class="c">5.1–5.6</td></tr>
+      </tbody>
+    </table>
+    <p class="small muted" style="margin-top:3px">Counts are weight × 60, rounded. <b class="acc">D1 + D3 + D4 = 67%.</b> Practice bank and flashcards follow the same split.</p>
+  </div>
+  <div class="card key">
+    <h4>If you remember seven things</h4>
+    <ol class="rules">
+      <li><b>Loop on <code>stop_reason</code>.</b> "tool_use" continues, "end_turn" stops.</li>
+      <li><b>Subagents know only what you pass them.</b> Fan out in one response.</li>
+      <li><b>Hard rules go in hooks, not prompts.</b></li>
+      <li><b>The description is the router.</b> Fewer, sharper tools.</li>
+      <li><b>Config at the right layer.</b> Project vs user, rules by glob, <code>-p</code> in CI.</li>
+      <li><b>Schema-valid isn't correct.</b> Nullable fields, targeted retries.</li>
+      <li><b>Keep facts, sources, errors explicit.</b></li>
+    </ol>
+  </div>
+</div>
+
+<div class="card plain" style="margin-bottom:6px">
+  <h4>Six scenarios: 4 appear on your exam</h4>
+  <table class="notbold">
+    <thead><tr><th>#</th><th>Scenario</th><th>Setup</th><th>Primary domains</th></tr></thead>
+    <tbody>
+      <tr><td><b>1</b></td><td><b>Customer Support Resolution Agent</b></td><td>Agent SDK + MCP tools <code>get_customer</code>, <code>lookup_order</code>, <code>process_refund</code>, <code>escalate_to_human</code>; 80%+ first-contact resolution</td><td>D1 · D2 · D5</td></tr>
+      <tr><td><b>2</b></td><td><b>Code Generation with Claude Code</b></td><td>Slash commands, CLAUDE.md, plan mode vs direct execution</td><td>D3 · D5</td></tr>
+      <tr><td><b>3</b></td><td><b>Multi-Agent Research System</b></td><td>Coordinator + search, analysis, synthesis, report subagents; cited reports</td><td>D1 · D2 · D5</td></tr>
+      <tr><td><b>4</b></td><td><b>Developer Productivity with Claude</b></td><td>Agent SDK with Read, Write, Bash, Grep, Glob + MCP servers</td><td>D2 · D3 · D1</td></tr>
+      <tr><td><b>5</b></td><td><b>Claude Code for Continuous Integration</b></td><td>Automated PR review, test generation; actionable feedback, few false positives</td><td>D3 · D4</td></tr>
+      <tr><td><b>6</b></td><td><b>Structured Data Extraction</b></td><td>Unstructured docs → JSON schema-validated output → downstream systems</td><td>D4 · D5</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="answer-move"><b>Right answer:</b> the <b>proportionate fix at the root cause</b>. If an option needs new infrastructure (classifier, routing layer, bigger model) before the cheap, direct fix has been tried, it is usually wrong.</div>
+
+<div class="row r2">
+<div class="card plain">
+  <h4>Six distractor patterns: name it, cross it out</h4>
+  <table class="t-acc">
+    <thead><tr><th>Pattern</th><th>Sounds like</th></tr></thead>
+    <tbody>
+      <tr><td>Prompt as policy</td><td>"Make it mandatory in the system prompt."</td></tr>
+      <tr><td>Over-engineering</td><td>"Add a routing classifier." "Train a model on old tickets."</td></tr>
+      <tr><td>Bigger model</td><td>"Higher-tier model with a larger context window."</td></tr>
+      <tr><td>Unreliable proxy</td><td>"Self-reported confidence 1–10." "Sentiment analysis."</td></tr>
+      <tr><td>Invented feature</td><td><code>CLAUDE_HEADLESS=true</code> · <code>--batch</code> · <code>.claude/config.json</code></td></tr>
+      <tr><td>Hide or kill the error</td><td>"Return empty as success." "Terminate the workflow."</td></tr>
+    </tbody>
+  </table>
+</div>
+<div class="card plain">
+  <h4>In scope vs out of scope (guide §17)</h4>
+  <p class="small"><b class="acc">Tested:</b> agentic loops, hooks, coordinator–subagent patterns, tool descriptions, MCP config and errors, CLAUDE.md / rules / commands / skills, plan mode, CI flags, <code>tool_use</code> + JSON schema, <code>tool_choice</code>, few-shot, validation-retry, Message Batches, context management, escalation, human review, provenance.</p>
+  <p class="small" style="margin-top:3px"><b>Not tested:</b> fine-tuning, RLHF, Constitutional AI · auth, billing, rate limits, pricing math · hosting MCP servers, cloud provider config · embeddings, vector DBs · computer use, vision · streaming/SSE · tokenization · prompt caching beyond knowing it exists.</p>
+</div>
+</div>
+
+<!-- ============================ PAGE 2: D1 ============================ -->
+<section class="page" style="font-size:8.6pt">
+<div class="head"><div class="sec-h"><span class="code">D1</span><h2>Agentic Architecture &amp; Orchestration</h2><span class="meta"><b>27%</b> · ~16 items · Lesson 01</span></div>
+<div class="objectives"><span class="lbl">Task statements</span><ol><li>1.1 Agentic loops for autonomous task execution</li><li>1.2 Multi-agent coordinator–subagent patterns</li><li>1.3 Subagent invocation, context passing, spawning</li><li>1.4 Multi-step workflows with enforcement and handoff</li><li>1.5 Agent SDK hooks for interception and normalization</li><li>1.6 Task decomposition strategies</li><li>1.7 Session state, resumption, forking</li></ol></div></div>
+
+<div class="row r2">
+  <div class="card">
+    <h4>The agentic loop (1.1)</h4>
+    <ol class="rules"><li>Send messages + tools to Claude</li><li><code>stop_reason == "tool_use"</code> → run each requested tool</li><li>Append the assistant turn and the <code>tool_result</code> blocks to history</li><li>Call again. <code>stop_reason == "end_turn"</code> → present the answer</li></ol>
+    <p class="small" style="margin-top:2px"><b>Model-driven:</b> Claude picks the next tool from context, not a pre-set decision tree.</p>
+    <p class="small acc" style="margin-top:2px">Anti-patterns: parse "I'm done" in text · iteration cap as the main stop · "has text content" = finished.</p>
+  </div>
+  <div class="card">
+    <h4>Hub-and-spoke (1.2)</h4>
+    <ul><li>Coordinator owns <b>all</b> inter-subagent traffic, error handling, routing → observability</li><li>Decompose, delegate, aggregate; pick subagents <b>by query complexity</b>, not always the full pipeline</li><li>Partition scope (distinct subtopics or source types) to avoid duplication</li><li><b>Iterative refinement:</b> evaluate synthesis for gaps → re-delegate targeted queries → re-synthesize</li><li class="acc">All subagents succeed but coverage is missing → <b>decomposition too narrow</b></li></ul>
+  </div>
+</div>
+
+<div class="row r2">
+  <div class="card">
+    <h4>Spawning subagents (1.3)</h4>
+    <ul><li>Spawn via the <b>Task tool</b>; coordinator <code>allowedTools</code> must include <code>"Task"</code></li><li>Subagents <b>do not inherit</b> parent context or share memory. Paste complete prior findings into the prompt</li><li><code>AgentDefinition</code>: description, system prompt, tool restrictions</li><li><b>Parallel</b> = several Task calls in <b>one</b> coordinator response</li><li>Pass structured data: content separate from metadata (URL, doc name, page)</li><li>Coordinator prompt states <b>goals and quality criteria</b>, not step-by-step procedure</li></ul>
+    <p class="fn">Docs note: newer Agent SDK releases call the Task tool <code>Agent</code>. Answer with the guide's terms.</p>
+  </div>
+  <div class="card">
+    <h4>Enforcement and hooks (1.4, 1.5)</h4>
+    <table><thead><tr><th>Need</th><th>Mechanism</th></tr></thead><tbody>
+      <tr><td>Must always happen in order</td><td>Programmatic prerequisite gate: block <code>process_refund</code> until <code>get_customer</code> returns a verified ID</td></tr>
+      <tr><td>Hard business limit</td><td>Tool-call interception hook: block refund &gt; $500, redirect to <code>escalate_to_human</code></td></tr>
+      <tr><td>Messy tool output</td><td><code>PostToolUse</code> hook normalizes Unix / ISO 8601 / numeric status codes</td></tr>
+      <tr><td>Judgment call</td><td>Prompt criteria + few-shot examples</td></tr>
+    </tbody></table>
+    <p class="small" style="margin-top:2px">Prompts are <b>probabilistic</b> (non-zero failure rate). Hooks are <b>deterministic</b>.</p>
+  </div>
+</div>
+
+<div class="row r3">
+  <div class="card">
+    <h4>Handoff and multi-concern (1.4)</h4>
+    <ul><li>Human agents can't see the transcript → structured summary: <b>customer ID, root cause, amount, recommended action</b></li><li>Multi-issue message → split into items, investigate in parallel with shared context, one unified reply</li></ul>
+  </div>
+  <div class="card">
+    <h4>Decomposition (1.6)</h4>
+    <ul><li><b>Prompt chaining</b> (fixed steps) for predictable multi-aspect reviews</li><li><b>Dynamic</b> decomposition for open-ended work: map structure → find high-impact areas → prioritized plan that adapts</li><li>Big reviews: per-file passes + a cross-file integration pass</li></ul>
+  </div>
+  <div class="card">
+    <h4>Sessions (1.7)</h4>
+    <ul><li><code>--resume &lt;session-name&gt;</code>: context still mostly valid. Tell it which files changed</li><li><code>fork_session</code>: branch from a shared baseline to compare two approaches</li><li>Stale tool results → <b>new session + structured summary</b></li></ul>
+  </div>
+</div>
+
+<div class="card trap">
+  <h4>D1 traps</h4>
+  <table class="notbold"><thead><tr><th>Wrong option</th><th>Pattern</th><th>Right move</th></tr></thead><tbody>
+    <tr><td>"State in the system prompt that verification is mandatory"</td><td><span class="pat">Prompt as policy</span></td><td>Prerequisite gate or hook</td></tr>
+    <tr><td>"Stop after 10 iterations" / "stop when the reply contains DONE"</td><td><span class="pat">Invented stop signal</span></td><td>Stop on <code>end_turn</code></td></tr>
+    <tr><td>"Subagents automatically see the coordinator's findings"</td><td><span class="pat">Invented feature</span></td><td>Pass findings in the prompt</td></tr>
+    <tr><td>"Blame the search agent" when coverage is narrow</td><td><span class="pat">Wrong root cause</span></td><td>Fix coordinator decomposition</td></tr>
+    <tr><td>"Resume the old session" after big code changes</td><td><span class="pat">Stale context</span></td><td>Fresh session + summary, or tell it what changed</td></tr>
+  </tbody></table>
+</div>
+</section>
+
+<!-- ============================ PAGE 3: D2 + D3 ============================ -->
+<section class="page tight" style="font-size:7.9pt">
+<div class="head"><div class="sec-h"><span class="code">D2</span><h2>Tool Design &amp; MCP Integration</h2><span class="meta"><b>18%</b> · ~11 items · Lesson 02</span></div>
+<div class="objectives"><span class="lbl">Task statements</span><ol><li>2.1 Tool interfaces with clear descriptions and boundaries</li><li>2.2 Structured error responses for MCP tools</li><li>2.3 Distribute tools across agents; configure tool choice</li><li>2.4 Integrate MCP servers into Claude Code and agents</li><li>2.5 Select built-in tools (Read, Write, Edit, Bash, Grep, Glob)</li></ol></div></div>
+
+<div class="row r2">
+  <div class="card">
+    <h4>The description is the router (2.1)</h4>
+    <ul><li>Description = the main signal for tool selection. Minimal text → misrouting</li><li>Include: input formats, example queries, edge cases, <b>when to use vs. similar tools</b></li><li>Overlap → rename + rewrite (<code>analyze_content</code> → <code>extract_web_results</code>)</li><li>Generic → split (<code>extract_data_points</code>, <code>summarize_content</code>, <code>verify_claim_against_source</code>)</li><li>Check the system prompt for keywords that override good descriptions</li></ul>
+  </div>
+  <div class="card">
+    <h4>Errors the agent can act on (2.2)</h4>
+    <table><thead><tr><th>Category</th><th>Example</th><th>Retry?</th></tr></thead><tbody>
+      <tr><td>Transient</td><td>Timeout, service down</td><td>Yes</td></tr>
+      <tr><td>Validation</td><td>Bad input format</td><td>Fix input</td></tr>
+      <tr><td>Business</td><td>Policy violation</td><td>No: explain</td></tr>
+      <tr><td>Permission</td><td>Access denied</td><td>No</td></tr>
+    </tbody></table>
+    <p class="small" style="margin-top:2px"><code>isError: true</code> + <code>errorCategory</code>, <code>isRetryable</code>, human-readable text. Business errors: <code>retriable: false</code> + customer-friendly wording. <b>Empty result ≠ failure.</b> Generic "Operation failed" blocks recovery.</p>
+  </div>
+</div>
+
+<div class="row r3">
+  <div class="card">
+    <h4>Tool distribution (2.3)</h4>
+    <ul><li>4–5 tools per agent, not 18</li><li>Role-scoped tools; synthesis agent doesn't search the web</li><li>Constrain generics: <code>fetch_url</code> → <code>load_document</code></li><li>Scoped cross-role tool for the common case (<code>verify_fact</code>), complex cases via coordinator</li></ul>
+  </div>
+  <div class="card">
+    <h4><code>tool_choice</code> (2.3, 4.3)</h4>
+    <table class="notbold"><tbody>
+      <tr><td><code>"auto"</code></td><td>May reply with text</td></tr>
+      <tr><td><code>"any"</code></td><td>Must call <i>some</i> tool</td></tr>
+      <tr><td><code>{"type":"tool","name":"X"}</code></td><td>Must call X (e.g. <code>extract_metadata</code> first)</td></tr>
+    </tbody></table>
+    <p class="fn">Docs note: forced <code>tool_choice</code> returns 400 on the newest models. The exam still tests it.</p>
+  </div>
+  <div class="card">
+    <h4>MCP in Claude Code (2.4)</h4>
+    <ul><li><b>Project:</b> <code>.mcp.json</code>, committed, <code>${GITHUB_TOKEN}</code> expansion</li><li><b>User:</b> <code>~/.claude.json</code>, personal/experimental</li><li>All servers' tools available at once</li><li><b>Resources</b> = content catalogs (schemas, issue lists). <b>Tools</b> = actions</li><li>Community server (Jira) over custom</li></ul>
+  </div>
+</div>
+
+<div class="row r-60">
+  <div class="card">
+    <h4>Built-in tools (2.5)</h4>
+    <table class="notbold"><thead><tr><th>Need</th><th>Tool</th></tr></thead><tbody>
+      <tr><td>Find callers, error strings, imports (file <b>contents</b>)</td><td><b>Grep</b></td></tr>
+      <tr><td>Find files by name/extension (<code>**/*.test.tsx</code>)</td><td><b>Glob</b></td></tr>
+      <tr><td>Targeted change by unique text</td><td><b>Edit</b></td></tr>
+      <tr><td>Edit fails: anchor not unique</td><td><b>Read</b> + <b>Write</b></td></tr>
+    </tbody></table>
+    <p class="small" style="margin-top:2px">Explore incrementally: Grep for entry points → Read along imports. Wrapper modules: list exported names, then Grep each.</p>
+  </div>
+  <div class="card trap">
+    <h4>D2 traps</h4>
+    <ul><li>"Add 5–8 few-shot routing examples" before fixing descriptions</li><li>"Routing layer that pre-selects tools by keyword" → <span class="pat">Over-engineering</span></li><li>"Give synthesis all search tools" → over-provisioning</li><li>"Return empty list on timeout" → <span class="pat">Hide the error</span></li><li>Secrets hard-coded in <code>.mcp.json</code></li></ul>
+  </div>
+</div>
+
+<div class="head" style="margin-top:6px"><div class="sec-h"><span class="code">D3</span><h2>Claude Code Configuration &amp; Workflows</h2><span class="meta"><b>20%</b> · ~12 items · Lesson 03</span></div>
+<div class="objectives"><span class="lbl">Task statements</span><ol><li>3.1 CLAUDE.md hierarchy, scoping, modular organization</li><li>3.2 Custom slash commands and skills</li><li>3.3 Path-specific rules for conditional loading</li><li>3.4 Plan mode vs direct execution</li><li>3.5 Iterative refinement techniques</li><li>3.6 Claude Code in CI/CD pipelines</li></ol></div></div>
+
+<div class="row r2">
+  <div class="card">
+    <h4>Where does it go? (3.1–3.3)</h4>
+    <table><thead><tr><th>Need</th><th>Location</th></tr></thead><tbody>
+      <tr><td>Team standards, always loaded</td><td>Root <code>CLAUDE.md</code> or <code>.claude/CLAUDE.md</code></td></tr>
+      <tr><td>Just me, not shared</td><td><code>~/.claude/CLAUDE.md</code></td></tr>
+      <tr><td>One directory's conventions</td><td>Subdirectory <code>CLAUDE.md</code></td></tr>
+      <tr><td>Modular pieces</td><td><code>@import</code> files · <code>.claude/rules/*.md</code> (+ <code>paths:</code> globs)</td></tr>
+      <tr><td>Team <code>/review</code> command</td><td><code>.claude/commands/</code></td></tr>
+      <tr><td>On-demand workflow</td><td><code>.claude/skills/&lt;name&gt;/SKILL.md</code></td></tr>
+      <tr><td>Personal command / skill</td><td><code>~/.claude/commands/</code> · <code>~/.claude/skills/</code> (new name)</td></tr>
+    </tbody></table>
+    <p class="small" style="margin-top:2px">Teammate missing rules → they're in user-level config. Check loaded files with <code>/memory</code>.</p>
+  </div>
+  <div class="card">
+    <h4>Rules and skills frontmatter (3.2, 3.3)</h4>
+<p class="fn"><b>.claude/rules/testing.md</b></p>
+<pre style="font-size:7pt;background:#fff;border:1px solid var(--line);padding:2px 5px;margin:0 0 2px">---
+paths: ["**/*.test.tsx"]
+---</pre>
+<p class="fn"><b>.claude/skills/analyze/SKILL.md</b></p>
+<pre style="font-size:7pt;background:#fff;border:1px solid var(--line);padding:2px 5px;margin:0 0 3px">---
+context: fork
+allowed-tools: Read, Grep, Glob
+argument-hint: [module-path]
+---</pre>
+    <ul><li>Path rules load <b>only</b> when editing matching files, anywhere in the tree</li><li><code>context: fork</code> isolates verbose or exploratory output</li><li><code>allowed-tools</code> limits what the skill can do</li><li><code>argument-hint</code> prompts for missing parameters</li><li>Skill = on demand · CLAUDE.md = always loaded</li></ul>
+  </div>
+</div>
+
+<div class="row r3">
+  <div class="card">
+    <h4>Plan mode vs direct (3.4)</h4>
+    <ul><li><b>Plan:</b> dozens of files, service boundaries, 45-file library migration, several valid approaches</li><li><b>Direct:</b> single-file bug with stack trace, one validation check</li><li>Plan the migration → execute directly</li><li><b>Explore subagent</b> keeps verbose discovery out of main context</li></ul>
+  </div>
+  <div class="card">
+    <h4>Iterative refinement (3.5)</h4>
+    <ul><li>Prose misread → 2–3 concrete input/output examples</li><li>Tests first, then share failures</li><li><b>Interview pattern:</b> Claude asks questions before building</li><li>Interacting issues → one message. Independent → sequential</li></ul>
+  </div>
+  <div class="card">
+    <h4>CI/CD (3.6)</h4>
+    <ul><li><code>claude -p "…"</code> (<code>--print</code>) → no hang</li><li><code>--output-format json --json-schema …</code> → PR comments</li><li>Re-runs: pass prior findings, report only new/unaddressed</li><li>Give existing tests; put standards + fixtures in CLAUDE.md</li><li>Independent reviewer instance, not the author session</li></ul>
+  </div>
+</div>
+</section>
+
+<!-- ============================ PAGE 4: D4 + D5 ============================ -->
+<section class="page" style="font-size:8.6pt">
+<div class="head"><div class="sec-h"><span class="code">D4</span><h2>Prompt Engineering &amp; Structured Output</h2><span class="meta"><b>20%</b> · ~12 items · Lesson 04</span></div>
+<div class="objectives"><span class="lbl">Task statements</span><ol><li>4.1 Explicit criteria to cut false positives</li><li>4.2 Few-shot prompting for consistency</li><li>4.3 Structured output with tool use + JSON schemas</li><li>4.4 Validation, retry, feedback loops</li><li>4.5 Batch processing strategies</li><li>4.6 Multi-instance and multi-pass review</li></ol></div></div>
+
+<div class="row r3">
+  <div class="card">
+    <h4>Explicit criteria (4.1)</h4>
+    <ul><li>"Flag comments only when claimed behavior contradicts the code" beats "check comments are accurate"</li><li>"Be conservative" / "high confidence only" don't raise precision</li><li>Say what to report (bugs, security) and skip (style, local patterns)</li><li>Severity levels with code examples</li><li>High-FP category → disable temporarily, fix, restore</li></ul>
+  </div>
+  <div class="card">
+    <h4>Few-shot (4.2)</h4>
+    <ul><li>Use when instructions alone give inconsistent output</li><li>2–4 targeted examples of <b>ambiguous</b> cases, showing why one choice beat alternatives</li><li>Demonstrate format: location, issue, severity, fix</li><li>Show acceptable vs genuine issues → fewer FPs</li><li>Varied document layouts → fewer empty/null required fields</li></ul>
+  </div>
+  <div class="card">
+    <h4>Schemas via tool use (4.3)</h4>
+    <ul><li>Extraction tool, <code>input_schema</code> = your JSON schema; read the <code>tool_use</code> block</li><li>Eliminates <b>syntax</b> errors, not <b>semantic</b> ones</li><li>Absent data → <b>nullable</b> field, not required</li><li>Enums with <code>"unclear"</code>, <code>"other"</code> + detail string</li><li>Normalization rules in the prompt</li></ul>
+  </div>
+</div>
+
+<div class="row r2">
+  <div class="card">
+    <h4>Validation and retry (4.4)</h4>
+    <table class="notbold"><thead><tr><th>Error</th><th>Retry works?</th></tr></thead><tbody>
+      <tr><td>Format mismatch, wrong structure</td><td><b>Yes</b>: send document + failed output + exact errors</td></tr>
+      <tr><td>Info absent / only in an unprovided doc</td><td><b>No</b>: return null, flag, or route</td></tr>
+      <tr><td>Line items don't sum to total</td><td>Detect: <code>calculated_total</code> vs <code>stated_total</code></td></tr>
+      <tr><td>Sources disagree</td><td><code>conflict_detected: true</code></td></tr>
+    </tbody></table>
+    <p class="small" style="margin-top:2px">Add <code>detected_pattern</code> to findings to analyze what developers dismiss. Pydantic catches semantic errors.</p>
+  </div>
+  <div class="card">
+    <h4>Message Batches API (4.5)</h4>
+    <ul><li><b>50%</b> cheaper · up to <b>24 h</b> · <b>no latency SLA</b></li><li>No multi-turn tool calling inside a request</li><li><code>custom_id</code> correlates request ↔ result; resubmit only failures (chunk oversized docs)</li><li>Blocking pre-merge check → <b>synchronous</b>. Overnight report, weekly audit → <b>batch</b></li><li>SLA math: 30 h SLA − 24 h processing → submit every ≤ 4 h</li><li>Tune the prompt on a sample before the big batch</li></ul>
+  </div>
+</div>
+
+<div class="row r-40">
+  <div class="card">
+    <h4>Review architecture (4.6)</h4>
+    <ul><li>Same session self-review keeps its reasoning → misses its own errors</li><li><b>Independent instance</b> beats self-review or extended thinking</li><li>Many files → per-file passes + integration pass</li><li>Self-reported confidence per finding → route review</li></ul>
+  </div>
+  <div class="card trap">
+    <h4>D4 traps</h4>
+    <ul><li>"Only report high-confidence findings" → vague, no precision gain</li><li>"Bigger context window for all 14 files" → <span class="pat">Bigger model</span></li><li>"Flag only issues found in 2 of 3 runs" → suppresses real bugs</li><li>"Retry until the missing field appears" → retries can't create absent data</li><li>"Batch the pre-merge check, fall back on timeout" → <span class="pat">Over-engineering</span></li><li>"Make every field required" → fabricated values</li></ul>
+  </div>
+</div>
+
+<div class="head" style="margin-top:6px"><div class="sec-h"><span class="code">D5</span><h2>Context Management &amp; Reliability</h2><span class="meta"><b>15%</b> · ~9 items · Lesson 05</span></div>
+<div class="objectives"><span class="lbl">Task statements</span><ol><li>5.1 Preserve critical info across long interactions</li><li>5.2 Escalation and ambiguity resolution</li><li>5.3 Error propagation across multi-agent systems</li><li>5.4 Context in large codebase exploration</li><li>5.5 Human review and confidence calibration</li><li>5.6 Provenance and uncertainty in synthesis</li></ol></div></div>
+
+<div class="row r3">
+  <div class="card">
+    <h4>Keep the facts (5.1)</h4>
+    <ul><li>Summaries blur amounts, dates, %, promises → persistent <b>case facts</b> block outside history</li><li>Trim tool output (5 of 40 order fields)</li><li>Lost in the middle → key findings first, section headers</li><li>Upstream agents return structured facts, not reasoning chains</li></ul>
+  </div>
+  <div class="card">
+    <h4>Escalate when (5.2)</h4>
+    <ul><li>Customer asks for a human → <b>immediately</b>, no investigation first</li><li>Policy gap or silence (competitor price match)</li><li>No meaningful progress</li><li>Frustrated but solvable → acknowledge, offer fix; escalate if they repeat</li><li>Multiple matches → ask for another identifier</li><li>Not sentiment, not self-rated confidence</li></ul>
+  </div>
+  <div class="card">
+    <h4>Errors and exploration (5.3, 5.4)</h4>
+    <ul><li>Propagate: failure type, query tried, partial results, alternatives</li><li>Recover transient errors locally first</li><li>Report coverage gaps in synthesis</li><li>Context degradation → scratchpad files, subagent delegation, phase summaries, <code>/compact</code></li><li>Crash recovery: per-agent state export + coordinator manifest</li></ul>
+  </div>
+</div>
+
+<div class="row r2">
+  <div class="card">
+    <h4>Human review and calibration (5.5)</h4>
+    <ul><li>97% overall can hide a weak document type or field → segment accuracy by <b>type and field</b></li><li>Field-level confidence, calibrated on a <b>labeled validation set</b></li><li><b>Stratified random sampling</b> of high-confidence output → ongoing error rate + novel patterns</li><li>Route low-confidence or contradictory docs to humans first</li></ul>
+  </div>
+  <div class="card">
+    <h4>Provenance (5.6)</h4>
+    <ul><li>Structured <b>claim → source</b> mappings (URL, doc, excerpt) survive synthesis</li><li>Conflicting credible stats → keep both, attribute, annotate</li><li>Require publication / collection dates (temporal ≠ contradiction)</li><li>Separate well-established vs contested findings</li><li>Render by type: financials as tables, news as prose, tech as lists</li></ul>
+  </div>
+</div>
+</section>
+
+<!-- ============================ PAGE 5: strategy ============================ -->
+<section class="page" style="font-size:8.6pt">
+<div class="head"><div class="sec-h"><span class="code">DAY</span><h2>Exam-day strategy</h2><span class="meta">Lesson 06</span></div></div>
+<div class="row r-60">
+  <div class="card"><h4>Read the trigger, not the options</h4>
+    <table class="notbold"><thead><tr><th>Cue in the stem</th><th>Points to</th></tr></thead><tbody>
+      <tr><td>"financial", "must always", "guaranteed"</td><td><b>Hook or prerequisite gate</b></td></tr>
+      <tr><td>"minimal descriptions", "similar tools"</td><td>Rewrite or split tool descriptions</td></tr>
+      <tr><td>"too many tools", "misuses tools"</td><td>Scope tools per agent</td></tr>
+      <tr><td>"timeout", "partial results"</td><td>Structured error context to coordinator</td></tr>
+      <tr><td>"every developer who clones"</td><td><code>.claude/commands/</code>, project CLAUDE.md</td></tr>
+      <tr><td>"new teammate doesn't get…"</td><td>Move from user-level to project-level</td></tr>
+      <tr><td>"regardless of location"</td><td><code>.claude/rules/</code> with globs</td></tr>
+      <tr><td>"dozens of files", "service boundaries"</td><td>Plan mode</td></tr>
+      <tr><td>"hangs", "waiting for input"</td><td><code>-p</code></td></tr>
+      <tr><td>"machine-parseable", "inline PR comments"</td><td><code>--output-format json --json-schema</code></td></tr>
+      <tr><td>"overnight", "not blocking"</td><td>Message Batches API</td></tr>
+      <tr><td>"inconsistent depth", "contradictory"</td><td>Per-file + integration passes</td></tr>
+      <tr><td>"all subagents succeeded, still incomplete"</td><td>Coordinator decomposition</td></tr>
+      <tr><td>"absent from the source", "fabricated"</td><td>Nullable field, not a retry</td></tr>
+      <tr><td>"asks for a human"</td><td>Escalate immediately</td></tr>
+      <tr><td>"97% overall"</td><td>Segment by doc type and field</td></tr>
+      <tr><td>"two sources disagree"</td><td>Keep both, attribute, annotate</td></tr>
+    </tbody></table>
+  </div>
+  <div class="card key"><h4>Process</h4><ol class="rules"><li>Read the last sentence first</li><li>Find the trigger or constraint in the stem</li><li>Predict the answer, then read options</li><li>Label each wrong option with a pattern</li><li>"First step" / "most effective" → proportionate fix at the root cause</li><li>Pace: item 20 @ 40 min, 40 @ 80, 60 @ 120</li><li>Flag anything over 3 min; never leave blanks</li><li>Multiple-response: judge each option true/false; assume all-or-nothing</li></ol></div>
+</div>
+
+<div class="row r2">
+  <div class="card"><h4>Three weeks, weighted by the blueprint</h4>
+    <table class="notbold"><thead><tr><th>Week</th><th>Domains</th><th>Do</th></tr></thead><tbody>
+      <tr><td><b>1</b></td><td>D1 · D2 (45%)</td><td>Prep exercises 1 + 4 · API + MCP courses · samples 1–3, 7–9</td></tr>
+      <tr><td><b>2</b></td><td>D3 · D4 (40%)</td><td>Prep exercises 2 + 3 · Claude Code course · samples 4–6, 10–12</td></tr>
+      <tr><td><b>3</b></td><td>D5 + review (15%)</td><td>Say each of the 30 task statements' skills in one sentence · redo all 12 samples timed</td></tr>
+    </tbody></table>
+  </div>
+  <div class="card"><h4>Official samples (guide §9): answer + why</h4>
+    <table class="notbold"><tbody>
+      <tr><td><b>1</b></td><td>Skips <code>get_customer</code> → <b>programmatic prerequisite</b></td></tr>
+      <tr><td><b>2</b></td><td>Wrong tool picked → <b>expand descriptions</b></td></tr>
+      <tr><td><b>3</b></td><td>55% FCR → <b>escalation criteria + few-shot</b></td></tr>
+      <tr><td><b>4</b></td><td>Team <code>/review</code> → <b><code>.claude/commands/</code></b></td></tr>
+      <tr><td><b>5</b></td><td>Monolith → microservices → <b>plan mode</b></td></tr>
+      <tr><td><b>6</b></td><td>Tests everywhere → <b><code>.claude/rules/</code> globs</b></td></tr>
+      <tr><td><b>7</b></td><td>Visual arts only → <b>narrow decomposition</b></td></tr>
+      <tr><td><b>8</b></td><td>Search timeout → <b>structured error context</b></td></tr>
+      <tr><td><b>9</b></td><td>Verify round-trips → <b>scoped <code>verify_fact</code></b></td></tr>
+      <tr><td><b>10</b></td><td>CI hangs → <b><code>-p</code></b></td></tr>
+      <tr><td><b>11</b></td><td>Batch both? → <b>batch overnight only</b></td></tr>
+      <tr><td><b>12</b></td><td>14-file PR → <b>per-file + integration</b></td></tr>
+    </tbody></table>
+  </div>
+</div>
+
+<div class="card plain">
+  <h4>Official prep and resources</h4>
+  <ul class="links">
+    <li><b>CCAR-F Exam Guide v1.1</b> (PDF, Partner Academy)<br><span>anthropic-partners.skilljar.com/page/partner-certifications</span></li>
+    <li><b>Foundations prep courses</b> (free)<br><span>Building with the Claude API · Intro to MCP · Claude Code in Action · AI Fluency · Claude 101</span></li>
+    <li><b>Certification FAQ and policies</b><br><span>anthropic-partners.skilljar.com/page/faq-certifications</span></li>
+    <li><b>Agent SDK docs</b><br><span>code.claude.com/docs/en/agent-sdk/overview</span></li>
+    <li><b>Claude Code docs</b> (memory, skills, MCP, headless)<br><span>code.claude.com/docs</span></li>
+    <li><b>Tool use, batches, structured output</b><br><span>platform.claude.com/docs</span></li>
+  </ul>
+  <p class="foot-note">Practice: <b>questions/quiz.html</b> (60 items) · <b>anki/ccar-f-flashcards.apkg</b> (60 cards) · exercises 00–04 · <b>study-guide.html</b>.</p>
+</div>
+</section>
+
+</body>
+</html>

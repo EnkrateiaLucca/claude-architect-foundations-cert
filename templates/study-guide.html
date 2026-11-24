@@ -1,0 +1,435 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>CCAR-F Study Guide</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=JetBrains+Mono:wght@500&family=Public+Sans:wght@400;600;700&display=swap">
+<style>
+:root{
+  --bg:#F4F6F6; --surface:#FFFFFF; --surface-2:#E8EEED; --ink:#14201E; --ink-2:#3B4946; --muted:#5E6C68; --line:#D3DCDA;
+  --accent:#0B6B66; --accent-soft:#DDEFEC; --on-accent:#FFFFFF; --seg:#C3D0CD; --seg-hover:#A7BAB6;
+  --good:#1D7A43; --good-soft:#E2F2E8; --bad:#B23A27; --bad-soft:#F9E5E0; --warn:#8F5B00; --warn-soft:#F6ECD6;
+  --f-display:"Bricolage Grotesque","Avenir Next","Segoe UI",system-ui,sans-serif;
+  --f-body:"Public Sans",-apple-system,"Segoe UI",Roboto,sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,"SF Mono",Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#0E1514; --surface:#151F1E; --surface-2:#1E2A28; --ink:#E4ECEA; --ink-2:#BCC8C5; --muted:#8E9D99; --line:#2A3735;
+    --accent:#57C2B8; --accent-soft:#173533; --on-accent:#06201E; --seg:#33433F; --seg-hover:#465A55;
+    --good:#5CC587; --good-soft:#15301F; --bad:#EE7F6B; --bad-soft:#3A1D17; --warn:#E2B451; --warn-soft:#33280F;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#0E1514; --surface:#151F1E; --surface-2:#1E2A28; --ink:#E4ECEA; --ink-2:#BCC8C5; --muted:#8E9D99; --line:#2A3735;
+  --accent:#57C2B8; --accent-soft:#173533; --on-accent:#06201E; --seg:#33433F; --seg-hover:#465A55;
+  --good:#5CC587; --good-soft:#15301F; --bad:#EE7F6B; --bad-soft:#3A1D17; --warn:#E2B451; --warn-soft:#33280F;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.6 var(--f-body);-webkit-font-smoothing:antialiased}
+a{color:var(--accent);text-underline-offset:3px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+.wrap{max-width:900px;margin:0 auto;padding-inline:20px}
+h1,h2,h3,h4{font-family:var(--f-display);text-wrap:balance;margin:0;line-height:1.15}
+h2{font-size:28px;font-weight:700}
+h3{font-size:20px;font-weight:600}
+h4{font-family:var(--f-body);font-size:16px;font-weight:700}
+p{margin:0}
+ul,ol{margin:0;padding-left:1.2em}
+li+li{margin-top:6px}
+code{font:500 .86em var(--f-mono);background:var(--surface-2);padding:1px 5px;border-radius:4px}
+pre{margin:0;background:var(--surface-2);border-radius:8px;padding:12px 14px;overflow-x:auto;font:500 13.5px/1.55 var(--f-mono)}
+pre code{background:none;padding:0;font-size:inherit}
+.eyebrow{font:500 12px/1.4 var(--f-mono);text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.small{font-size:15px}
+.muted{color:var(--muted)}
+.fs{color:var(--muted);font-size:15px;line-height:1.45}
+.prose{max-width:66ch;color:var(--ink-2)}
+[id]{scroll-margin-top:72px}
+
+/* hero */
+.hero{padding-block:44px 28px;display:grid;gap:16px}
+.hero h1{font-size:clamp(32px,5vw,48px);font-weight:700;letter-spacing:-.015em;max-width:18ch}
+.hero .lead{max-width:62ch;color:var(--ink-2);font-size:18px}
+.facts{display:grid;grid-template-columns:repeat(6,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:8px 0 0}
+.facts>div{background:var(--surface);padding:14px 16px;display:grid;gap:2px;align-content:start}
+.facts dt{font:500 11px/1.4 var(--f-mono);text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.facts dd{margin:0;display:grid}
+.facts b{font:700 26px/1.2 var(--f-display);font-variant-numeric:tabular-nums}
+.facts small{font-size:13px;color:var(--muted);line-height:1.35}
+@media (max-width:760px){.facts{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:480px){.facts{grid-template-columns:repeat(2,1fr)}}
+
+/* tabs */
+.tabbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
+.tabs{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+.tabs button{appearance:none;border:0;background:none;color:var(--muted);font:600 15px/1 var(--f-body);padding:16px 12px 14px;border-bottom:2px solid transparent;cursor:pointer;white-space:nowrap}
+.tabs button:hover{color:var(--ink)}
+.tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--accent)}
+.tabs button:first-child{padding-left:0}
+.panel{padding-block:32px 56px;display:grid;gap:20px}
+.panel-head{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.panel-head>div{display:grid;gap:6px}
+
+/* shared blocks used by the section fragments */
+.stack{display:grid;gap:18px;min-width:0}
+.stack>h3{margin-top:14px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px;display:grid;gap:10px;align-content:start;min-width:0}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:640px){.split{grid-template-columns:1fr}}
+.note{font-size:15px;background:var(--surface-2);border-radius:8px;padding:12px 14px;color:var(--ink-2)}
+.note.warn{background:var(--warn-soft);color:var(--ink)}
+.note.bad{background:var(--bad-soft);color:var(--ink)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;list-style:none;padding:0}
+.chips li{margin:0;font-size:13px;padding:3px 10px;border-radius:99px;background:var(--surface-2);color:var(--ink-2)}
+.checks{list-style:none;padding:0;display:grid;gap:8px}
+.checks li{margin:0}
+.checks label{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start;cursor:pointer}
+.checks input{width:18px;height:18px;margin:4px 0 0;accent-color:var(--accent)}
+.checks input:checked+span{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--line)}
+.table-scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:15px}
+th,td{text-align:left;vertical-align:top;padding:10px 12px 10px 0;border-bottom:1px solid var(--line)}
+thead th{font:500 11.5px/1.4 var(--f-mono);text-transform:uppercase;letter-spacing:.07em;color:var(--muted);border-bottom-color:var(--ink-2)}
+tbody th{font-weight:600;color:var(--ink);min-width:8em}
+td{color:var(--ink-2)}
+.folds{border-top:1px solid var(--line)}
+.fold{border-bottom:1px solid var(--line)}
+.fold>summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:1fr auto;column-gap:16px;padding:18px 4px}
+.fold>summary::-webkit-details-marker{display:none}
+.fold>summary::after{content:"";grid-column:2;grid-row:1/span 2;align-self:center;width:9px;height:9px;margin:0 6px 4px;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:rotate(45deg);transition:transform .2s}
+.fold[open]>summary::after{transform:rotate(-135deg);margin-bottom:-4px}
+.fold>summary:hover .ft{color:var(--accent)}
+.ft{font-weight:700;font-size:18px;line-height:1.35}
+.fold>summary .fs{grid-column:1}
+.fb{padding:0 4px 24px;display:grid;gap:14px;max-width:72ch;color:var(--ink-2);min-width:0}
+.reveal{border-left:3px solid var(--line);padding-left:14px}
+.reveal>summary{cursor:pointer;color:var(--accent);font-weight:600;font-size:15px;width:max-content}
+.reveal[open]{border-left-color:var(--accent)}
+.reveal[open]>summary{margin-bottom:10px}
+.reveal>:not(summary)+:not(summary){margin-top:10px}
+.ghost{appearance:none;background:none;border:1px solid var(--line);color:var(--ink-2);font:600 14px/1.2 var(--f-body);padding:9px 14px;border-radius:8px;cursor:pointer;text-align:left}
+.ghost:hover:not(:disabled){border-color:var(--accent);color:var(--accent)}
+.ghost:disabled{opacity:.5;cursor:default}
+
+/* domains */
+.wbar{display:flex;gap:2px;height:64px}
+.seg{appearance:none;border:0;min-width:0;padding:8px 0 8px 8px;background:var(--seg);color:var(--ink);cursor:pointer;display:flex;flex-direction:column;justify-content:space-between;align-items:flex-start;text-align:left;overflow:hidden;font:500 12px/1.1 var(--f-mono);transition:background .15s}
+.seg:first-child{border-radius:6px 0 0 6px}
+.seg:last-child{border-radius:0 6px 6px 0}
+.seg span{color:var(--ink-2)}
+.seg:hover{background:var(--seg-hover)}
+.seg[aria-pressed="true"]{background:var(--accent);color:var(--on-accent)}
+.seg[aria-pressed="true"] span{color:var(--on-accent)}
+.dhead{display:flex;gap:14px;align-items:center}
+.dhead .dnum{font:500 15px/1 var(--f-mono);padding:10px 11px;border-radius:8px;background:var(--accent);color:var(--on-accent)}
+.dhead div{display:grid;gap:4px}
+.objlist{color:var(--ink-2)}
+.objlist li::marker{font:500 13px var(--f-mono);color:var(--muted)}
+.traps{list-style:none;padding:0;display:grid;gap:10px;max-width:72ch;color:var(--ink-2)}
+.traps li{margin:0;padding-left:26px;position:relative}
+.traps li::before{content:"✕";position:absolute;left:0;color:var(--bad);font-weight:700}
+.traps strong{color:var(--ink)}
+.selfcheck{display:grid;gap:16px;max-width:72ch}
+.selfcheck li{margin:0;display:grid;gap:8px}
+.selfcheck li::marker{font:500 13px var(--f-mono);color:var(--muted)}
+.selfcheck li>p:first-child{color:var(--ink)}
+.dnav{display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;border-top:1px solid var(--line);padding-top:20px;margin-top:8px}
+
+/* practice */
+.scorebox{display:grid;grid-template-columns:auto 1fr;gap:6px 24px;align-items:end}
+.scorenum{font:700 34px/1.1 var(--f-display);font-variant-numeric:tabular-nums}
+.scorenum small{font:400 14px var(--f-body);color:var(--muted);margin-left:6px}
+.meter{display:block;height:8px;border-radius:99px;background:var(--surface-2);overflow:hidden;align-self:center}
+.meter i{display:block;height:100%;width:0;background:var(--accent);border-radius:99px;transition:width .3s}
+.scorebox .fs{grid-column:1/-1}
+.filters{display:flex;flex-wrap:wrap;gap:6px}
+.filters button{appearance:none;border:1px solid var(--line);background:var(--surface);color:var(--ink-2);font:600 14px/1 var(--f-body);padding:8px 12px;border-radius:99px;cursor:pointer;font-variant-numeric:tabular-nums}
+.filters button small{font:500 12px var(--f-mono);color:var(--muted);margin-left:6px}
+.filters button:hover{border-color:var(--accent)}
+.filters button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.filters button[aria-pressed="true"] small{color:var(--on-accent)}
+#qs{display:grid;gap:16px}
+.q{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:22px;display:grid;gap:14px;min-width:0}
+.stem{font-size:18px;color:var(--ink);max-width:68ch}
+.opts{display:grid;gap:8px}
+.opt{appearance:none;display:grid;grid-template-columns:auto 1fr;gap:6px 12px;align-items:start;text-align:left;width:100%;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:12px 14px;color:var(--ink);font:400 16px/1.5 var(--f-body);cursor:pointer;transition:border-color .15s}
+.opt:hover:not(:disabled){border-color:var(--accent)}
+.opt:disabled{cursor:default}
+.opt[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft)}
+.opt.right{border-color:var(--good);background:var(--good-soft)}
+.opt.wrong{border-color:var(--bad);background:var(--bad-soft)}
+.key{font:500 13px/1 var(--f-mono);width:26px;height:26px;display:grid;place-items:center;border-radius:6px;background:var(--surface-2);color:var(--ink-2)}
+.tag{grid-column:2;font-size:14.5px;line-height:1.45;color:var(--muted)}
+.opt.right .tag{color:var(--good);font-weight:600}
+.opt.wrong .tag{color:var(--bad)}
+.check{justify-self:start}
+.fb-q{display:grid;gap:8px;border-left:3px solid var(--line);padding-left:14px;color:var(--ink-2);max-width:70ch}
+.verdict{font-weight:700}
+.verdict.good{color:var(--good)}
+.verdict.bad{color:var(--bad)}
+
+/* quick reference + resources */
+.qgrid{columns:2 330px;column-gap:16px}
+.qgrid>.card{break-inside:avoid;margin-bottom:16px;font-size:15px}
+.qgrid table{font-size:14px}
+.qgrid h3{font-size:18px}
+.links{list-style:none;padding:0;display:grid;gap:14px;max-width:72ch}
+.links li{margin:0;display:grid;gap:2px}
+.links a{font-weight:600}
+
+footer{border-top:1px solid var(--line);padding-block:24px 48px;color:var(--muted);font-size:14px;display:grid;gap:6px}
+@media (max-width:560px){.q{padding:16px}.card{padding:16px}h2{font-size:24px}}
+@media (prefers-reduced-motion: reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header class="wrap hero">
+  <p class="eyebrow">O'Reilly live training · Exam prep companion</p>
+  <h1>Claude Certified Architect – Foundations</h1>
+  <p class="lead">The full CCAR-F prep course on one page. You get the exam blueprint, a lesson for each of the five domains, 60 practice questions with explanations, five hands-on exercises, and a study plan.</p>
+  <dl class="facts">
+    <div><dt>Exam code</dt><dd><b>CCAR-F</b><small>proctored by Pearson VUE</small></dd></div>
+    <div><dt>Items</dt><dd><b>60</b><small>4 scenarios from a bank of 6</small></dd></div>
+    <div><dt>Time</dt><dd><b>120 min</b><small>2 min per item</small></dd></div>
+    <div><dt>To pass</dt><dd><b>720</b><small>scaled score, 100–1,000</small></dd></div>
+    <div><dt>Fee</dt><dd><b>$125</b><small>USD, charged per attempt</small></dd></div>
+    <div><dt>Valid for</dt><dd><b>12 mo</b><small>free on-time renewal</small></dd></div>
+  </dl>
+</header>
+
+<div class="tabbar">
+  <div class="wrap tabs" role="tablist" aria-label="Guide sections">
+    <button type="button" role="tab" id="tab-overview" data-tab="overview" aria-controls="overview">Overview</button>
+    <button type="button" role="tab" id="tab-domains" data-tab="domains" aria-controls="domains">Domains</button>
+    <button type="button" role="tab" id="tab-practice" data-tab="practice" aria-controls="practice">Practice</button>
+    <button type="button" role="tab" id="tab-exercises" data-tab="exercises" aria-controls="exercises">Exercises</button>
+    <button type="button" role="tab" id="tab-plan" data-tab="plan" aria-controls="plan">Strategy</button>
+  </div>
+</div>
+
+<main class="wrap">
+
+<section id="overview" class="panel" role="tabpanel" aria-labelledby="tab-overview">
+<section class="stack">
+__OVERVIEW__
+</section>
+</section>
+
+<section id="domains" class="panel" role="tabpanel" aria-labelledby="tab-domains" hidden>
+  <div class="panel-head"><div><p class="eyebrow">Five domains · bar width = share of the exam</p><h2>Domain lessons</h2></div></div>
+  <div class="wbar" id="wbar" aria-label="Choose a domain"></div>
+__DOMAINS__
+</section>
+
+<section id="practice" class="panel" role="tabpanel" aria-labelledby="tab-practice" hidden>
+  <div class="panel-head">
+    <div><p class="eyebrow">60 original questions · weighted like the exam</p><h2>Practice questions</h2></div>
+    <button type="button" class="ghost" id="reset">Reset answers</button>
+  </div>
+  <p class="prose">Each question follows the exam format: a production scenario, four options, one best answer unless the question says to choose two. Pick an answer to see why each option is right or wrong. These questions are original and are not drawn from the live exam.</p>
+  <div class="card scorebox">
+    <p class="scorenum" id="score">0 / 0<small>correct</small></p>
+    <span class="meter"><i id="score-bar"></i></span>
+    <p class="fs" id="score-note"></p>
+  </div>
+  <div class="filters" id="filters" aria-label="Filter by domain"></div>
+  <div id="qs"></div>
+</section>
+
+<section id="exercises" class="panel" role="tabpanel" aria-labelledby="tab-exercises" hidden>
+<section class="stack">
+  <h2>Hands-on exercises</h2>
+  <p class="prose">Attempt each exercise before you open the reference answer. Write your answer down first, then compare it line by line with the reference. Exercises 01 and 03 include runnable scripts in <code>exercises/scripts/</code>. They need <a href="https://docs.astral.sh/uv/" target="_blank" rel="noopener">uv</a>, and live mode needs an <code>ANTHROPIC_API_KEY</code>. Run any script with <code>--selftest</code> to check it offline.</p>
+__EXERCISES__
+</section>
+</section>
+
+<section id="plan" class="panel" role="tabpanel" aria-labelledby="tab-plan" hidden>
+<section class="stack">
+__STRATEGY__
+</section>
+</section>
+
+</main>
+
+<footer class="wrap">
+  <p>Companion to the O'Reilly live training <em>Claude Certified Architect – Foundations Exam Prep</em>. The official <a href="https://cc.sj-cdn.net/instructor/6nizmqk8tpzpfjvt6qmmav7rh/public/1794946250/Claude_Certified_Architect_-_Foundations_Exam_Guide.pdf" target="_blank" rel="noopener">Exam Guide v1.1 (PDF)</a> is the source of truth for exam content and policies.</p>
+  <p>Generated by <code>uv run build.py</code> from <code>lessons/</code>, <code>exercises/</code>, and <code>questions/questions.json</code>. Practice questions are original. Your answers stay in this browser.</p>
+</footer>
+
+<script type="application/json" id="qdata">__QDATA__</script>
+<script>
+const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const KEY = 'ccarf-study-v1';
+let store = {a:{}, c:{}, tab:'overview', d:'d1', f:'all'};
+try { const s = JSON.parse(localStorage.getItem(KEY)); if (s) store = {...store, ...s}; } catch (e) {}
+const save = () => { try { localStorage.setItem(KEY, JSON.stringify(store)); } catch (e) {} };
+
+const DOMAINS = __DOMAINS_JS__;
+const QS = JSON.parse($('#qdata').textContent);
+const QBY = Object.fromEntries(QS.map(q => [q.id, q]));
+const count = l => QS.filter(q => q.domain === l).length;
+
+/* ---------- domains ---------- */
+const wbar = $('#wbar');
+DOMAINS.forEach((d, i) => {
+  wbar.insertAdjacentHTML('beforeend',
+    `<button type="button" class="seg" data-pick="${d.id}" style="flex:${d.w} 1 0" aria-pressed="false" aria-label="${d.label} ${d.name}, ${d.w}% of the exam"><b>${d.label}</b><span>${d.w}%</span></button>`);
+  const art = document.getElementById(d.id), next = DOMAINS[i + 1];
+  if (art) art.insertAdjacentHTML('beforeend', `<nav class="dnav">
+    <button type="button" class="ghost" data-practice="${d.label}">Practice the ${count(d.label)} ${d.label} questions</button>
+    ${next ? `<button type="button" class="ghost" data-pick="${next.id}" data-top>Next: ${next.label} ${next.name} →</button>` : ''}</nav>`);
+});
+function pick(id) {
+  if (!document.getElementById(id)) id = 'd1';
+  DOMAINS.forEach(d => {
+    const art = document.getElementById(d.id);
+    if (art) art.hidden = d.id !== id;
+  });
+  $$('.seg').forEach(s => s.setAttribute('aria-pressed', s.dataset.pick === id));
+  store.d = id; save();
+}
+
+/* ---------- practice ---------- */
+const qs = $('#qs'), filters = $('#filters');
+qs.innerHTML = QS.map(q => `<article class="q" id="q${q.id}" data-id="${q.id}" data-d="${q.domain}">
+  <p class="eyebrow">Q${q.id} · ${q.domain} · ${esc(q.objective)}</p>
+  <p class="stem">${esc(q.stem)}</p>
+  ${q.answer.length > 1 ? `<p class="small muted">Choose ${q.answer.length}.</p>` : ''}
+  <div class="opts">${Object.entries(q.options).map(([k, v]) =>
+    `<button type="button" class="opt" data-k="${k}"${q.answer.length > 1 ? ' aria-pressed="false"' : ''}><span class="key">${k}</span><span>${esc(v)}</span><span class="tag" hidden></span></button>`).join('')}</div>
+  ${q.answer.length > 1 ? '<button type="button" class="ghost check" disabled>Check answer</button>' : ''}
+  <div class="fb-q" hidden></div>
+</article>`).join('');
+
+function reveal(art, q, chosen) {
+  const ok = chosen.length === q.answer.length && chosen.every(k => q.answer.includes(k));
+  art.querySelectorAll('.opt').forEach(o => {
+    const k = o.dataset.k, right = q.answer.includes(k), picked = chosen.includes(k), t = o.querySelector('.tag');
+    o.disabled = true;
+    o.removeAttribute('aria-pressed');
+    o.classList.toggle('right', right);
+    o.classList.toggle('wrong', picked && !right);
+    t.textContent = right ? (picked ? 'Correct. You picked this.' : 'Correct answer.') : (picked ? 'You picked this. ' : '') + (q.wrong[k] || '');
+    t.hidden = !t.textContent;
+  });
+  const c = art.querySelector('.check'); if (c) c.hidden = true;
+  const fb = art.querySelector('.fb-q');
+  fb.innerHTML = `<p class="verdict ${ok ? 'good' : 'bad'}">${ok ? 'Correct' : 'Not quite'}</p><p>${esc(q.why)}</p>`;
+  fb.hidden = false;
+}
+const isRight = q => { const a = store.a[q.id]; return a && a.length === q.answer.length && a.every(k => q.answer.includes(k)); };
+
+function score() {
+  const set = QS.filter(q => store.f === 'all' || q.domain === store.f);
+  const done = set.filter(q => store.a[q.id]), right = done.filter(isRight).length;
+  $('#score').innerHTML = `${right} / ${done.length}<small>correct</small>`;
+  $('#score-bar').style.width = (done.length ? right / done.length * 100 : 0) + '%';
+  $('#score-note').textContent = done.length === set.length
+    ? `You finished ${store.f === 'all' ? 'all 60 questions' : 'every ' + store.f + ' question'}. Aim for 80% or more before you book the exam.`
+    : `${set.length - done.length} of ${set.length} questions left${store.f === 'all' ? '' : ' in ' + store.f}.`;
+  filters.innerHTML = [['all', 'All', QS.length], ...DOMAINS.map(d => [d.label, d.label, count(d.label)])].map(([f, l, n]) => {
+    const sub = QS.filter(q => (f === 'all' || q.domain === f) && store.a[q.id]);
+    return `<button type="button" data-f="${f}" aria-pressed="${store.f === f}">${l}<small>${sub.filter(isRight).length}/${n}</small></button>`;
+  }).join('');
+}
+function filter(f) {
+  store.f = f; save();
+  $$('.q').forEach(a => a.hidden = f !== 'all' && a.dataset.d !== f);
+  score();
+}
+function render() {
+  $$('.q').forEach(art => {
+    const q = QBY[art.dataset.id];
+    if (store.a[q.id]) reveal(art, q, store.a[q.id]);
+  });
+  filter(store.f);
+}
+qs.addEventListener('click', e => {
+  const art = e.target.closest('.q'); if (!art) return;
+  const q = QBY[art.dataset.id]; if (store.a[q.id]) return;
+  const opt = e.target.closest('.opt'), multi = q.answer.length > 1;
+  let chosen;
+  if (opt && !multi) chosen = [opt.dataset.k];
+  else if (opt) {
+    opt.setAttribute('aria-pressed', opt.getAttribute('aria-pressed') !== 'true');
+    art.querySelector('.check').disabled = art.querySelectorAll('.opt[aria-pressed="true"]').length !== q.answer.length;
+    return;
+  } else if (e.target.closest('.check')) chosen = $$(`#q${q.id} .opt[aria-pressed="true"]`).map(o => o.dataset.k);
+  else return;
+  store.a[q.id] = chosen; save();
+  reveal(art, q, chosen); score();
+});
+filters.addEventListener('click', e => { const b = e.target.closest('[data-f]'); if (b) filter(b.dataset.f); });
+const reset = $('#reset');
+reset.addEventListener('click', () => {
+  if (!reset.dataset.armed) {
+    reset.dataset.armed = 1; reset.textContent = 'Click again to clear all answers';
+    return setTimeout(() => { delete reset.dataset.armed; reset.textContent = 'Reset answers'; }, 3000);
+  }
+  store.a = {}; save(); location.reload();
+});
+render();
+
+/* ---------- checklists ---------- */
+$$('.checks input').forEach((c, i) => {
+  c.id = c.id || 'chk-' + i;
+  c.checked = !!store.c[c.id];
+  c.addEventListener('change', () => { store.c[c.id] = c.checked; save(); });
+});
+
+/* ---------- tabs + deep links (#domains, #d3, #q12, #ex-03 …) ---------- */
+const tabs = $$('[role=tab]'), hero = $('.hero');
+const toTop = () => { const top = hero.offsetTop + hero.offsetHeight; if (scrollY > top) scrollTo(0, top); };
+function show(name) {
+  tabs.forEach(t => {
+    const on = t.dataset.tab === name;
+    t.setAttribute('aria-selected', on);
+    t.tabIndex = on ? 0 : -1;
+    document.getElementById(t.dataset.tab).hidden = !on;
+  });
+  store.tab = name; save();
+}
+tabs.forEach((t, i) => {
+  t.addEventListener('click', () => {
+    show(t.dataset.tab);
+    try { history.replaceState(null, '', '#' + t.dataset.tab); } catch (e) {}
+    toTop();
+  });
+  t.addEventListener('keydown', e => {
+    const k = {ArrowRight:1, ArrowLeft:-1}[e.key]; if (!k) return;
+    const n = tabs[(i + k + tabs.length) % tabs.length]; n.focus(); n.click();
+  });
+});
+document.addEventListener('click', e => {
+  const p = e.target.closest('[data-pick]');
+  if (p) { pick(p.dataset.pick); if (p.dataset.top !== undefined) wbar.scrollIntoView({block:'center'}); return; }
+  const pr = e.target.closest('[data-practice]');
+  if (pr) { filter(pr.dataset.practice); show('practice'); toTop(); }
+});
+function route() {
+  const id = location.hash.slice(1), el = id && document.getElementById(id);
+  const panel = el && el.closest('[role=tabpanel]');
+  pick(store.d);
+  if (!panel) {
+    const t = document.getElementById(store.tab);
+    return show(t && t.getAttribute('role') === 'tabpanel' ? store.tab : 'overview');
+  }
+  show(panel.id);
+  const dom = el.closest('.domain'); if (dom) pick(dom.id);
+  if (el.classList.contains('q') && el.hidden) filter('all');
+  if (el.tagName === 'DETAILS') el.open = true;
+  if (el !== panel) requestAnimationFrame(() => el.scrollIntoView({block:'start'}));
+}
+addEventListener('hashchange', route);
+route();
+</script>
+</body>
+</html>
